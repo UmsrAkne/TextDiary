@@ -1,1 +1,11 @@
 c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\bin\Debug\TextDiary.exe.config
+c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\bin\Debug\TextDiary.exe
+c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\bin\Debug\TextDiary.pdb
+c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\bin\Debug\Azuki.dll
+c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\bin\Debug\Azuki.xml
+c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debug\TextDiary.csprojResolveAssemblyReference.cache
+c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debug\TextDiary.Form1.resources
+c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debug\TextDiary.Properties.Resources.resources
+c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debug\TextDiary.csproj.GenerateResource.Cache
+c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debug\TextDiary.exe
+c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debug\TextDiary.pdb
