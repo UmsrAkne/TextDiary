@@ -6,5 +6,9 @@ using System.Threading.Tasks;
 
 namespace TextDiary {
     class TextFileReader {
+        public void setCurrentDirectoryPath( String settingCurrentDirectoryPath ) {
+            currentDirectoryPath = settingCurrentDirectoryPath;
+        }
+
     }
 }
