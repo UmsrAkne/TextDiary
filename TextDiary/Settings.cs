@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TextDiary {
-    class Restorer {
+    class Setting {
     }
 }
