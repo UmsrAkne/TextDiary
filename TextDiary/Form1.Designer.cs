@@ -23,13 +23,14 @@
         /// コード エディターで変更しないでください。
         /// </summary>
         private void InitializeComponent() {
-            Sgry.Azuki.FontInfo fontInfo1 = new Sgry.Azuki.FontInfo();
+            Sgry.Azuki.FontInfo fontInfo2 = new Sgry.Azuki.FontInfo();
             this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayTextFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayLatestFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,10 +46,10 @@
             | Sgry.Azuki.DrawingOption.HighlightsMatchedBracket)));
             this.azukiControl.FirstVisibleLine = 0;
             this.azukiControl.Font = new System.Drawing.Font("MeiryoKe_UIGothic", 12F);
-            fontInfo1.Name = "MeiryoKe_UIGothic";
-            fontInfo1.Size = 12;
-            fontInfo1.Style = System.Drawing.FontStyle.Regular;
-            this.azukiControl.FontInfo = fontInfo1;
+            fontInfo2.Name = "MeiryoKe_UIGothic";
+            fontInfo2.Size = 12;
+            fontInfo2.Style = System.Drawing.FontStyle.Regular;
+            this.azukiControl.FontInfo = fontInfo2;
             this.azukiControl.ForeColor = System.Drawing.Color.Black;
             this.azukiControl.HighlightsCurrentLine = false;
             this.azukiControl.LinePadding = 3;
@@ -89,7 +90,8 @@
             // visibleToolStripMenuItem
             // 
             this.visibleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.displayTextFilesToolStripMenuItem});
+            this.displayTextFilesToolStripMenuItem,
+            this.displayLatestFileToolStripMenuItem});
             this.visibleToolStripMenuItem.Name = "visibleToolStripMenuItem";
             this.visibleToolStripMenuItem.Size = new System.Drawing.Size(57, 22);
             this.visibleToolStripMenuItem.Text = "Visible";
@@ -99,6 +101,12 @@
             this.displayTextFilesToolStripMenuItem.Name = "displayTextFilesToolStripMenuItem";
             this.displayTextFilesToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.displayTextFilesToolStripMenuItem.Text = "Display text files";
+            // 
+            // displayLatestFileToolStripMenuItem
+            // 
+            this.displayLatestFileToolStripMenuItem.Name = "displayLatestFileToolStripMenuItem";
+            this.displayLatestFileToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.displayLatestFileToolStripMenuItem.Text = "Display latest file";
             // 
             // Form1
             // 
@@ -126,6 +134,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem visibleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayTextFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayLatestFileToolStripMenuItem;
     }
 }
 
