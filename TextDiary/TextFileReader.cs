@@ -9,13 +9,28 @@ namespace TextDiary {
 
         private String currentDirectoryPath;
 
-        TextFileReader( String settingCurrentDirectoryPath ) {
+        public TextFileReader( String settingCurrentDirectoryPath ) {
             currentDirectoryPath = settingCurrentDirectoryPath;
 
         }
 
         public void setCurrentDirectoryPath( String settingCurrentDirectoryPath ) {
             currentDirectoryPath = settingCurrentDirectoryPath;
+        }
+
+        public String readTextFilesFromCurrentDirectory() {
+            string[] filePaths = System.IO.Directory.GetFiles( currentDirectoryPath, "*.txt");
+
+            String text = "";
+
+            for(int i = 0; i < filePaths.Length; i++) {
+                text += System.IO.Path.GetFileName(filePaths[i]);
+                System.IO.StreamReader reader = new System.IO.StreamReader(filePaths[i]);
+                text += reader.ReadToEnd() + "\n\n";
+                reader.Close();
+            }
+
+            return text;
         }
 
     }

@@ -17,6 +17,7 @@ namespace TextDiary {
             settings = new Settings();
             settings.currentDirectoryPath = System.IO.Directory.GetCurrentDirectory() + "\\text";
             textFileMaker = new TextFileMaker(settings.currentDirectoryPath);
+            textFileReader = new TextFileReader(settings.currentDirectoryPath);
         }
 
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
