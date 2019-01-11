@@ -8,6 +8,7 @@ namespace TextDiary {
         TextFileMaker textFileMaker;
         TextFileReader textFileReader;
         String latestText = "";
+        Boolean isLogReading = false;
 
         public Form1() {
             InitializeComponent();
@@ -24,16 +25,18 @@ namespace TextDiary {
                 if(azukiControl.Text.Length != 0) {
                     latestText = azukiControl.Text;
                 }
+                isLogReading = true;
                 azukiControl.Text = textFileReader.readTextFilesFromCurrentDirectory();
             };
 
             displayLatestFileToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
+                isLogReading = false;
                 azukiControl.Text = latestText;
             };
         } 
 
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
-            if (e.Control == true && e.KeyCode == Keys.Enter) {
+            if (e.Control == true && e.KeyCode == Keys.Enter && !isLogReading) {
                 textFileMaker.createTextFile(azukiControl.Text);
                 azukiControl.Text = "";
                 e.Handled = true;
