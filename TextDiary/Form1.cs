@@ -10,14 +10,16 @@ namespace TextDiary {
         String latestText = "";
         Boolean isLogReading = false;
 
-        BackGroundPictureForm backGroundPicutreForm = new BackGroundPictureForm();
+        BackGroundPictureForm backGroundPictureForm = new BackGroundPictureForm();
 
         public Form1() {
             InitializeComponent();
             azukiControl.KeyDown += this.keyboardEventHandler;
-            backGroundPicutreForm.Show();
-            backGroundPicutreForm.Location = this.Location;
+            backGroundPictureForm.Show();
+            backGroundPictureForm.Location = this.Location;
+            backGroundPictureForm.Size = this.Size;
             this.Move += synchronizeBackGroundWindowLocationWithThisWindow;
+            this.Activated += setWindowsOnTopMost;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -49,7 +51,14 @@ namespace TextDiary {
         }
 
         private void synchronizeBackGroundWindowLocationWithThisWindow(object sender , EventArgs e){
-            backGroundPicutreForm.Location = this.Location;
+            backGroundPictureForm.Location = this.Location;
+        }
+
+        private void setWindowsOnTopMost(Object sender , EventArgs e) {
+            backGroundPictureForm.TopMost = true;
+            backGroundPictureForm.TopMost = false;
+            this.TopMost = true;
+            this.TopMost = false;
         }
     }
 }
