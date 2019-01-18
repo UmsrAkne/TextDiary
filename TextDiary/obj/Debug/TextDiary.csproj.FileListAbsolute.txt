@@ -9,3 +9,4 @@ c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debu
 c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debug\TextDiary.csproj.GenerateResource.Cache
 c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debug\TextDiary.exe
 c:\users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debug\TextDiary.pdb
+C:\Users\main\documents\visual studio 2015\Projects\TextDiary\TextDiary\obj\Debug\TextDiary.BackGroundPictureForm.resources
