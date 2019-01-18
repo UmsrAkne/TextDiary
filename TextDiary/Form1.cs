@@ -10,9 +10,14 @@ namespace TextDiary {
         String latestText = "";
         Boolean isLogReading = false;
 
+        BackGroundPictureForm backGroundPicutreForm = new BackGroundPictureForm();
+
         public Form1() {
             InitializeComponent();
             azukiControl.KeyDown += this.keyboardEventHandler;
+            backGroundPicutreForm.Show();
+            backGroundPicutreForm.Location = this.Location;
+            this.Move += synchronizeBackGroundWindowLocationWithThisWindow;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -41,6 +46,10 @@ namespace TextDiary {
                 azukiControl.Text = "";
                 e.Handled = true;
             }
+        }
+
+        private void synchronizeBackGroundWindowLocationWithThisWindow(object sender , EventArgs e){
+            backGroundPicutreForm.Location = this.Location;
         }
     }
 }
