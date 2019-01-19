@@ -12,8 +12,15 @@ namespace TextDiary {
     public partial class BackGroundPictureForm : Form {
         public BackGroundPictureForm() {
             InitializeComponent();
-            pictureBox.Image = Image.FromFile(@"C:\testImage.jpg");
-            //pictureBox.Image = Image.FromFile(@AppDomain.CurrentDomain.BaseDirectory + "/res/testImage.jpg");
+            loadPicture(@"C:\testImage.jpge");
+        }
+
+        public void loadPicture( String imageFileUrl ) {
+            try {
+                pictureBox.Image = Image.FromFile( imageFileUrl );
+            }catch(Exception e) {
+                System.Console.WriteLine("画像ファイルのオープンに失敗しました");
+            }
         }
     }
 }
