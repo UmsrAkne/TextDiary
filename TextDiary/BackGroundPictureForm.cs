@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace TextDiary {
     public partial class BackGroundPictureForm : Form {
         public BackGroundPictureForm() {
             InitializeComponent();
-            loadPicture(@"C:\testImage.jpge");
+            loadPicture(@"C:\testImage.jpg");
         }
 
         public void loadPicture( String imageFileUrl ) {
