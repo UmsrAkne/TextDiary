@@ -40,6 +40,13 @@ namespace TextDiary {
                 isLogReading = false;
                 azukiControl.Text = latestText;
             };
+
+            openBgPictureToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == DialogResult.OK) {
+                    backGroundPictureForm.loadPicture(openFileDialog.FileName);
+                }
+            };
         } 
 
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
