@@ -13,7 +13,7 @@ namespace TextDiary {
     public partial class BackGroundPictureForm : Form {
         public BackGroundPictureForm() {
             InitializeComponent();
-            loadPicture(@"C:\testImage.jpg");
+            loadDefaultPicutre();
         }
 
         public void loadPicture( String imageFileUrl ) {
@@ -21,6 +21,14 @@ namespace TextDiary {
                 pictureBox.Image = Image.FromFile( imageFileUrl );
             }catch(Exception e) {
                 System.Console.WriteLine("画像ファイルのオープンに失敗しました");
+            }
+        }
+
+        private void loadDefaultPicutre() {
+            String imageDirectory = AppDomain.CurrentDomain.BaseDirectory + @"\img";
+            if (Directory.Exists(imageDirectory)) {
+                String[] imageFiles = Directory.GetFiles(imageDirectory , "*.jpg");
+                if (imageFiles.Length > 0) loadPicture(imageFiles[0]);
             }
         }
     }
