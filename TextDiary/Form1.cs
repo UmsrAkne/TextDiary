@@ -10,16 +10,28 @@ namespace TextDiary {
         String latestText = "";
         Boolean isLogReading = false;
 
+        /* 原因は不明ながら、
+         * Windows10の環境にてactivated イベントハンドラ内で this.Activateが効かない。
+         * そのため、タイマーを使って遅延処理を行い、そこでActivateを行う。
+         * 動作上、外見的には問題ないが、気持ち悪いので改善できるならしたいけど無理*/
+        Timer delayProcessTimer = new Timer();
+
         BackGroundPictureForm backGroundPictureForm = new BackGroundPictureForm();
 
         public Form1() {
             InitializeComponent();
             azukiControl.KeyDown += this.keyboardEventHandler;
+
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
             this.Move += synchronizeBackGroundWindowLocationWithThisWindow;
+
             this.Activated += setWindowsOnTopMost;
+
+            //わずかでも遅延して処理を行えれば問題ないので、間隔はごくごく短く設定する
+            delayProcessTimer.Interval = 40;
+            delayProcessTimer.Tick += delayProcess;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -62,10 +74,21 @@ namespace TextDiary {
         }
 
         private void setWindowsOnTopMost(Object sender , EventArgs e) {
+
+            this.Activated -= setWindowsOnTopMost;
             backGroundPictureForm.TopMost = true;
             backGroundPictureForm.TopMost = false;
+
+            delayProcessTimer.Start();
+        }
+
+        private void delayProcess(object sender, EventArgs e)
+        {
             this.TopMost = true;
             this.TopMost = false;
+            this.Activated += setWindowsOnTopMost;
+            delayProcessTimer.Stop();
         }
+
     }
 }
