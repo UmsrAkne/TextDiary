@@ -22,6 +22,12 @@ namespace TextDiary {
             InitializeComponent();
             azukiControl.KeyDown += this.keyboardEventHandler;
 
+            //データグリッドビューに列を挿入して表を表示させる。
+            const int NUM_COLUMNS = 4;
+            for (int i = 0; i < NUM_COLUMNS; i++) {
+                dataGridView.Columns.Add("column", "h" + i.ToString());
+            }
+
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
@@ -82,8 +88,7 @@ namespace TextDiary {
             delayProcessTimer.Start();
         }
 
-        private void delayProcess(object sender, EventArgs e)
-        {
+        private void delayProcess(object sender, EventArgs e){
             this.TopMost = true;
             this.TopMost = false;
             this.Activated += setWindowsOnTopMost;
