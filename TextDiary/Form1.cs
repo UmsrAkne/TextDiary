@@ -89,6 +89,5 @@ namespace TextDiary {
             this.Activated += setWindowsOnTopMost;
             delayProcessTimer.Stop();
         }
-
     }
 }

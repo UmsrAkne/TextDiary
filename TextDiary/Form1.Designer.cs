@@ -23,45 +23,21 @@
         /// コード エディターで変更しないでください。
         /// </summary>
         private void InitializeComponent() {
-            Sgry.Azuki.FontInfo fontInfo1 = new Sgry.Azuki.FontInfo();
-            this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
+            Sgry.Azuki.FontInfo fontInfo2 = new Sgry.Azuki.FontInfo();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openBgPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayTextFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayLatestFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openBgPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.menuStrip.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // azukiControl
-            // 
-            this.azukiControl.BackColor = System.Drawing.Color.White;
-            this.azukiControl.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.azukiControl.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.azukiControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.azukiControl.DrawingOption = ((Sgry.Azuki.DrawingOption)(((((Sgry.Azuki.DrawingOption.DrawsFullWidthSpace | Sgry.Azuki.DrawingOption.DrawsTab) 
-            | Sgry.Azuki.DrawingOption.DrawsEol) 
-            | Sgry.Azuki.DrawingOption.ShowsDirtBar) 
-            | Sgry.Azuki.DrawingOption.HighlightsMatchedBracket)));
-            this.azukiControl.FirstVisibleLine = 0;
-            this.azukiControl.Font = new System.Drawing.Font("MeiryoKe_UIGothic", 12F);
-            fontInfo1.Name = "MeiryoKe_UIGothic";
-            fontInfo1.Size = 12;
-            fontInfo1.Style = System.Drawing.FontStyle.Regular;
-            this.azukiControl.FontInfo = fontInfo1;
-            this.azukiControl.ForeColor = System.Drawing.Color.Black;
-            this.azukiControl.HighlightsCurrentLine = false;
-            this.azukiControl.LinePadding = 3;
-            this.azukiControl.Location = new System.Drawing.Point(0, 26);
-            this.azukiControl.Name = "azukiControl";
-            this.azukiControl.ScrollPos = new System.Drawing.Point(0, 0);
-            this.azukiControl.ShowsHScrollBar = false;
-            this.azukiControl.ShowsLineNumber = false;
-            this.azukiControl.Size = new System.Drawing.Size(584, 416);
-            this.azukiControl.TabIndex = 0;
-            this.azukiControl.ViewWidth = 4101;
             // 
             // menuStrip
             // 
@@ -82,6 +58,12 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
             this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openBgPictureToolStripMenuItem
+            // 
+            this.openBgPictureToolStripMenuItem.Name = "openBgPictureToolStripMenuItem";
+            this.openBgPictureToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.openBgPictureToolStripMenuItem.Text = "Open_BgPicture";
             // 
             // exitToolStripMenuItem
             // 
@@ -110,18 +92,67 @@
             this.displayLatestFileToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.displayLatestFileToolStripMenuItem.Text = "Display latest file";
             // 
-            // openBgPictureToolStripMenuItem
+            // tableLayoutPanel1
             // 
-            this.openBgPictureToolStripMenuItem.Name = "openBgPictureToolStripMenuItem";
-            this.openBgPictureToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.openBgPictureToolStripMenuItem.Text = "Open_BgPicture";
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.azukiControl, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 1, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 26);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(584, 536);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // azukiControl
+            // 
+            this.azukiControl.BackColor = System.Drawing.Color.White;
+            this.azukiControl.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.azukiControl.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.azukiControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.azukiControl.DrawingOption = ((Sgry.Azuki.DrawingOption)(((((Sgry.Azuki.DrawingOption.DrawsFullWidthSpace | Sgry.Azuki.DrawingOption.DrawsTab) 
+            | Sgry.Azuki.DrawingOption.DrawsEol) 
+            | Sgry.Azuki.DrawingOption.ShowsDirtBar) 
+            | Sgry.Azuki.DrawingOption.HighlightsMatchedBracket)));
+            this.azukiControl.FirstVisibleLine = 0;
+            this.azukiControl.Font = new System.Drawing.Font("MeiryoKe_UIGothic", 12F);
+            fontInfo2.Name = "MeiryoKe_UIGothic";
+            fontInfo2.Size = 12;
+            fontInfo2.Style = System.Drawing.FontStyle.Regular;
+            this.azukiControl.FontInfo = fontInfo2;
+            this.azukiControl.ForeColor = System.Drawing.Color.Black;
+            this.azukiControl.HighlightsCurrentLine = false;
+            this.azukiControl.LinePadding = 3;
+            this.azukiControl.Location = new System.Drawing.Point(3, 3);
+            this.azukiControl.Name = "azukiControl";
+            this.azukiControl.ScrollPos = new System.Drawing.Point(0, 0);
+            this.azukiControl.ShowsHScrollBar = false;
+            this.azukiControl.ShowsLineNumber = false;
+            this.azukiControl.Size = new System.Drawing.Size(578, 144);
+            this.azukiControl.TabIndex = 1;
+            this.azukiControl.ViewWidth = 4101;
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.Location = new System.Drawing.Point(3, 153);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.RowTemplate.Height = 21;
+            this.dataGridView.Size = new System.Drawing.Size(578, 380);
+            this.dataGridView.TabIndex = 2;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 442);
-            this.Controls.Add(this.azukiControl);
+            this.ClientSize = new System.Drawing.Size(584, 562);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "Form1";
@@ -130,14 +161,14 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private Sgry.Azuki.WinForms.AzukiControl azukiControl;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
@@ -145,6 +176,9 @@
         private System.Windows.Forms.ToolStripMenuItem displayTextFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayLatestFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openBgPictureToolStripMenuItem;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private Sgry.Azuki.WinForms.AzukiControl azukiControl;
+        private System.Windows.Forms.DataGridView dataGridView;
     }
 }
 
