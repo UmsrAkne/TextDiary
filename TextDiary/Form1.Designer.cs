@@ -23,7 +23,8 @@
         /// コード エディターで変更しないでください。
         /// </summary>
         private void InitializeComponent() {
-            Sgry.Azuki.FontInfo fontInfo2 = new Sgry.Azuki.FontInfo();
+            Sgry.Azuki.FontInfo fontInfo1 = new Sgry.Azuki.FontInfo();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openBgPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,10 +120,10 @@
             | Sgry.Azuki.DrawingOption.HighlightsMatchedBracket)));
             this.azukiControl.FirstVisibleLine = 0;
             this.azukiControl.Font = new System.Drawing.Font("MeiryoKe_UIGothic", 12F);
-            fontInfo2.Name = "MeiryoKe_UIGothic";
-            fontInfo2.Size = 12;
-            fontInfo2.Style = System.Drawing.FontStyle.Regular;
-            this.azukiControl.FontInfo = fontInfo2;
+            fontInfo1.Name = "MeiryoKe_UIGothic";
+            fontInfo1.Size = 12;
+            fontInfo1.Style = System.Drawing.FontStyle.Regular;
+            this.azukiControl.FontInfo = fontInfo1;
             this.azukiControl.ForeColor = System.Drawing.Color.Black;
             this.azukiControl.HighlightsCurrentLine = false;
             this.azukiControl.LinePadding = 3;
@@ -139,10 +140,23 @@
             // 
             this.dataGridView.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("MeiryoKe_Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.EnableHeadersVisualStyles = false;
+            this.dataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView.Location = new System.Drawing.Point(3, 153);
             this.dataGridView.Name = "dataGridView";
+            this.dataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridView.RowHeadersVisible = false;
             this.dataGridView.RowTemplate.Height = 21;
             this.dataGridView.Size = new System.Drawing.Size(578, 380);
             this.dataGridView.TabIndex = 2;
