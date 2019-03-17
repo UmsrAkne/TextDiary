@@ -26,6 +26,8 @@ namespace TextDiary {
             const int NUM_COLUMNS = 4;
             for (int i = 0; i < NUM_COLUMNS; i++) {
                 dataGridView.Columns.Add("column", "h" + i.ToString());
+                dataGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
+                dataGridView.Columns[i].DefaultCellStyle.Padding = new Padding(2, 0, 0, 4);
             }
 
             backGroundPictureForm.Show();
