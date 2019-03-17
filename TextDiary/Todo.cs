@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace TextDiary {
     class Todo {
 
-        public String AdditionDate;
-        public String content;
-        public String period;
+        public String AdditionDate = "";
+        public String content = "";
+        public String period = "";
         public bool isCompleted = false;
     }
 }
