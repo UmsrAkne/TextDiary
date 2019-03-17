@@ -5,8 +5,13 @@ namespace TextDiary {
     public partial class Form1 : Form {
 
         Settings settings;
+
         TextFileMaker textFileMaker;
         TextFileReader textFileReader;
+
+        TextFileMaker todoFileMaker;
+        TextFileReader todoFileReader;
+
         String latestText = "";
         Boolean isLogReading = false;
 
@@ -48,6 +53,11 @@ namespace TextDiary {
             textFileMaker = new TextFileMaker(settings.currentDirectoryPath);
             textFileReader = new TextFileReader(settings.currentDirectoryPath);
 
+            const String TODOS_DIRECTORY_NAME = "\\todos";
+
+            todoFileMaker = new TextFileMaker( settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
+            todoFileReader = new TextFileReader(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
+
             displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
                 if(azukiControl.Text.Length != 0) {
                     latestText = azukiControl.Text;
@@ -72,6 +82,13 @@ namespace TextDiary {
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
             if (e.Control == true && e.KeyCode == Keys.Enter && !isLogReading) {
                 textFileMaker.createTextFile(azukiControl.Text);
+                azukiControl.Text = "";
+                e.Handled = true;
+            }
+
+            //Todo投稿用ボタン
+            if (e.Control == true && e.KeyCode == Keys.T && !isLogReading) {
+                todoFileMaker.createTextFile(azukiControl.Text);
                 azukiControl.Text = "";
                 e.Handled = true;
             }
