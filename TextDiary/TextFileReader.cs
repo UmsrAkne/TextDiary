@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,22 @@ namespace TextDiary {
             }
 
             return text;
+        }
+
+        public Todo[] readTextFileAsTodoList() {
+            string[] filePaths = Directory.GetFiles(currentDirectoryPath, "*.txt");
+            Todo[] todos = new Todo[ filePaths.Length ];
+
+            for(int i = 0; i < filePaths.Length; i++) {
+                Todo todo = new Todo();
+                todo.AdditionDate = Path.GetFileName( filePaths[i] );
+                StreamReader reader = new StreamReader( filePaths[i] );
+                todo.content = reader.ReadToEnd();
+                todo.period = "nothing";
+                todos[i] = todo;
+            }
+
+            return todos;
         }
 
     }
