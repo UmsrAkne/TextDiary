@@ -66,6 +66,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="TextFileMaker.cs" />
     <Compile Include="TextFileReader.cs" />
+    <Compile Include="Todo.cs" />
     <EmbeddedResource Include="BackGroundPictureForm.resx">
       <DependentUpon>BackGroundPictureForm.cs</DependentUpon>
     </EmbeddedResource>
