@@ -25,6 +25,11 @@ namespace TextDiary {
             File.WriteAllText( currentDirectoryPath + "\\" + fileName , writingText );
         }
 
+        public void createTodoFile( String todoContents) {
+            String fileName = getDateString() + ".txt";
+            File.WriteAllText(currentDirectoryPath + "\\" + fileName, todoContents);
+        }
+
         public String getDateString() {
             String dateString = DateTime.Now.ToString();
             dateString = dateString.Replace(":", "");
