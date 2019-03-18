@@ -88,7 +88,7 @@ namespace TextDiary {
 
             //Todo投稿用ボタン
             if (e.Control == true && e.KeyCode == Keys.T && !isLogReading) {
-                todoFileMaker.createTextFile(azukiControl.Text);
+                todoFileMaker.createTodoFile(azukiControl.Text);
                 azukiControl.Text = "";
                 e.Handled = true;
             }
