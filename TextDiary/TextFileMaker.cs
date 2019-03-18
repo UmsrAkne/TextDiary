@@ -18,14 +18,14 @@ namespace TextDiary {
         }
 
         public void createTextFile( String writingText ) {
-            String fileName = getDataString() + ".txt";
+            String fileName = getDateString() + ".txt";
             Console.WriteLine(fileName);
 
             writingText = separateLine + "\r" + writingText;
             File.WriteAllText( currentDirectoryPath + "\\" + fileName , writingText );
         }
 
-        public String getDataString() {
+        public String getDateString() {
             String dateString = DateTime.Now.ToString();
             dateString = dateString.Replace(":", "");
             dateString = dateString.Replace("/", "");
