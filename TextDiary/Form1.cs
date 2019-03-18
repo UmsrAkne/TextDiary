@@ -58,6 +58,8 @@ namespace TextDiary {
             todoFileMaker = new TextFileMaker( settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
             todoFileReader = new TextFileReader(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
 
+            loadTodoList();
+
             displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
                 if(azukiControl.Text.Length != 0) {
                     latestText = azukiControl.Text;
@@ -80,17 +82,34 @@ namespace TextDiary {
         } 
 
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
+
+            Boolean textFilePosted = false;
+
             if (e.Control == true && e.KeyCode == Keys.Enter && !isLogReading) {
                 textFileMaker.createTextFile(azukiControl.Text);
-                azukiControl.Text = "";
-                e.Handled = true;
+                textFilePosted = true;
             }
 
             //Todo投稿用ボタン
             if (e.Control == true && e.KeyCode == Keys.T && !isLogReading) {
                 todoFileMaker.createTodoFile(azukiControl.Text);
+                textFilePosted = true;
+            }
+
+            if (textFilePosted) {
                 azukiControl.Text = "";
                 e.Handled = true;
+                loadTodoList();
+            }
+        }
+
+        private void loadTodoList() {
+
+            dataGridView.Rows.Clear();
+
+            Todo[] todos = todoFileReader.readTextFileAsTodoList();
+            foreach (Todo todo in todos) {
+                dataGridView.Rows.Add(todo.isCompleted, todo.AdditionDate, todo.content);
             }
         }
 
