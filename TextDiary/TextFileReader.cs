@@ -11,6 +11,10 @@ namespace TextDiary {
         private String currentDirectoryPath;
 
         public TextFileReader( String settingCurrentDirectoryPath ) {
+            if (System.IO.Directory.Exists(settingCurrentDirectoryPath) == false) {
+                throw new FileNotFoundException("ファイルが存在しない、またはファイルにアクセスできません。");
+            }
+
             currentDirectoryPath = settingCurrentDirectoryPath;
 
         }
