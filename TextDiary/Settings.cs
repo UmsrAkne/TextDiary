@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace TextDiary {
 
-    class Settings {
+    public class Settings {
 
         public String currentDirectoryPath;
         public Point windowLocation;

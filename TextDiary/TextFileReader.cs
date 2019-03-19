@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TextDiary {
-    class TextFileReader {
+    public class TextFileReader {
 
         private String currentDirectoryPath;
 

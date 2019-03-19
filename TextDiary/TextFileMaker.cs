@@ -6,7 +6,7 @@ using System.IO;
 using System.Threading.Tasks;
 
 namespace TextDiary {
-    class TextFileMaker {
+    public class TextFileMaker {
         private String currentDirectoryPath = "";
         public String separateCharacter = "-";
 

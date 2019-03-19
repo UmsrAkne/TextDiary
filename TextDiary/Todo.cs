@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TextDiary {
-    class Todo {
+    public class Todo {
 
         public String AdditionDate = "";
         public String content = "";
