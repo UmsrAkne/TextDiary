@@ -31,10 +31,10 @@ namespace TextDiary {
         }
 
         public String getDateString() {
-            String dateString = DateTime.Now.ToString();
+            String dateString = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             dateString = dateString.Replace(":", "");
             dateString = dateString.Replace("/", "");
-            dateString = dateString.Replace(" ", "_");
+            dateString = dateString.Replace(" ", "");
             return dateString;
         }
 
