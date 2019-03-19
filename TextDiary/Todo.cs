@@ -9,7 +9,7 @@ namespace TextDiary {
 
         public String AdditionDate = "";
         public String content = "";
-        public String period = "";
+        public String deadLine = "";
         public bool isCompleted = false;
     }
 }

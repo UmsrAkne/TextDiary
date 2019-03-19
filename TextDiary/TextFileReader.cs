@@ -43,7 +43,7 @@ namespace TextDiary {
                 todo.AdditionDate = Path.GetFileName( filePaths[i] );
                 StreamReader reader = new StreamReader( filePaths[i] );
                 todo.content = reader.ReadToEnd();
-                todo.period = "nothing";
+                todo.deadLine = "nothing";
                 todos[i] = todo;
             }
 
