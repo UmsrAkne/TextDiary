@@ -10,6 +10,8 @@ namespace TextDiary {
         private String currentDirectoryPath = "";
         public String separateCharacter = "-";
 
+        public const string TEXT_FILE_NAME_FORMAT = "yyyyMMdd_HHmmss";
+
         public TextFileMaker( String setCurrentDirectoryPath ) {
             currentDirectoryPath = setCurrentDirectoryPath;
             if(!Directory.Exists(currentDirectoryPath)) {
@@ -31,7 +33,7 @@ namespace TextDiary {
         }
 
         public String getDateString() {
-            String dateString = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            String dateString = DateTime.Now.ToString( TEXT_FILE_NAME_FORMAT );
             dateString = dateString.Replace(":", "");
             dateString = dateString.Replace("/", "");
             dateString = dateString.Replace(" ", "");

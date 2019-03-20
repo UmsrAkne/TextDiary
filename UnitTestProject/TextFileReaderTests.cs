@@ -42,5 +42,37 @@ namespace TextDiary.Tests {
             Assert.Fail("存在しないディレクトリが指定されましたが、例外が発生していません。");
         }
 
+        [TestMethod()]
+        public void readTextFileAsTodoListTest() {
+            //テキストファイルを読み込んだ結果、正しいTodo配列が返ってくるかをテストします
+
+            string currentDirectoryPath = Directory.GetCurrentDirectory() + "\\testTextFile";
+            if (Directory.Exists(currentDirectoryPath))
+                Directory.Delete(currentDirectoryPath, true);
+
+            Directory.CreateDirectory(currentDirectoryPath);
+
+            const string todoContent = "todoの内容です";
+
+            TextFileMaker writer = new TextFileMaker(currentDirectoryPath );
+            writer.createTodoFile(todoContent);
+
+            TextFileReader reader = new TextFileReader(currentDirectoryPath);
+            Todo[] todos = reader.readTextFileAsTodoList();
+
+            Assert.AreEqual(todos.Length, 1 , "読み込まれているファイル数がおかしいです。");
+
+            Todo todo = todos[0];
+
+            //DateTimはnull非許容。新規作成したオブジェクトと等価なら値が代入されてない
+            Assert.AreNotEqual(todo.deadLine.ToString(), new DateTime().ToString());
+            Assert.AreNotEqual(todo.additionDate.ToString(), new DateTime().ToString());
+
+            Assert.AreEqual(todoContent, todo.content);
+            Assert.IsFalse(todo.isCompleted);
+
+            //作成したディレクトリの内容を全て削除
+            Directory.Delete(currentDirectoryPath, true);            
+        }
     }
 }

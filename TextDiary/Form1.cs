@@ -118,7 +118,7 @@ namespace TextDiary {
 
             Todo[] todos = todoFileReader.readTextFileAsTodoList();
             foreach (Todo todo in todos) {
-                dataGridView.Rows.Add(todo.isCompleted, todo.AdditionDate, todo.content);
+                dataGridView.Rows.Add(todo.isCompleted, todo.additionDate, todo.content);
             }
         }
 

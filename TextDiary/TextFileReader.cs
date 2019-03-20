@@ -44,11 +44,15 @@ namespace TextDiary {
 
             for(int i = 0; i < filePaths.Length; i++) {
                 Todo todo = new Todo();
-                todo.AdditionDate = Path.GetFileName( filePaths[i] );
+
+                string pureFileName = Path.GetFileNameWithoutExtension(filePaths[i]);
+                todo.additionDate = DateTime.ParseExact(pureFileName, TextFileMaker.TEXT_FILE_NAME_FORMAT , null);
+                todo.deadLine = DateTime.MaxValue;
+
                 StreamReader reader = new StreamReader( filePaths[i] );
                 todo.content = reader.ReadToEnd();
-                todo.deadLine = "nothing";
                 todos[i] = todo;
+                reader.Close();
             }
 
             return todos;
