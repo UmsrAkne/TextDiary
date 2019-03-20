@@ -27,19 +27,6 @@ namespace TextDiary {
             InitializeComponent();
             azukiControl.KeyDown += this.keyboardEventHandler;
 
-            //データグリッドビューに列を挿入して表を表示させる。
-
-            const int NUM_COLUMNS = 3;
-            for (int i = 0; i < NUM_COLUMNS; i++) {
-                dataGridView.Columns.Add("column", "h" + i.ToString());
-                dataGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
-                dataGridView.Columns[i].DefaultCellStyle.Padding = new Padding(2, 0, 0, 4);
-            }
-
-            dataGridView.Columns[0].Width = 50;
-            dataGridView.Columns[1].Width = 160;
-            dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
             dataGridView.AdvancedCellBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.None;
             dataGridView.AdvancedCellBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
             dataGridView.AdvancedCellBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;

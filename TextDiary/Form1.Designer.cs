@@ -36,6 +36,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.additionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -143,6 +146,10 @@
             this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.isCompleted,
+            this.additionDate,
+            this.content});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("MeiryoKe_Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -169,6 +176,24 @@
             this.dataGridView.RowTemplate.Height = 40;
             this.dataGridView.Size = new System.Drawing.Size(578, 380);
             this.dataGridView.TabIndex = 2;
+            // 
+            // isCompleted
+            // 
+            this.isCompleted.HeaderText = "";
+            this.isCompleted.Name = "isCompleted";
+            this.isCompleted.Width = 30;
+            // 
+            // additionDate
+            // 
+            this.additionDate.HeaderText = "Addition date";
+            this.additionDate.Name = "additionDate";
+            this.additionDate.Width = 180;
+            // 
+            // content
+            // 
+            this.content.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.content.HeaderText = "Content";
+            this.content.Name = "content";
             // 
             // Form1
             // 
@@ -202,6 +227,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private Sgry.Azuki.WinForms.AzukiControl azukiControl;
         private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isCompleted;
+        private System.Windows.Forms.DataGridViewTextBoxColumn additionDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn content;
     }
 }
 
