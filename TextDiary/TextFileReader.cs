@@ -58,5 +58,13 @@ namespace TextDiary {
             return todos;
         }
 
+        public string getTodoTextFilePathFrom( System.Windows.Forms.DataGridViewRow row) {
+            string path = this.currentDirectoryPath;
+            DateTime todoAdditionDate = (DateTime)row.Cells[1].Value;
+            path += "\\" + todoAdditionDate.ToString(TextFileMaker.TEXT_FILE_NAME_FORMAT) + ".txt";
+            return path;
+            
+        }
+
     }
 }
