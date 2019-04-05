@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TextDiary {
     public class TextFileReader {
 
-        private String currentDirectoryPath;
+        public String currentDirectoryPath { get; set;}
 
         public TextFileReader( String settingCurrentDirectoryPath ) {
             if (System.IO.Directory.Exists(settingCurrentDirectoryPath) == false) {
