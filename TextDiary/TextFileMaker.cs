@@ -27,6 +27,13 @@ namespace TextDiary {
             File.WriteAllText( currentDirectoryPath + "\\" + fileName , writingText );
         }
 
+        public void createTextFile( Todo todo) {
+            String fileName = getDateString() + ".txt";
+
+            string writingText = "Completed task." + "\r\n\r\n";
+            writingText += todo.content;
+        }
+
         public void createTodoFile( String todoContents) {
             String fileName = getDateString() + ".txt";
             File.WriteAllText(currentDirectoryPath + "\\" + fileName, todoContents);
