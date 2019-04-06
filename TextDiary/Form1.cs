@@ -31,6 +31,9 @@ namespace TextDiary {
             dataGridView.AdvancedCellBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
             dataGridView.AdvancedCellBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;
 
+            dataGridView.CellValueChanged += dataGridView_cellValueChanged;
+            dataGridView.CurrentCellDirtyStateChanged += dataGridView_currentCellDirtStateChanged;
+
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
@@ -41,6 +44,23 @@ namespace TextDiary {
             //わずかでも遅延して処理を行えれば問題ないので、間隔はごくごく短く設定する
             delayProcessTimer.Interval = 40;
             delayProcessTimer.Tick += delayProcess;
+        }
+
+        private void dataGridView_currentCellDirtStateChanged(object sender, EventArgs e) {
+            if(dataGridView.CurrentCellAddress.X == 0 && dataGridView.IsCurrentCellDirty) {
+                dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        private void dataGridView_cellValueChanged(object sender, DataGridViewCellEventArgs e) {
+            if(e.ColumnIndex == 0) {
+                if((Boolean)dataGridView[e.ColumnIndex , e.RowIndex].Value) {
+                    this.dataGridView["CompletedDate", e.RowIndex].Value = DateTime.Now.ToString("MM/dd hh:mm");
+                }
+                else {
+                    this.dataGridView["CompletedDate", e.RowIndex].Value = "";
+                }
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -105,7 +125,7 @@ namespace TextDiary {
 
             Todo[] todos = todoFileReader.readTextFileAsTodoList();
             foreach (Todo todo in todos) {
-                dataGridView.Rows.Add(todo.isCompleted, todo.additionDate, todo.content);
+                dataGridView.Rows.Add(todo.isCompleted, todo.additionDate, "" ,todo.content);
             }
         }
 
