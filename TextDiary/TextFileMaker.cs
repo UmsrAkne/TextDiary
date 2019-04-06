@@ -39,6 +39,22 @@ namespace TextDiary {
             File.WriteAllText(currentDirectoryPath + "\\" + fileName, todoContents);
         }
 
+        public void createTodoXmlFile( String todoContents) {
+            Todo todo = new Todo();
+            todo.content = todoContents;
+            todo.isCompleted = false;
+            todo.additionDate = DateTime.Now;
+
+            System.Xml.Serialization.XmlSerializer serializer =
+                    new System.Xml.Serialization.XmlSerializer(typeof(Todo));
+
+            string xmlFileName =  currentDirectoryPath + "\\" + getDateString() + ".xml";
+            StreamWriter sw = new System.IO.StreamWriter(xmlFileName, false, new System.Text.UTF8Encoding(false));
+            serializer.Serialize(sw, todo);
+
+            sw.Close();
+        }
+
         public String getDateString() {
             String dateString = DateTime.Now.ToString( TEXT_FILE_NAME_FORMAT );
             dateString = dateString.Replace(":", "");
