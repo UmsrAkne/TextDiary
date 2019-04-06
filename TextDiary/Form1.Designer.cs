@@ -38,6 +38,7 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.additionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompletedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -149,6 +150,7 @@
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.isCompleted,
             this.additionDate,
+            this.CompletedDate,
             this.content});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -188,6 +190,11 @@
             this.additionDate.HeaderText = "Addition date";
             this.additionDate.Name = "additionDate";
             this.additionDate.Width = 180;
+            // 
+            // CompletedDate
+            // 
+            this.CompletedDate.HeaderText = "Finished Date";
+            this.CompletedDate.Name = "CompletedDate";
             // 
             // content
             // 
@@ -229,6 +236,7 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isCompleted;
         private System.Windows.Forms.DataGridViewTextBoxColumn additionDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompletedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn content;
     }
 }
