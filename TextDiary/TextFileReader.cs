@@ -58,6 +58,23 @@ namespace TextDiary {
             return todos;
         }
 
+        public Todo[] loadTodosFromXml() {
+            string[] files = Directory.GetFiles(currentDirectoryPath ,"*.xml" ,SearchOption.TopDirectoryOnly) ;
+            Todo[] todos = new Todo[ files.Count() ];
+
+            for (int i = 0; i < files.Count(); i++) {
+                Console.WriteLine(files);
+
+                string fileName = files[i];
+                System.Xml.Serialization.XmlSerializer serializer =  new System.Xml.Serialization.XmlSerializer(typeof(Todo));
+                StreamReader sr = new StreamReader(fileName, new System.Text.UTF8Encoding(false));
+                todos[i] = (Todo)serializer.Deserialize(sr);
+                sr.Close();
+            }
+
+            return todos;
+        }
+
         public string getTodoTextFilePathFrom( System.Windows.Forms.DataGridViewRow row) {
             string path = this.currentDirectoryPath;
             DateTime todoAdditionDate = (DateTime)row.Cells[1].Value;

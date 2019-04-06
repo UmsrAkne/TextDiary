@@ -54,13 +54,13 @@ namespace TextDiary.Tests {
 
             const string todoContent = "todoの内容です";
 
-            TextFileMaker writer = new TextFileMaker(currentDirectoryPath );
+            TextFileMaker writer = new TextFileMaker(currentDirectoryPath);
             writer.createTodoFile(todoContent);
 
             TextFileReader reader = new TextFileReader(currentDirectoryPath);
             Todo[] todos = reader.readTextFileAsTodoList();
 
-            Assert.AreEqual(todos.Length, 1 , "読み込まれているファイル数がおかしいです。");
+            Assert.AreEqual(todos.Length, 1, "読み込まれているファイル数がおかしいです。");
 
             Todo todo = todos[0];
 
@@ -72,7 +72,16 @@ namespace TextDiary.Tests {
             Assert.IsFalse(todo.isCompleted);
 
             //作成したディレクトリの内容を全て削除
-            Directory.Delete(currentDirectoryPath, true);            
+            Directory.Delete(currentDirectoryPath, true);
+        }
+
+        [TestMethod()]
+        public void loadTodosFromXmlTest() {
+            TextFileReader tr = new TextFileReader(@"C\Users\main\Documents\Visual Studio 2015\Projects\TextDiary\TextDiary\bin\Debug\text\todos");
+            Todo[] todos = tr.loadTodosFromXml();
+            Console.WriteLine(todos.Count());
+
+            System.Console.WriteLine(todos[0].additionDate.ToString());
         }
     }
 }
