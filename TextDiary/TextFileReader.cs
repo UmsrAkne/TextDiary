@@ -38,26 +38,6 @@ namespace TextDiary {
             return text;
         }
 
-        public Todo[] readTextFileAsTodoList() {
-            string[] filePaths = Directory.GetFiles(currentDirectoryPath, "*.txt");
-            Todo[] todos = new Todo[ filePaths.Length ];
-
-            for(int i = 0; i < filePaths.Length; i++) {
-                Todo todo = new Todo("");
-
-                string pureFileName = Path.GetFileNameWithoutExtension(filePaths[i]);
-                todo.additionDate = DateTime.ParseExact(pureFileName, TextFileMaker.TEXT_FILE_NAME_FORMAT , null);
-                todo.deadLine = DateTime.MaxValue;
-
-                StreamReader reader = new StreamReader( filePaths[i] );
-                todo.content = reader.ReadToEnd();
-                todos[i] = todo;
-                reader.Close();
-            }
-
-            return todos;
-        }
-
         public Todo[] loadTodosFromXml() {
             string[] files = Directory.GetFiles(currentDirectoryPath ,"*.xml" ,SearchOption.TopDirectoryOnly) ;
             Todo[] todos = new Todo[ files.Count() ];
