@@ -23,7 +23,8 @@ namespace TextDiary {
             }
 
             this.targetPath = targetDirectoryPath;
-            timer.Interval = 10000;
+            timer.Interval = 1000 * 30;//1000ms = 1s
+            timer.Tick += checkTodoSourceXmlChanged;
 
             this.textFileReader = new TextFileReader(targetDirectoryPath);
         }
@@ -43,11 +44,15 @@ namespace TextDiary {
 
             if(currentTodoList.Count() != lastTodoList.Count()) {
                 todoFileChanged();
+                lastTodoList = currentTodoList;
+                return;
             }
 
             for (int i = 0; i < currentTodoList.Count(); i++) {
                 if (Todo.isEqual(currentTodoList[i], lastTodoList[i]) == false) {
                     todoFileChanged();
+                    lastTodoList = currentTodoList;
+                    return;
                 }
             }
 
