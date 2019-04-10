@@ -32,6 +32,10 @@ namespace TextDiary {
             get; set;
         }
 
+        public DateTime completedDate {
+            get; set;
+        }
+
         public String linkedXmlFilePath = "";
 
         public static bool isEqual(Todo todoA, Todo todoB) {
