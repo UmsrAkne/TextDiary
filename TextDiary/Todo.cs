@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 namespace TextDiary {
     public class Todo {
 
+        public Todo() {
+            this.additionDate = DateTime.Now;
+        }
+
         public Todo( string content ) {
             this.additionDate = DateTime.Now;
             this.content = content;
