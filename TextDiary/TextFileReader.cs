@@ -80,7 +80,6 @@ namespace TextDiary {
             DateTime todoAdditionDate = (DateTime)row.Cells[1].Value;
             path += "\\" + todoAdditionDate.ToString(TextFileMaker.TEXT_FILE_NAME_FORMAT) + ".txt";
             return path;
-            
         }
 
     }

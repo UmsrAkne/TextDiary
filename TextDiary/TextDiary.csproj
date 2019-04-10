@@ -55,6 +55,7 @@
     <Compile Include="BackGroundPictureForm.Designer.cs">
       <DependentUpon>BackGroundPictureForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TodoFileChangedWatcher.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
