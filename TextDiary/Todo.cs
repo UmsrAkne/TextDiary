@@ -23,6 +23,10 @@ namespace TextDiary {
             get; set;
         }
 
+        public String linkedXmlFilePath {
+            get; set;
+        }
+
         public static bool isEqual(Todo todoA, Todo todoB) {
             if (String.Equals(todoA.content, todoB.content) == false) {
                 return false;
