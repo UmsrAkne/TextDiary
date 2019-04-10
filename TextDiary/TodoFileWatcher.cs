@@ -8,8 +8,13 @@ using System.Windows.Forms;
 namespace TextDiary {
     public class TodoFileWatcher {
 
-        String targetPath { get; }
-        Timer timer = new Timer();
+        public String targetPath { get; }
+        private Timer timer = new Timer();
+        private TextFileReader textFileReader;
+        private Todo[] lastTodoList;
+
+        public delegate void TodoFileChanged();
+        public event TodoFileChanged todoFileChanged;
 
         public TodoFileWatcher( String targetDirectoryPath ) {
 
@@ -19,18 +24,34 @@ namespace TextDiary {
 
             this.targetPath = targetDirectoryPath;
             timer.Interval = 10000;
+
+            this.textFileReader = new TextFileReader(targetDirectoryPath);
         }
 
         public void startWatch() {
             timer.Enabled = true;
+            lastTodoList = textFileReader.loadTodosFromXml();
         }
 
         public void stopWatch() {
             timer.Enabled = false;
         }
 
-        private void timer_Tick(object sender , EventArgs e) {
+        private void checkTodoSourceXmlChanged(object sender , EventArgs e) {
             Console.WriteLine("timerEventは動いています");
+            Todo[] currentTodoList = textFileReader.loadTodosFromXml();
+
+            if(currentTodoList.Count() != lastTodoList.Count()) {
+                todoFileChanged();
+            }
+
+            for (int i = 0; i < currentTodoList.Count(); i++) {
+                if (Todo.isEqual(currentTodoList[i], lastTodoList[i]) == false) {
+                    todoFileChanged();
+                }
+            }
+
+            
         }
 
     }
