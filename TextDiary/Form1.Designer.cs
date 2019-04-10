@@ -181,12 +181,14 @@
             // 
             // isCompleted
             // 
+            this.isCompleted.DataPropertyName = "isCompleted";
             this.isCompleted.HeaderText = "";
             this.isCompleted.Name = "isCompleted";
             this.isCompleted.Width = 30;
             // 
             // additionDate
             // 
+            this.additionDate.DataPropertyName = "additionDate";
             this.additionDate.HeaderText = "Addition date";
             this.additionDate.Name = "additionDate";
             this.additionDate.Width = 180;
@@ -199,6 +201,7 @@
             // content
             // 
             this.content.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.content.DataPropertyName = "content";
             this.content.HeaderText = "Content";
             this.content.Name = "content";
             // 

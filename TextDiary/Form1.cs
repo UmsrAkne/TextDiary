@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace TextDiary {
     public partial class Form1 : Form {
@@ -15,6 +16,7 @@ namespace TextDiary {
         String latestText = "";
         Boolean isLogReading = false;
 
+        System.ComponentModel.BindingList<Todo> todoList = new System.ComponentModel.BindingList<Todo>();
         /* 原因は不明ながら、
          * Windows10の環境にてactivated イベントハンドラ内で this.Activateが効かない。
          * そのため、タイマーを使って遅延処理を行い、そこでActivateを行う。
@@ -30,6 +32,8 @@ namespace TextDiary {
             dataGridView.AdvancedCellBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.None;
             dataGridView.AdvancedCellBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
             dataGridView.AdvancedCellBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;
+
+            dataGridView.DataSource = this.todoList;
 
             dataGridView.CellValueChanged += dataGridView_cellValueChanged;
             dataGridView.CurrentCellDirtyStateChanged += dataGridView_currentCellDirtStateChanged;
@@ -74,8 +78,7 @@ namespace TextDiary {
             todoFileMaker = new TextFileMaker( settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
             todoFileReader = new TextFileReader(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
 
-            loadTodoList();
-
+            //loadTodoList();
             displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
                 if(azukiControl.Text.Length != 0) {
                     latestText = azukiControl.Text;
@@ -120,12 +123,8 @@ namespace TextDiary {
         }
 
         private void loadTodoList() {
-
-            dataGridView.Rows.Clear();
-
-            Todo[] todos = todoFileReader.readTextFileAsTodoList();
-            foreach (Todo todo in todos) {
-                dataGridView.Rows.Add(todo.isCompleted, todo.additionDate, "" ,todo.content);
+            foreach (Todo todo in todoFileReader.readTextFileAsTodoList()) {
+                todoList.Add(todo);
             }
         }
 
