@@ -7,9 +7,20 @@ using System.Threading.Tasks;
 namespace TextDiary {
     public class Todo {
 
-        public DateTime additionDate;
-        public String content = "";
-        public DateTime deadLine;
-        public bool isCompleted = false;
+        public String content {
+            get; set;
+        }
+
+        public DateTime additionDate {
+            get; set;
+        }
+
+        public DateTime deadLine {
+            get; set;
+        }
+
+        public bool isCompleted {
+            get; set;
+        }
     }
 }
