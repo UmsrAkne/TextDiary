@@ -43,7 +43,6 @@ namespace TextDiary {
             Todo[] todos = new Todo[ files.Count() ];
 
             for (int i = 0; i < files.Count(); i++) {
-                Console.WriteLine(files);
 
                 string fileName = files[i];
                 System.Xml.Serialization.XmlSerializer serializer =  new System.Xml.Serialization.XmlSerializer(typeof(Todo));
