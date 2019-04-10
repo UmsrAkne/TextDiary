@@ -78,7 +78,7 @@ namespace TextDiary {
             todoFileMaker = new TextFileMaker( settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
             todoFileReader = new TextFileReader(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
 
-            //loadTodoList();
+            loadTodoList();
             displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
                 if(azukiControl.Text.Length != 0) {
                     latestText = azukiControl.Text;
@@ -123,7 +123,7 @@ namespace TextDiary {
         }
 
         private void loadTodoList() {
-            foreach (Todo todo in todoFileReader.readTextFileAsTodoList()) {
+            foreach (Todo todo in todoFileReader.loadTodosFromXml()) {
                 todoList.Add(todo);
             }
         }
