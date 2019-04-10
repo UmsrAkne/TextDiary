@@ -18,7 +18,7 @@ namespace TextDiary.Tests {
             Assert.IsTrue(System.IO.Directory.Exists(
                 @"C\Users\main\Documents\Visual Studio 2015\Projects\TextDiary\TextDiary\bin\Debug\text\todos"));
 
-            textFileMaker.createTodoXmlFile("これはTodoファイルです");
+            textFileMaker.createTodoXmlFile(new Todo("test"));
         }
     }
 }

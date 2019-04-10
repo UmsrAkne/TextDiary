@@ -111,7 +111,10 @@ namespace TextDiary {
 
             //Todo投稿用ボタン
             if (e.Control == true && e.KeyCode == Keys.T && !isLogReading) {
-                todoFileMaker.createTodoFile(azukiControl.Text);
+                Todo todo = new Todo( azukiControl.Text );
+                todo.deadLine = DateTime.Today;
+                todoFileMaker.createTodoXmlFile(todo);
+                this.todoList.Add(todo);
                 textFilePosted = true;
             }
 

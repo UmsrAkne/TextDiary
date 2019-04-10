@@ -12,8 +12,8 @@ namespace TextDiary.Tests {
         [TestMethod()]
         public void isEqualTest() {
 
-            Todo todoA = new Todo();
-            Todo todoB = new Todo();
+            Todo todoA = new Todo("test");
+            Todo todoB = new Todo("test");
 
             Assert.IsTrue(Todo.isEqual(todoA, todoB));
 

@@ -55,7 +55,7 @@ namespace TextDiary.Tests {
             const string todoContent = "todoの内容です";
 
             TextFileMaker writer = new TextFileMaker(currentDirectoryPath);
-            writer.createTodoFile(todoContent);
+            writer.createTodoXmlFile(new Todo("testTodo"));
 
             TextFileReader reader = new TextFileReader(currentDirectoryPath);
             Todo[] todos = reader.readTextFileAsTodoList();

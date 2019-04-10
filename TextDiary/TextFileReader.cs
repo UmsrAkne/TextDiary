@@ -43,7 +43,7 @@ namespace TextDiary {
             Todo[] todos = new Todo[ filePaths.Length ];
 
             for(int i = 0; i < filePaths.Length; i++) {
-                Todo todo = new Todo();
+                Todo todo = new Todo("");
 
                 string pureFileName = Path.GetFileNameWithoutExtension(filePaths[i]);
                 todo.additionDate = DateTime.ParseExact(pureFileName, TextFileMaker.TEXT_FILE_NAME_FORMAT , null);
