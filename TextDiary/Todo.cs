@@ -22,5 +22,28 @@ namespace TextDiary {
         public bool isCompleted {
             get; set;
         }
+
+        public static bool isEqual(Todo todoA, Todo todoB) {
+            if (String.Equals(todoA.content, todoB.content) == false) {
+                return false;
+            }
+
+            if (DateTime.Equals(todoA.additionDate, todoB.additionDate) == false) {
+
+                return false;
+            }
+
+            if (DateTime.Equals(todoA.deadLine, todoB.deadLine) == false){
+                return false;
+            }
+
+            if (todoA.isCompleted != todoB.isCompleted){
+                return false;
+            }
+
+            return true;
+            
+        }
+
     }
 }
