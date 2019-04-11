@@ -142,6 +142,7 @@ namespace TextDiary {
         }
 
         private void loadTodoList() {
+            todoList.Clear();
             foreach (Todo todo in todoFileReader.loadTodosFromXml()) {
                 todoList.Add(todo);
             }
