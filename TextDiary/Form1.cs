@@ -41,6 +41,10 @@ namespace TextDiary {
             dataGridView.CurrentCellDirtyStateChanged += dataGridView_currentCellDirtStateChanged;
             dataGridView.CellFormatting += convertDateTimeFormat;
 
+            //行を選択時に水色に、離れた時に白に戻す。
+            dataGridView.SelectionChanged += (sender, e) => coloringCurrentRow(System.Drawing.Color.LightSkyBlue);
+            dataGridView.CellLeave += (sender, e) => coloringCurrentRow(System.Drawing.Color.White);
+
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
@@ -51,6 +55,13 @@ namespace TextDiary {
             //わずかでも遅延して処理を行えれば問題ないので、間隔はごくごく短く設定する
             delayProcessTimer.Interval = 40;
             delayProcessTimer.Tick += delayProcess;
+        }
+
+        private void coloringCurrentRow( System.Drawing.Color color ) {
+            DataGridViewCellCollection currentRowCells = dataGridView.Rows[dataGridView.CurrentCellAddress.Y].Cells;
+            foreach(DataGridViewCell cell in currentRowCells) {
+                cell.Style.BackColor = color;
+            }
         }
 
         private void convertDateTimeFormat(object sender, DataGridViewCellFormattingEventArgs e) {
