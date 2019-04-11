@@ -23,7 +23,7 @@ namespace TextDiary {
             }
 
             this.targetPath = targetDirectoryPath;
-            timer.Interval = 1000 * 30;//1000ms = 1s
+            timer.Interval = 1000 * 180;//1000ms = 1s
             timer.Tick += checkTodoSourceXmlChanged;
 
             this.textFileReader = new TextFileReader(targetDirectoryPath);
