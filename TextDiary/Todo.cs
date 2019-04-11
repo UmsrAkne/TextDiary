@@ -55,6 +55,10 @@ namespace TextDiary {
                 return false;
             }
 
+            if (DateTime.Equals(todoA.completedDate, todoB.completedDate) == false) {
+                return false;
+            }
+
             return true;
             
         }

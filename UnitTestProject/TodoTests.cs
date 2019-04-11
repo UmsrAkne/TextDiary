@@ -17,11 +17,18 @@ namespace TextDiary.Tests {
 
             Assert.IsTrue(Todo.isEqual(todoA, todoB));
 
-            todoA.content = "test";
+            todoA.content = "test2";
 
             Assert.IsFalse(Todo.isEqual(todoA, todoB));
 
-            todoB.content = "test";
+            todoB.content = "test2";
+
+            Assert.IsTrue(Todo.isEqual(todoA, todoB));
+
+            DateTime completedDate = DateTime.Now;
+
+            todoA.completedDate = completedDate;
+            todoB.completedDate = completedDate;
 
             Assert.IsTrue(Todo.isEqual(todoA, todoB));
 
