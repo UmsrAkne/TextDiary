@@ -23,9 +23,11 @@
         /// コード エディターで変更しないでください。
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             Sgry.Azuki.FontInfo fontInfo1 = new Sgry.Azuki.FontInfo();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openBgPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,9 +38,16 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.isCompletedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.contentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.additionDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.completedDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deadLineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.todoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -48,7 +57,7 @@
             this.visibleToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(584, 26);
+            this.menuStrip.Size = new System.Drawing.Size(784, 26);
             this.menuStrip.TabIndex = 1;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -106,7 +115,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(584, 536);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 536);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // azukiControl
@@ -133,16 +142,26 @@
             this.azukiControl.ScrollPos = new System.Drawing.Point(0, 0);
             this.azukiControl.ShowsHScrollBar = false;
             this.azukiControl.ShowsLineNumber = false;
-            this.azukiControl.Size = new System.Drawing.Size(578, 144);
+            this.azukiControl.Size = new System.Drawing.Size(778, 144);
             this.azukiControl.TabIndex = 1;
             this.azukiControl.ViewWidth = 4101;
             // 
             // dataGridView
             // 
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView.AutoGenerateColumns = false;
             this.dataGridView.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.isCompletedDataGridViewCheckBoxColumn,
+            this.contentDataGridViewTextBoxColumn,
+            this.additionDateDataGridViewTextBoxColumn,
+            this.completedDateDataGridViewTextBoxColumn,
+            this.deadLineDataGridViewTextBoxColumn});
+            this.dataGridView.DataSource = this.todoBindingSource;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("MeiryoKe_Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -151,7 +170,6 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.EnableHeadersVisualStyles = false;
             this.dataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView.Location = new System.Drawing.Point(3, 153);
@@ -166,9 +184,54 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView.RowHeadersVisible = false;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
+            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.RowTemplate.Height = 40;
-            this.dataGridView.Size = new System.Drawing.Size(578, 380);
+            this.dataGridView.Size = new System.Drawing.Size(778, 380);
             this.dataGridView.TabIndex = 2;
+            // 
+            // todoBindingSource
+            // 
+            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
+            // 
+            // isCompletedDataGridViewCheckBoxColumn
+            // 
+            this.isCompletedDataGridViewCheckBoxColumn.DataPropertyName = "isCompleted";
+            this.isCompletedDataGridViewCheckBoxColumn.FillWeight = 23.16602F;
+            this.isCompletedDataGridViewCheckBoxColumn.HeaderText = "";
+            this.isCompletedDataGridViewCheckBoxColumn.Name = "isCompletedDataGridViewCheckBoxColumn";
+            this.isCompletedDataGridViewCheckBoxColumn.Width = 30;
+            // 
+            // contentDataGridViewTextBoxColumn
+            // 
+            this.contentDataGridViewTextBoxColumn.DataPropertyName = "content";
+            this.contentDataGridViewTextBoxColumn.FillWeight = 298.1037F;
+            this.contentDataGridViewTextBoxColumn.HeaderText = "content";
+            this.contentDataGridViewTextBoxColumn.Name = "contentDataGridViewTextBoxColumn";
+            this.contentDataGridViewTextBoxColumn.Width = 400;
+            // 
+            // additionDateDataGridViewTextBoxColumn
+            // 
+            this.additionDateDataGridViewTextBoxColumn.DataPropertyName = "additionDate";
+            this.additionDateDataGridViewTextBoxColumn.FillWeight = 135.6236F;
+            this.additionDateDataGridViewTextBoxColumn.HeaderText = "additionDate";
+            this.additionDateDataGridViewTextBoxColumn.Name = "additionDateDataGridViewTextBoxColumn";
+            this.additionDateDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // completedDateDataGridViewTextBoxColumn
+            // 
+            this.completedDateDataGridViewTextBoxColumn.DataPropertyName = "completedDate";
+            this.completedDateDataGridViewTextBoxColumn.FillWeight = 143.1066F;
+            this.completedDateDataGridViewTextBoxColumn.HeaderText = "completedDate";
+            this.completedDateDataGridViewTextBoxColumn.Name = "completedDateDataGridViewTextBoxColumn";
+            this.completedDateDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // deadLineDataGridViewTextBoxColumn
+            // 
+            this.deadLineDataGridViewTextBoxColumn.DataPropertyName = "deadLine";
+            this.deadLineDataGridViewTextBoxColumn.HeaderText = "deadLine";
+            this.deadLineDataGridViewTextBoxColumn.Name = "deadLineDataGridViewTextBoxColumn";
+            this.deadLineDataGridViewTextBoxColumn.Visible = false;
             // 
             // Form1
             // 
@@ -186,6 +249,7 @@
             this.menuStrip.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.todoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -202,6 +266,12 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private Sgry.Azuki.WinForms.AzukiControl azukiControl;
         private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.BindingSource todoBindingSource;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isCompletedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contentDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn additionDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn completedDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn deadLineDataGridViewTextBoxColumn;
     }
 }
 
