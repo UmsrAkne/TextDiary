@@ -16,6 +16,10 @@ namespace TextDiary {
             this.content = content;
         }
 
+        public bool isCompleted {
+            get; set;
+        }
+
         public String content {
             get; set;
         }
@@ -24,15 +28,11 @@ namespace TextDiary {
             get; set;
         }
 
-        public DateTime deadLine {
-            get; set;
-        }
-
-        public bool isCompleted {
-            get; set;
-        }
-
         public DateTime completedDate {
+            get; set;
+        }
+
+        public DateTime deadLine {
             get; set;
         }
 
@@ -44,7 +44,6 @@ namespace TextDiary {
             }
 
             if (DateTime.Equals(todoA.additionDate, todoB.additionDate) == false) {
-
                 return false;
             }
 
