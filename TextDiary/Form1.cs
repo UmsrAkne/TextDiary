@@ -74,19 +74,28 @@ namespace TextDiary {
 
         private void dataGridView_cellValueChanged(object sender, DataGridViewCellEventArgs e) {
 
-            string currentColumnName = dataGridView.Columns[e.ColumnIndex].Name;
-
+            string currentColumnName = dataGridView.Columns[e.ColumnIndex].DataPropertyName;
             if (currentColumnName == "isCompleted") {
+
+                //０でなく-1を指定するのは、次のループ内で要素が見つからなかったらエラーを吐くようにするため
+                int completedDateColumnIndex = -1; 
+
+                for(int i = 0; i < dataGridView.Columns.Count; i++) {
+                    if(dataGridView.Columns[i].DataPropertyName == "completedDate") {
+                        completedDateColumnIndex = i;
+                        break;
+                    }
+                }
+
                 if ((Boolean)dataGridView[e.ColumnIndex , e.RowIndex].Value) {
 
                     DateTime nowDateTime = DateTime.Now;
-                    dataGridView["CompletedDate", e.RowIndex].Value = nowDateTime;
+                    dataGridView[completedDateColumnIndex, e.RowIndex].Value = nowDateTime;
                     todoList[e.RowIndex].completedDate = nowDateTime;
                 }
                 else {
-                    dataGridView["CompletedDate", e.RowIndex].Value = DateTime.MinValue;
+                    dataGridView[completedDateColumnIndex, e.RowIndex].Value = DateTime.MinValue;
                     todoList[e.RowIndex].completedDate = DateTime.MinValue;
-
                 }
             }
 
