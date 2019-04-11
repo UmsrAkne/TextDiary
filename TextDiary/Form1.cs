@@ -13,6 +13,8 @@ namespace TextDiary {
         TextFileMaker todoFileMaker;
         TextFileReader todoFileReader;
 
+        TodoFileWatcher todoFileWatcher;
+
         String latestText = "";
         Boolean isLogReading = false;
 
@@ -77,6 +79,9 @@ namespace TextDiary {
 
             todoFileMaker = new TextFileMaker( settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
             todoFileReader = new TextFileReader(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
+            todoFileWatcher = new TodoFileWatcher(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME);
+            todoFileWatcher.todoFileChanged += loadTodoList;
+            todoFileWatcher.startWatch();
 
             loadTodoList();
             displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
