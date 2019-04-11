@@ -53,15 +53,18 @@ namespace TextDiary {
         }
 
         private void dataGridView_currentCellDirtStateChanged(object sender, EventArgs e) {
-            if(dataGridView.CurrentCellAddress.X == 0 && dataGridView.IsCurrentCellDirty) {
+            string currentColumnDataPropertyName = dataGridView.Columns[dataGridView.CurrentCellAddress.X].DataPropertyName;
+
+            if((currentColumnDataPropertyName == "isCompleted")&&(dataGridView.IsCurrentCellDirty)) {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
         }
 
         private void dataGridView_cellValueChanged(object sender, DataGridViewCellEventArgs e) {
-            if(e.ColumnIndex == 0) {
-                if((Boolean)dataGridView[e.ColumnIndex , e.RowIndex].Value) {
-                    this.dataGridView["CompletedDate", e.RowIndex].Value = DateTime.Now.ToString("MM/dd hh:mm");
+
+            string currentColumnName = dataGridView.Columns[e.ColumnIndex].Name;
+
+            if (currentColumnName == "isCompleted") {
                 }
                 else {
                     this.dataGridView["CompletedDate", e.RowIndex].Value = "";
