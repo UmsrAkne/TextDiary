@@ -65,11 +65,20 @@ namespace TextDiary {
             string currentColumnName = dataGridView.Columns[e.ColumnIndex].Name;
 
             if (currentColumnName == "isCompleted") {
+                if ((Boolean)dataGridView[e.ColumnIndex , e.RowIndex].Value) {
+
+                    DateTime nowDateTime = DateTime.Now;
+                    dataGridView["CompletedDate", e.RowIndex].Value = nowDateTime;
+                    todoList[e.RowIndex].completedDate = nowDateTime;
                 }
                 else {
-                    this.dataGridView["CompletedDate", e.RowIndex].Value = "";
+                    dataGridView["CompletedDate", e.RowIndex].Value = DateTime.MinValue;
+                    todoList[e.RowIndex].completedDate = DateTime.MinValue;
+
                 }
             }
+
+            textFileMaker.createTodoXmlFile(todoList[e.RowIndex]);
         }
 
         private void Form1_Load(object sender, EventArgs e) {
