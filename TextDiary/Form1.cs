@@ -129,7 +129,6 @@ namespace TextDiary {
             if (textFilePosted) {
                 azukiControl.Text = "";
                 e.Handled = true;
-                loadTodoList();
             }
         }
 
