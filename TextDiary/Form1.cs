@@ -39,6 +39,7 @@ namespace TextDiary {
 
             dataGridView.CellValueChanged += dataGridView_cellValueChanged;
             dataGridView.CurrentCellDirtyStateChanged += dataGridView_currentCellDirtStateChanged;
+            dataGridView.CellFormatting += convertDateTimeFormat;
 
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
@@ -50,6 +51,17 @@ namespace TextDiary {
             //わずかでも遅延して処理を行えれば問題ないので、間隔はごくごく短く設定する
             delayProcessTimer.Interval = 40;
             delayProcessTimer.Tick += delayProcess;
+        }
+
+        private void convertDateTimeFormat(object sender, DataGridViewCellFormattingEventArgs e) {
+            if (e.Value is DateTime) {
+                DateTime dateTime = (DateTime)e.Value;
+                if (dateTime == DateTime.MinValue) {
+                    e.Value = "";
+                    return;
+                }
+                e.Value = dateTime.ToString("MM/dd HH:mm");
+            }
         }
 
         private void dataGridView_currentCellDirtStateChanged(object sender, EventArgs e) {
