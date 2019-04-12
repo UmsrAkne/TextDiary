@@ -191,13 +191,18 @@
             this.dataGridView.Size = new System.Drawing.Size(778, 380);
             this.dataGridView.TabIndex = 2;
             // 
+            // todoBindingSource
+            // 
+            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
+            // 
             // isCompletedDataGridViewCheckBoxColumn
             // 
             this.isCompletedDataGridViewCheckBoxColumn.DataPropertyName = "isCompleted";
             this.isCompletedDataGridViewCheckBoxColumn.FillWeight = 23.16602F;
             this.isCompletedDataGridViewCheckBoxColumn.HeaderText = "";
             this.isCompletedDataGridViewCheckBoxColumn.Name = "isCompletedDataGridViewCheckBoxColumn";
-            this.isCompletedDataGridViewCheckBoxColumn.Width = 30;
+            this.isCompletedDataGridViewCheckBoxColumn.ReadOnly = true;
+            this.isCompletedDataGridViewCheckBoxColumn.Width = 40;
             // 
             // contentDataGridViewTextBoxColumn
             // 
@@ -229,10 +234,6 @@
             this.deadLineDataGridViewTextBoxColumn.HeaderText = "deadLine";
             this.deadLineDataGridViewTextBoxColumn.Name = "deadLineDataGridViewTextBoxColumn";
             this.deadLineDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // todoBindingSource
-            // 
-            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
             // 
             // Form1
             // 

@@ -45,6 +45,7 @@ namespace TextDiary {
             dataGridView.SelectionChanged += (sender, e) => coloringCurrentRow(System.Drawing.Color.LightSkyBlue);
             dataGridView.CellLeave += (sender, e) => coloringCurrentRow(System.Drawing.Color.White);
 
+            dataGridView.CellPainting += drawCheckBoxInCell;
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
@@ -55,6 +56,28 @@ namespace TextDiary {
             //わずかでも遅延して処理を行えれば問題ないので、間隔はごくごく短く設定する
             delayProcessTimer.Interval = 40;
             delayProcessTimer.Tick += delayProcess;
+        }
+
+        private void drawCheckBoxInCell(object sender, DataGridViewCellPaintingEventArgs e) {
+
+            dataGridView.ImeMode = ImeMode.Disable;
+
+            if ((e.ColumnIndex != 0) || (e.RowIndex < 0)) return;
+
+            DataGridViewCell currentCell = dataGridView[e.ColumnIndex, e.RowIndex];
+            e.PaintBackground(e.ClipBounds, true);
+
+            if (currentCell.Value is bool) {
+
+                if ((bool)currentCell.Value) {
+                    e.Graphics.DrawImage(Properties.Resources.checkBoxImage, e.CellBounds);
+                }
+                else {
+                    e.Graphics.DrawImage(Properties.Resources.unCheckBoxImage, e.CellBounds);
+                }
+            }
+
+            e.Handled = true; //処理を既に行ったのでもう処理しなくていいよって通知。
         }
 
         private void coloringCurrentRow( System.Drawing.Color color ) {
