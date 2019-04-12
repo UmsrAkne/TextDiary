@@ -46,6 +46,7 @@ namespace TextDiary {
             dataGridView.CellLeave += (sender, e) => coloringCurrentRow(System.Drawing.Color.White);
 
             dataGridView.CellPainting += drawCheckBoxInCell;
+            dataGridView.CellClick += toggleCheckBoxImage;
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
@@ -56,6 +57,15 @@ namespace TextDiary {
             //わずかでも遅延して処理を行えれば問題ないので、間隔はごくごく短く設定する
             delayProcessTimer.Interval = 40;
             delayProcessTimer.Tick += delayProcess;
+        }
+
+        private void toggleCheckBoxImage(object sender, DataGridViewCellEventArgs e) {
+            if ((e.ColumnIndex == 0)&&(e.RowIndex >= 0)) {
+                DataGridViewCell currentCell = dataGridView[e.ColumnIndex, e.RowIndex];
+                if (currentCell.Value is bool) {
+                    currentCell.Value = !(bool)currentCell.Value;
+                }
+            }
         }
 
         private void drawCheckBoxInCell(object sender, DataGridViewCellPaintingEventArgs e) {
