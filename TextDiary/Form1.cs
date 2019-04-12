@@ -47,6 +47,12 @@ namespace TextDiary {
 
             dataGridView.CellPainting += drawCheckBoxInCell;
             dataGridView.CellClick += toggleCheckBoxImage;
+
+            dataGridView.CellBeginEdit += (sender , e) => {
+                if (dataGridView[e.ColumnIndex, e.RowIndex].Value is string)
+                    dataGridView.ImeMode = ImeMode.NoControl;
+            };
+
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
