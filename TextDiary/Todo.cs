@@ -38,6 +38,8 @@ namespace TextDiary {
 
         public String linkedXmlFilePath = "";
 
+        public Guid guid { get; set; } = Guid.NewGuid();
+
         public static bool isEqual(Todo todoA, Todo todoB) {
             if (String.Equals(todoA.content, todoB.content) == false) {
                 return false;
@@ -56,6 +58,10 @@ namespace TextDiary {
             }
 
             if (DateTime.Equals(todoA.completedDate, todoB.completedDate) == false) {
+                return false;
+            }
+
+            if ((todoA.guid.Equals(todoB.guid)) == false){
                 return false;
             }
 

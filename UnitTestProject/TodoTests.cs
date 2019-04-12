@@ -12,26 +12,11 @@ namespace TextDiary.Tests {
         [TestMethod()]
         public void isEqualTest() {
 
-            Todo todoA = new Todo("test");
-            Todo todoB = new Todo("test");
+            Todo todoA = new Todo();
+            Assert.IsTrue(Todo.isEqual(todoA, todoA));
 
-            Assert.IsTrue(Todo.isEqual(todoA, todoB));
-
-            todoA.content = "test2";
-
+            Todo todoB = new Todo();
             Assert.IsFalse(Todo.isEqual(todoA, todoB));
-
-            todoB.content = "test2";
-
-            Assert.IsTrue(Todo.isEqual(todoA, todoB));
-
-            DateTime completedDate = DateTime.Now;
-
-            todoA.completedDate = completedDate;
-            todoB.completedDate = completedDate;
-
-            Assert.IsTrue(Todo.isEqual(todoA, todoB));
-
         }
     }
 }
