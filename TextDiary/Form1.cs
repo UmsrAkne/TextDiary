@@ -149,7 +149,15 @@ namespace TextDiary {
                 }
             }
 
-            textFileMaker.createTodoXmlFile(todoList[e.RowIndex]);
+            //同一のGUIDを持ったTodo(XML)ファイルを検索する。
+            string existedTodoXmlFilePath = todoFileReader.findExistedTodoXmlFile(todoList[e.RowIndex]);
+            if (existedTodoXmlFilePath != "") {
+                textFileMaker.createTodoXmlFile(todoList[e.RowIndex]);
+            }
+            else {
+                MessageBox.Show(
+                    "Todoの内容を上書き保存しようしましたが、既存のファイルが存在しないか、GUIDが書き換わった可能性があります。");
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e) {
