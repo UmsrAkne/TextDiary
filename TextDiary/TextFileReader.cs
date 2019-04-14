@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace TextDiary {
     public class TextFileReader {
@@ -59,6 +60,28 @@ namespace TextDiary {
             DateTime todoAdditionDate = (DateTime)row.Cells[1].Value;
             path += "\\" + todoAdditionDate.ToString(TextFileMaker.TEXT_FILE_NAME_FORMAT) + ".txt";
             return path;
+        }
+
+        public string findExistedTodoXmlFile( Todo existedTodo ) {
+            string existedFilePath = "";
+
+            XmlSerializer serializer = new XmlSerializer(typeof(Todo));
+            string[] existedXmlFiles = Directory.GetFiles(currentDirectoryPath , "*.xml");
+
+
+            foreach( string filePath in existedXmlFiles) {
+
+                StreamReader sr = new StreamReader(filePath);
+                Todo deserializedTodo = (Todo)serializer.Deserialize(sr);
+                sr.Close();
+
+                if (deserializedTodo.guid.Equals(existedTodo.guid)) {
+                    existedFilePath = filePath;
+                    break;
+                }
+            }
+
+            return existedFilePath;
         }
 
     }
