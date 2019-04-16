@@ -220,6 +220,26 @@ namespace TextDiary {
             }
         }
 
+        /// <summary>
+        /// 終了済みにチェックされているTodoを表から削除し、テキストデータに記録します。
+        /// </summary>
+        private void clearFinishedTodo() {
+            System.ComponentModel.BindingList<Todo> newTodoList = new System.ComponentModel.BindingList<Todo>();
+            List<Todo> finishedTodos = new List<Todo>();
+
+            foreach(Todo selectedTodo in todoList) {
+                if (selectedTodo.isCompleted) {
+
+                    string linkedXmlFilePath = todoFileReader.findExistedTodoXmlFile(selectedTodo);
+                    finishedTodos.Add(selectedTodo);
+                    System.IO.File.Delete(linkedXmlFilePath);
+                }
+            }
+
+            textFileMaker.createTextFile(finishedTodos.ToArray());
+            loadTodoList();
+        }
+
         private void loadTodoList() {
             todoList.Clear();
             foreach (Todo todo in todoFileReader.loadTodosFromXml()) {
