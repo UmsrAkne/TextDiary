@@ -32,6 +32,17 @@ namespace TextDiary {
 
             string writingText = "Completed task." + "\r\n\r\n";
             writingText += todo.content;
+        public void createTextFile(Todo[] todos) {
+            string fileName = getDateString();
+            string writingText = "Completed taks" + "\r\n";
+
+            foreach(Todo todo in todos) {
+                writingText += "追加日時 : " + todo.additionDate.ToString() + "\r\n";
+                writingText += todo.content + "\r\n";
+                writingText += "終了日時 : " + todo.completedDate.ToString() + "\r\n" + "\r\n";
+            }
+
+            File.WriteAllText(currentDirectoryPath + "\\" + fileName, writingText);
         }
 
         public void createTodoXmlFile( Todo todo) {
