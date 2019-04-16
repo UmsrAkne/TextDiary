@@ -97,9 +97,11 @@ namespace TextDiary {
         }
 
         private void coloringCurrentRow( System.Drawing.Color color ) {
-            DataGridViewCellCollection currentRowCells = dataGridView.Rows[dataGridView.CurrentCellAddress.Y].Cells;
-            foreach(DataGridViewCell cell in currentRowCells) {
-                cell.Style.BackColor = color;
+            if (dataGridView.CurrentCellAddress.Y >= 0) {
+                DataGridViewCellCollection currentRowCells = dataGridView.Rows[dataGridView.CurrentCellAddress.Y].Cells;
+                foreach (DataGridViewCell cell in currentRowCells) {
+                    cell.Style.BackColor = color;
+                }
             }
         }
 
