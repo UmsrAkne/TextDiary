@@ -18,5 +18,17 @@ namespace TextDiary.Tests {
             Todo todoB = new Todo();
             Assert.IsFalse(Todo.isEqual(todoA, todoB));
         }
+
+        [TestMethod()]
+        public void ToStringTest() {
+            Todo todoA = new Todo("Todoの内容です");
+            Console.WriteLine(todoA.ToString());
+
+            todoA.isCompleted = true;
+            todoA.deadLine = DateTime.Today;
+            todoA.completedDate = DateTime.Now;
+
+            Console.WriteLine(todoA.ToString());
+        }
     }
 }

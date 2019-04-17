@@ -40,6 +40,29 @@ namespace TextDiary {
 
         public Guid guid { get; set; } = Guid.NewGuid();
 
+        public override string ToString() {
+            string newLine = Environment.NewLine;
+
+            string text = "";
+
+            if (isCompleted) text += "完了済のタスク" + newLine;
+            else text += "未完了のタスク" + newLine;
+
+            text += "追加日時 : " + additionDate.ToString() + newLine + newLine;
+
+            text += content + newLine + newLine;
+
+            if(completedDate == DateTime.MinValue) text += "終了日時 : " + "未完了" + newLine;
+            else text += "終了日時 : " + completedDate.ToString() + newLine;
+
+            if(deadLine == DateTime.MinValue) text += "締切日時 : " + "未設定" + newLine;
+            else text += "締切日時 : " + deadLine + newLine;
+
+            text += "ユニークID : " + guid.ToString() + newLine + newLine;
+
+            return text;
+        }
+
         public static bool isEqual(Todo todoA, Todo todoB) {
             if (String.Equals(todoA.content, todoB.content) == false) {
                 return false;
