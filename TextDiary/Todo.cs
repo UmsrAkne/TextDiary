@@ -58,7 +58,7 @@ namespace TextDiary {
             if(deadLine == DateTime.MinValue) text += "締切日時 : " + "未設定" + newLine;
             else text += "締切日時 : " + deadLine + newLine;
 
-            text += "ユニークID : " + guid.ToString() + newLine + newLine;
+            text += "ユニークID : " + guid.ToString() + newLine + newLine + newLine;
 
             return text;
         }
