@@ -10,6 +10,8 @@ namespace TextDiary {
         private String currentDirectoryPath = "";
         public String separateCharacter = "-";
 
+        private string newLine = Environment.NewLine;
+
         public const string TEXT_FILE_NAME_FORMAT = "yyyyMMdd_HHmmss";
 
         public TextFileMaker( String setCurrentDirectoryPath ) {
@@ -23,26 +25,26 @@ namespace TextDiary {
             String fileName = getDateString() + ".txt";
             Console.WriteLine(fileName);
 
-            writingText = separateLine + "\r" + writingText;
+            writingText = separateLine + newLine + writingText;
             File.WriteAllText( currentDirectoryPath + "\\" + fileName , writingText );
         }
 
         public void createTextFile( Todo todo) {
             String fileName = getDateString() + ".txt";
 
-            string writingText = "Completed task." + "\r\n\r\n";
+            string writingText = "Completed task." + newLine + newLine;
             writingText += todo.content;
             File.WriteAllText(currentDirectoryPath + "\\" + fileName, writingText);
         }
 
         public void createTextFile(Todo[] todos) {
             string fileName = getDateString();
-            string writingText = "Completed taks" + "\r\n";
+            string writingText = "Completed taks" + newLine;
 
             foreach(Todo todo in todos) {
-                writingText += "追加日時 : " + todo.additionDate.ToString() + "\r\n";
-                writingText += todo.content + "\r\n";
-                writingText += "終了日時 : " + todo.completedDate.ToString() + "\r\n" + "\r\n";
+                writingText += "追加日時 : " + todo.additionDate.ToString() + newLine;
+                writingText += todo.content + newLine;
+                writingText += "終了日時 : " + todo.completedDate.ToString() + newLine + newLine;
             }
 
             File.WriteAllText(currentDirectoryPath + "\\" + fileName, writingText);
