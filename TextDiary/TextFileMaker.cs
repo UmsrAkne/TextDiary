@@ -32,6 +32,9 @@ namespace TextDiary {
 
             string writingText = "Completed task." + "\r\n\r\n";
             writingText += todo.content;
+            File.WriteAllText(currentDirectoryPath + "\\" + fileName, writingText);
+        }
+
         public void createTextFile(Todo[] todos) {
             string fileName = getDateString();
             string writingText = "Completed taks" + "\r\n";
