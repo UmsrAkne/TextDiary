@@ -63,6 +63,9 @@ namespace TextDiary {
             //わずかでも遅延して処理を行えれば問題ないので、間隔はごくごく短く設定する
             delayProcessTimer.Interval = 40;
             delayProcessTimer.Tick += delayProcess;
+
+            var drl = (System.Diagnostics.DefaultTraceListener)System.Diagnostics.Trace.Listeners["Default"];
+            drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
         }
 
         private void toggleCheckBoxImage(object sender, DataGridViewCellEventArgs e) {
