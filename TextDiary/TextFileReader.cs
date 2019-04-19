@@ -41,19 +41,31 @@ namespace TextDiary {
 
         public Todo[] loadTodosFromXml() {
             string[] files = Directory.GetFiles(currentDirectoryPath ,"*.xml" ,SearchOption.TopDirectoryOnly) ;
-            Todo[] todos = new Todo[ files.Count() ];
+            List<Todo> todos = new List<Todo>();
 
             for (int i = 0; i < files.Count(); i++) {
 
                 string fileName = files[i];
-                System.Xml.Serialization.XmlSerializer serializer =  new System.Xml.Serialization.XmlSerializer(typeof(Todo));
-                StreamReader sr = new StreamReader(fileName, new System.Text.UTF8Encoding(false));
-                todos[i] = (Todo)serializer.Deserialize(sr);
-                sr.Close();
+                StreamReader sr = null;
+
+                try {
+                    sr = new StreamReader(fileName, new System.Text.UTF8Encoding(false));
+                }
+                catch (IOException ignore) {
+                    //ファイルリードの際、ロック中でファイルオープン不可等の理由で例外が発生する可能性がある。
+                    //ファイルの読込をしなければ問題なくプログラムを続行できるため、あえてこの例外を無視する。
+                }
+
+                if(sr != null) {
+                    XmlSerializer serializer = new XmlSerializer(typeof(Todo));
+                    todos.Add((Todo)serializer.Deserialize(sr));
+                    sr.Close();
+                }
             }
 
-            return todos;
+            return todos.ToArray();
         }
+
 
         public string getTodoTextFilePathFrom( System.Windows.Forms.DataGridViewRow row) {
             string path = this.currentDirectoryPath;
