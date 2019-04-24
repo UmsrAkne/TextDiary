@@ -16,6 +16,10 @@ namespace TextDiary {
             this.content = content;
         }
 
+        public int Order {
+            get; set;
+        }
+
         public bool isCompleted {
             get; set;
         }

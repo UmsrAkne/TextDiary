@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TextDiary {
     public partial class Form1 : Form {
@@ -214,6 +215,7 @@ namespace TextDiary {
             if (e.Control == true && e.KeyCode == Keys.T && !isLogReading) {
                 Todo todo = new Todo( azukiControl.Text );
                 todo.deadLine = DateTime.Today;
+                todo.Order = this.todoList.Count + 1;
                 todoFileMaker.createTodoXmlFile(todo);
                 this.todoList.Add(todo);
                 textFilePosted = true;
@@ -247,9 +249,24 @@ namespace TextDiary {
 
         private void loadTodoList() {
             todoList.Clear();
+
+            int index = 0;
             foreach (Todo todo in todoFileReader.loadTodosFromXml()) {
+                if(todo.Order == 0) {
+                    todo.Order = index;
+                    index++;
+                }
                 todoList.Add(todo);
             }
+
+            index = 0;
+            todoList.OrderBy(td => td.Order);
+
+            foreach(Todo todo in todoList) {
+                todo.Order = index;
+                index++;
+            }
+            
         }
 
         private void synchronizeBackGroundWindowLocationWithThisWindow(object sender , EventArgs e){
