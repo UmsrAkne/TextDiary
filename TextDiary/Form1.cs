@@ -271,5 +271,20 @@ namespace TextDiary {
             this.Activated += setWindowsOnTopMost;
             delayProcessTimer.Stop();
         }
+
+        //すべてのTodoをテキストファイルに出力する
+        private void exportTheCurrentStateToTextFileToolStripMenuItem_Click(object sender, EventArgs e) {
+            List<Todo> allTodo = new List<Todo>();
+
+            foreach (Todo selectedTodo in todoList) {
+                allTodo.Add(selectedTodo);
+            }
+
+            textFileMaker.createTextFile(allTodo.ToArray());
+        }
+
+        private void exportTheFinishedTodosAndItDleteToolStripMenuItem_Click(object sender, EventArgs e) {
+            clearFinishedTodo();
+        }
     }
 }

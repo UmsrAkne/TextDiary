@@ -24,10 +24,10 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            Sgry.Azuki.FontInfo fontInfo1 = new Sgry.Azuki.FontInfo();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            Sgry.Azuki.FontInfo fontInfo3 = new Sgry.Azuki.FontInfo();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openBgPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +44,9 @@
             this.completedDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deadLineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportTheCurrentStateToTextFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportTheFinishedTodosAndItDleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -54,7 +57,8 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.visibleToolStripMenuItem});
+            this.visibleToolStripMenuItem,
+            this.exportToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(784, 26);
@@ -130,10 +134,10 @@
             | Sgry.Azuki.DrawingOption.HighlightsMatchedBracket)));
             this.azukiControl.FirstVisibleLine = 0;
             this.azukiControl.Font = new System.Drawing.Font("MeiryoKe_UIGothic", 12F);
-            fontInfo1.Name = "MeiryoKe_UIGothic";
-            fontInfo1.Size = 12;
-            fontInfo1.Style = System.Drawing.FontStyle.Regular;
-            this.azukiControl.FontInfo = fontInfo1;
+            fontInfo3.Name = "MeiryoKe_UIGothic";
+            fontInfo3.Size = 12;
+            fontInfo3.Style = System.Drawing.FontStyle.Regular;
+            this.azukiControl.FontInfo = fontInfo3;
             this.azukiControl.ForeColor = System.Drawing.Color.Black;
             this.azukiControl.HighlightsCurrentLine = false;
             this.azukiControl.LinePadding = 3;
@@ -163,37 +167,33 @@
             this.completedDateDataGridViewTextBoxColumn,
             this.deadLineDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.todoBindingSource;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("MeiryoKe_Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.MenuText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("MeiryoKe_Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.MenuText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView.EnableHeadersVisualStyles = false;
             this.dataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView.Location = new System.Drawing.Point(3, 153);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DeepSkyBlue;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.DeepSkyBlue;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView.RowHeadersVisible = false;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
-            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
+            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView.RowTemplate.Height = 40;
             this.dataGridView.Size = new System.Drawing.Size(778, 380);
             this.dataGridView.TabIndex = 2;
-            // 
-            // todoBindingSource
-            // 
-            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
             // 
             // isCompletedDataGridViewCheckBoxColumn
             // 
@@ -235,6 +235,33 @@
             this.deadLineDataGridViewTextBoxColumn.Name = "deadLineDataGridViewTextBoxColumn";
             this.deadLineDataGridViewTextBoxColumn.Visible = false;
             // 
+            // todoBindingSource
+            // 
+            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportTheCurrentStateToTextFileToolStripMenuItem,
+            this.exportTheFinishedTodosAndItDleteToolStripMenuItem});
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(58, 22);
+            this.exportToolStripMenuItem.Text = "Export";
+            // 
+            // exportTheCurrentStateToTextFileToolStripMenuItem
+            // 
+            this.exportTheCurrentStateToTextFileToolStripMenuItem.Name = "exportTheCurrentStateToTextFileToolStripMenuItem";
+            this.exportTheCurrentStateToTextFileToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.exportTheCurrentStateToTextFileToolStripMenuItem.Text = "Export current Todos";
+            this.exportTheCurrentStateToTextFileToolStripMenuItem.Click += new System.EventHandler(this.exportTheCurrentStateToTextFileToolStripMenuItem_Click);
+            // 
+            // exportTheFinishedTodosAndItDleteToolStripMenuItem
+            // 
+            this.exportTheFinishedTodosAndItDleteToolStripMenuItem.Name = "exportTheFinishedTodosAndItDleteToolStripMenuItem";
+            this.exportTheFinishedTodosAndItDleteToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.exportTheFinishedTodosAndItDleteToolStripMenuItem.Text = "Export finished todos and it dlete";
+            this.exportTheFinishedTodosAndItDleteToolStripMenuItem.Click += new System.EventHandler(this.exportTheFinishedTodosAndItDleteToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -274,6 +301,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn additionDateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn completedDateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn deadLineDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportTheCurrentStateToTextFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportTheFinishedTodosAndItDleteToolStripMenuItem;
     }
 }
 
