@@ -254,7 +254,7 @@ namespace TextDiary {
             //Todo投稿用ボタン
             if (e.Control == true && e.KeyCode == Keys.T && !isLogReading) {
                 Todo todo = new Todo( azukiControl.Text );
-                todo.deadLine = DateTime.Today;
+                todo.deadLine = DateTime.Today.AddDays(1);
                 todo.Order = this.todoList.Count + 1;
                 todoFileMaker.createTodoXmlFile(todo);
                 this.todoList.Add(todo);
