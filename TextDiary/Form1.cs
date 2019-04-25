@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 
 namespace TextDiary {
     public partial class Form1 : Form {
@@ -31,6 +32,7 @@ namespace TextDiary {
         public Form1() {
             InitializeComponent();
             azukiControl.KeyDown += this.keyboardEventHandler;
+            dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
 
             dataGridView.AdvancedCellBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.None;
             dataGridView.AdvancedCellBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
@@ -67,6 +69,44 @@ namespace TextDiary {
 
             var drl = (System.Diagnostics.DefaultTraceListener)System.Diagnostics.Trace.Listeners["Default"];
             drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
+        }
+
+        private void dataGridViewKeyControlEventHandler(object sender, KeyEventArgs e) {
+
+            var changedOrder = false;
+
+            if (e.Control == true && e.KeyCode == Keys.Up) {
+                if (dataGridView.CurrentCell != null && dataGridView.CurrentCellAddress.Y > 0) {
+                    Todo tempTodo = todoList[dataGridView.CurrentCellAddress.Y];
+                    Point currentCellPoint = new Point(dataGridView.CurrentCellAddress.X, dataGridView.CurrentCellAddress.Y);
+                    todoList.RemoveAt(currentCellPoint.Y);
+                    todoList.Insert(currentCellPoint.Y -1 , tempTodo);
+                    dataGridView.CurrentCell = null; 
+                    dataGridView.CurrentCell = dataGridView[currentCellPoint.X, currentCellPoint.Y -1];
+                    changedOrder = true;
+                }
+            }
+
+            if (e.Control == true && e.KeyCode == Keys.Down) {
+                if (dataGridView.CurrentCell != null && dataGridView.CurrentCellAddress.Y < dataGridView.Rows.Count -1) {
+                    Todo tempTodo = todoList[dataGridView.CurrentCellAddress.Y];
+                    Point currentCellPoint = new Point(dataGridView.CurrentCellAddress.X, dataGridView.CurrentCellAddress.Y);
+                    todoList.RemoveAt(currentCellPoint.Y);
+                    todoList.Insert(currentCellPoint.Y + 1, tempTodo);
+                    dataGridView.CurrentCell = null;
+                    dataGridView.CurrentCell = dataGridView[currentCellPoint.X, currentCellPoint.Y + 1];
+                    changedOrder = true;
+                }
+            }
+
+            if (changedOrder) {
+                e.Handled = true;
+                coloringCurrentRow(System.Drawing.Color.LightSkyBlue);
+                for(var i = 0; i < todoList.Count; i++) {
+                    todoList[i].Order = i;
+                }
+            }
+
         }
 
         private void toggleCheckBoxImage(object sender, DataGridViewCellEventArgs e) {
