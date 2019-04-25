@@ -34,7 +34,7 @@ namespace TextDiary {
             string writingText = "タスクの状態が確定されました" + newLine + newLine;
 
             foreach(Todo todo in todos) {
-                writingText += separateLine + newLine;
+                writingText += separateLine + separateLine + newLine;
                 writingText += todo.ToString();
             }
 

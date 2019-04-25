@@ -46,23 +46,20 @@ namespace TextDiary {
 
         public override string ToString() {
             string newLine = Environment.NewLine;
+            string dateTimeFormat = "yyyy/MM/dd HH:mm:ss";
 
             string text = "";
 
-            if (isCompleted) text += "完了済のタスク" + newLine;
-            else text += "未完了のタスク" + newLine;
+            text += "追加日時 - 終了日時 : ";
+            text += additionDate.ToString(dateTimeFormat) + " - ";
 
-            text += "追加日時 : " + additionDate.ToString() + newLine + newLine;
+            if (completedDate == DateTime.MinValue) text += newLine + newLine;
+            else text += completedDate.ToString(dateTimeFormat) + newLine + newLine;
 
             text += content + newLine + newLine;
 
-            if(completedDate == DateTime.MinValue) text += "終了日時 : " + "未完了" + newLine;
-            else text += "終了日時 : " + completedDate.ToString() + newLine;
-
             if(deadLine == DateTime.MinValue) text += "締切日時 : " + "未設定" + newLine;
-            else text += "締切日時 : " + deadLine + newLine;
-
-            text += "ユニークID : " + guid.ToString() + newLine + newLine + newLine;
+            else text += "締切日時 : " + deadLine.ToString(dateTimeFormat) + newLine + newLine; ;
 
             return text;
         }
