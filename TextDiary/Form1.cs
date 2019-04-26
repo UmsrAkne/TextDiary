@@ -104,6 +104,9 @@ namespace TextDiary {
                 coloringCurrentRow(System.Drawing.Color.LightSkyBlue);
                 for(var i = 0; i < todoList.Count; i++) {
                     todoList[i].Order = i;
+                    if(todoFileReader.findExistedTodoXmlFile(todoList[i]) != "") {
+                        todoFileMaker.createTodoXmlFile(todoList[i]);
+                    }
                 }
             }
 
@@ -290,23 +293,29 @@ namespace TextDiary {
         private void loadTodoList() {
             todoList.Clear();
 
+            List<Todo> tempTodoList = new List<Todo>();
             int index = 0;
             foreach (Todo todo in todoFileReader.loadTodosFromXml()) {
                 if(todo.Order == 0) {
                     todo.Order = index;
                     index++;
                 }
-                todoList.Add(todo);
+                tempTodoList.Add(todo);
             }
 
             index = 0;
-            todoList.OrderBy(td => td.Order);
+            tempTodoList = tempTodoList.OrderBy(td => td.Order).ToList();
 
-            foreach(Todo todo in todoList) {
+            foreach(Todo todo in tempTodoList) {
                 todo.Order = index;
                 index++;
+
+                if (todoFileReader.findExistedTodoXmlFile(todo) != "") {
+                    todoFileMaker.createTodoXmlFile(todo);
+                }
+
+                todoList.Add(todo);
             }
-            
         }
 
         private void synchronizeBackGroundWindowLocationWithThisWindow(object sender , EventArgs e){
