@@ -15,6 +15,11 @@ namespace TextDiary {
     public class MainFormController {
 
         Form1 form;
+        private Form1 form;
+        public DataGridViewModel dataGridViewModel {
+            private get;
+            set;
+        }
 
         public MainFormController( Form1 form) {
             this.form = form;
