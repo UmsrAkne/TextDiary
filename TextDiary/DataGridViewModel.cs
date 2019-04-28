@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextDiary {
 
-    public delegate void ListStateChanged();
+    public delegate void StatusChanged();
 
     class DataGridViewModel {
         public event ListStateChanged listStateChanged;
