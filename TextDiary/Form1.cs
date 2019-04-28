@@ -21,6 +21,7 @@ namespace TextDiary {
         TodoFileWatcher todoFileWatcher;
 
         private MainFormController mainFormController;
+        private DataGridViewModel dataGridViewModel = new DataGridViewModel();
         public event DataGridViewKeyboardEventHandler dataGridViewKeyboardEventHandler;
 
         String latestText = "";
@@ -37,7 +38,12 @@ namespace TextDiary {
 
         public Form1() {
             InitializeComponent();
+
+            //コントローラーには自身の参照を渡す。
             mainFormController = new MainFormController(this);
+
+            //Formが持っているモデルに対しては状態変化を監視するためにイベントハンドラをセット。
+            dataGridViewModel.statusChanged += updateDataGridView;
 
             //コントローラーにはFormが持っているモデルの参照を渡す
             //取得の必要は無いので、setアクセサのみを公開している。
@@ -83,46 +89,32 @@ namespace TextDiary {
             drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
         }
 
+        //DataGridViewModelで更新があってイベントが発行されたときに実行する。
+        private void updateDataGridView() {
+            todoList.Clear();
+            FormViewModel fvm = dataGridViewModel.FormVM;
+            foreach(Todo todo  in fvm.todoList) {
+                todoList.Add(todo);
+            }
+
+            dataGridView.CurrentCell = null;
+            dataGridView.CurrentCell =
+                dataGridView[fvm.currentCellAdoress.X, fvm.currentCellAdoress.Y];
+
+
+            System.Console.WriteLine("dgvをアップデートします");
+        }
+
         private void dataGridViewKeyControlEventHandler(object sender, KeyEventArgs e) {
 
-            dataGridViewKeyboardEventHandler(sender , e);
-            var changedOrder = false;
+            //必要な情報のみをビューモデルにセットする。
+            FormViewModel fvm = new FormViewModel();
+            fvm.inputedText = azukiControl.Text;
+            fvm.currentCellAdoress = dataGridView.CurrentCellAddress;
+            fvm.todoList = new List<Todo>(todoList);
 
-            if (e.Control == true && e.KeyCode == Keys.Up) {
-                if (dataGridView.CurrentCell != null && dataGridView.CurrentCellAddress.Y > 0) {
-                    Todo tempTodo = todoList[dataGridView.CurrentCellAddress.Y];
-                    Point currentCellPoint = new Point(dataGridView.CurrentCellAddress.X, dataGridView.CurrentCellAddress.Y);
-                    todoList.RemoveAt(currentCellPoint.Y);
-                    todoList.Insert(currentCellPoint.Y -1 , tempTodo);
-                    dataGridView.CurrentCell = null; 
-                    dataGridView.CurrentCell = dataGridView[currentCellPoint.X, currentCellPoint.Y -1];
-                    changedOrder = true;
-                }
-            }
-
-            if (e.Control == true && e.KeyCode == Keys.Down) {
-                if (dataGridView.CurrentCell != null && dataGridView.CurrentCellAddress.Y < dataGridView.Rows.Count -1) {
-                    Todo tempTodo = todoList[dataGridView.CurrentCellAddress.Y];
-                    Point currentCellPoint = new Point(dataGridView.CurrentCellAddress.X, dataGridView.CurrentCellAddress.Y);
-                    todoList.RemoveAt(currentCellPoint.Y);
-                    todoList.Insert(currentCellPoint.Y + 1, tempTodo);
-                    dataGridView.CurrentCell = null;
-                    dataGridView.CurrentCell = dataGridView[currentCellPoint.X, currentCellPoint.Y + 1];
-                    changedOrder = true;
-                }
-            }
-
-            if (changedOrder) {
-                e.Handled = true;
-                coloringCurrentRow(System.Drawing.Color.LightSkyBlue);
-                for(var i = 0; i < todoList.Count; i++) {
-                    todoList[i].Order = i;
-                    if(todoFileReader.findExistedTodoXmlFile(todoList[i]) != "") {
-                        todoFileMaker.createTodoXmlFile(todoList[i]);
-                    }
-                }
-            }
-
+            //イベントを送信
+            dataGridViewKeyboardEventHandler(fvm, e);
         }
 
         private void toggleCheckBoxImage(object sender, DataGridViewCellEventArgs e) {
