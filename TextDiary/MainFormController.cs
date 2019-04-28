@@ -23,6 +23,7 @@ namespace TextDiary {
         public MainFormController( Form1 form) {
             this.form = form;
             form.dataGridViewKeyboardEventHandler += dgvKeyboardEventHandler;
+            form.exportTheFinishedTodosMenuClick += exportTheFinishedTodos_MenuClickEventHandler;
         }
 
         private void dgvKeyboardEventHandler(FormViewModel fvm , KeyEventArgs e) {
@@ -37,6 +38,11 @@ namespace TextDiary {
                 e.Handled = true;
             }
 
+        }
+
+        private void exportTheFinishedTodos_MenuClickEventHandler(FormViewModel fvm) {
+            dataGridViewModel.exportFinishedTodo(fvm);
+            dataGridViewModel.deleteFinishedTodo(fvm);
         }
     }
 }

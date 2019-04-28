@@ -34,10 +34,9 @@ namespace TextDiary {
                 fvm.todoList.RemoveAt(fvm.currentCellAdoress.Y);
                 fvm.todoList.Insert(fvm.currentCellAdoress.Y + 1, tempTodo);
                 fvm.currentCellAdoress.Y += 1;
-                FormVM = fvm;
             }
 
-            statusChanged();
+            dispatchStatusChanged(fvm);
         }
 
         public void moveUpCurrentItem(FormViewModel fvm) {
@@ -46,8 +45,40 @@ namespace TextDiary {
                 fvm.todoList.RemoveAt(fvm.currentCellAdoress.Y);
                 fvm.todoList.Insert(fvm.currentCellAdoress.Y - 1, tempTodo);
                 fvm.currentCellAdoress.Y -= 1;
-                FormVM = fvm;
             }
+
+            dispatchStatusChanged(fvm);
+        }
+
+        public void loadTodoList(FormViewModel fvm) {
+
+            fvm.todoList = todoFileReader.loadTodosFromXml().ToList();
+            sortByTodoOrder(fvm);
+            for(int i = 0; i < fvm.todoList.Count; i++) {
+                fvm.todoList[i].Order = i;
+                string filePath = todoFileReader.findExistedTodoXmlFile(fvm.todoList[i]);
+                todoFileMaker.createTodoXmlFile(fvm.todoList[i]);
+            }
+
+            dispatchStatusChanged(fvm);
+        }
+
+        /// <summary>
+        /// 完了済みTodoをテキストファイルとしてエクスポートします。
+        /// FormViewModelのリストに変更はないので、実行してもイベントは送出しません。
+        /// </summary>
+        /// <param name="fvm"></param>
+        public void exportFinishedTodo(FormViewModel fvm) {
+            List<Todo> finishedTodos = fvm.todoList.Where(t => t.isCompleted).ToList();
+            textFileMaker.createTextFile(finishedTodos.ToArray());
+        }
+
+        public void deleteFinishedTodo(FormViewModel fvm) {
+            List<Todo> incompleteTodos = fvm.todoList.Where(t => !t.isCompleted).ToList();
+            fvm.todoList = incompleteTodos;
+
+            dispatchStatusChanged(fvm);
+        }
 
         private void sortByTodoOrder(FormViewModel fvm) {
             List<Todo> sortedTodoList = fvm.todoList.OrderBy(todo => todo.Order).ToList();

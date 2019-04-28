@@ -7,6 +7,7 @@ using System.Drawing;
 namespace TextDiary {
 
     public delegate void DataGridViewKeyboardEventHandler(FormViewModel formVM , KeyEventArgs e);
+    public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
 
     public partial class Form1 : Form {
 
@@ -23,6 +24,7 @@ namespace TextDiary {
         private MainFormController mainFormController;
         private DataGridViewModel dataGridViewModel = new DataGridViewModel();
         public event DataGridViewKeyboardEventHandler dataGridViewKeyboardEventHandler;
+        public event ExportTheFinishedTodosMenuClick exportTheFinishedTodosMenuClick;
 
         String latestText = "";
         Boolean isLogReading = false;
@@ -356,7 +358,8 @@ namespace TextDiary {
         }
 
         private void exportTheFinishedTodosAndItDleteToolStripMenuItem_Click(object sender, EventArgs e) {
-            clearFinishedTodo();
+            exportTheFinishedTodosMenuClick( ViewModel );
+            //clearFinishedTodo();
         }
     }
 }
