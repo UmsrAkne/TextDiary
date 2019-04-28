@@ -20,6 +20,7 @@ namespace TextDiary {
 
         TodoFileWatcher todoFileWatcher;
 
+        private MainFormController mainFormController;
         public event DataGridViewKeyboardEventHandler dataGridViewKeyboardEventHandler;
 
         String latestText = "";
@@ -36,6 +37,7 @@ namespace TextDiary {
 
         public Form1() {
             InitializeComponent();
+            mainFormController = new MainFormController(this);
             azukiControl.KeyDown += this.keyboardEventHandler;
             dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
 
