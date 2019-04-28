@@ -5,6 +5,9 @@ using System.Linq;
 using System.Drawing;
 
 namespace TextDiary {
+
+    public delegate void DataGridViewKeyboardEventHandler(object sender , KeyEventArgs e);
+
     public partial class Form1 : Form {
 
         Settings settings;
@@ -16,6 +19,8 @@ namespace TextDiary {
         TextFileReader todoFileReader;
 
         TodoFileWatcher todoFileWatcher;
+
+        public event DataGridViewKeyboardEventHandler dataGridViewKeyboardEventHandler;
 
         String latestText = "";
         Boolean isLogReading = false;
@@ -73,6 +78,7 @@ namespace TextDiary {
 
         private void dataGridViewKeyControlEventHandler(object sender, KeyEventArgs e) {
 
+            dataGridViewKeyboardEventHandler(sender , e);
             var changedOrder = false;
 
             if (e.Control == true && e.KeyCode == Keys.Up) {
