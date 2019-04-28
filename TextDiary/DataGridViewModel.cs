@@ -8,7 +8,6 @@ namespace TextDiary {
 
     public delegate void StatusChanged();
 
-    class DataGridViewModel {
-        public event ListStateChanged listStateChanged;
+    public class DataGridViewModel {
     }
 }
