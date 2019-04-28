@@ -40,6 +40,11 @@ namespace TextDiary {
                 FormVM = fvm;
             }
 
+        private void sortByTodoOrder(FormViewModel fvm) {
+            List<Todo> sortedTodoList = fvm.todoList.OrderBy(todo => todo.Order).ToList();
+            fvm.todoList = sortedTodoList;
+        }
+
         private void dispatchStatusChanged(FormViewModel fvm) {
             FormVM = fvm;
             statusChanged();
