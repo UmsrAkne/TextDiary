@@ -40,7 +40,9 @@ namespace TextDiary {
             get; set;
         }
 
-        public String linkedXmlFilePath = "";
+        public string SourceXmlFileName {
+            get; set;
+        }
 
         public Guid guid { get; set; } = Guid.NewGuid();
 

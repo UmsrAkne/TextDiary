@@ -46,11 +46,14 @@ namespace TextDiary {
             System.Xml.Serialization.XmlSerializer serializer =
                     new System.Xml.Serialization.XmlSerializer(typeof(Todo));
 
-            if((todo.linkedXmlFilePath == "")||(File.Exists(todo.linkedXmlFilePath) == false)) {
-                todo.linkedXmlFilePath = currentDirectoryPath + "\\" + getDateString() + ".xml";
+            if(todo.SourceXmlFileName == "") {
+                todo.SourceXmlFileName = getDateString() + ".xml";
             }
 
-            StreamWriter sw = new System.IO.StreamWriter(todo.linkedXmlFilePath, false, new System.Text.UTF8Encoding(false));
+            string xmlFilePath = currentDirectoryPath + "\\" + todo.SourceXmlFileName;
+
+            StreamWriter sw = 
+                new StreamWriter(xmlFilePath, false, new System.Text.UTF8Encoding(false));
             serializer.Serialize(sw, todo);
 
             sw.Close();
