@@ -40,6 +40,8 @@ namespace TextDiary {
                 FormVM = fvm;
             }
 
+        private void dispatchStatusChanged(FormViewModel fvm) {
+            FormVM = fvm;
             statusChanged();
         }
     }
