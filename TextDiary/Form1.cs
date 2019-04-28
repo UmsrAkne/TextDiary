@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace TextDiary {
 
-    public delegate void DataGridViewKeyboardEventHandler(object sender , KeyEventArgs e);
+    public delegate void DataGridViewKeyboardEventHandler(FormViewModel formVM , KeyEventArgs e);
 
     public partial class Form1 : Form {
 
@@ -38,6 +38,11 @@ namespace TextDiary {
         public Form1() {
             InitializeComponent();
             mainFormController = new MainFormController(this);
+
+            //コントローラーにはFormが持っているモデルの参照を渡す
+            //取得の必要は無いので、setアクセサのみを公開している。
+            mainFormController.dataGridViewModel = this.dataGridViewModel;
+
             azukiControl.KeyDown += this.keyboardEventHandler;
             dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
 

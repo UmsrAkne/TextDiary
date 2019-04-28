@@ -14,7 +14,6 @@ namespace TextDiary {
 
     public class MainFormController {
 
-        Form1 form;
         private Form1 form;
         public DataGridViewModel dataGridViewModel {
             private get;
@@ -26,7 +25,17 @@ namespace TextDiary {
             form.dataGridViewKeyboardEventHandler += dgvKeyboardEventHandler;
         }
 
-        private void dgvKeyboardEventHandler(object sender , KeyEventArgs e) {
+        private void dgvKeyboardEventHandler(FormViewModel fvm , KeyEventArgs e) {
+
+            if (e.Control == true && e.KeyCode == Keys.Down) {
+                dataGridViewModel.moveDownCurrentItem(fvm);
+                e.Handled = true;
+            }
+
+            if (e.Control == true && e.KeyCode == Keys.Up) {
+                dataGridViewModel.moveUpCurrentItem(fvm);
+                e.Handled = true;
+            }
 
         }
     }
