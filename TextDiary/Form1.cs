@@ -89,6 +89,17 @@ namespace TextDiary {
             drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
         }
 
+        private FormViewModel ViewModel {
+            get {
+                FormViewModel fvm = new FormViewModel();
+                fvm.inputedText = azukiControl.Text;
+                fvm.currentCellAdoress = dataGridView.CurrentCellAddress;
+                fvm.todoList = new List<Todo>(todoList);
+
+                return fvm;
+            }
+        }
+
         //DataGridViewModelで更新があってイベントが発行されたときに実行する。
         private void updateDataGridView() {
             todoList.Clear();
@@ -100,21 +111,11 @@ namespace TextDiary {
             dataGridView.CurrentCell = null;
             dataGridView.CurrentCell =
                 dataGridView[fvm.currentCellAdoress.X, fvm.currentCellAdoress.Y];
-
-
-            System.Console.WriteLine("dgvをアップデートします");
         }
 
         private void dataGridViewKeyControlEventHandler(object sender, KeyEventArgs e) {
-
-            //必要な情報のみをビューモデルにセットする。
-            FormViewModel fvm = new FormViewModel();
-            fvm.inputedText = azukiControl.Text;
-            fvm.currentCellAdoress = dataGridView.CurrentCellAddress;
-            fvm.todoList = new List<Todo>(todoList);
-
             //イベントを送信
-            dataGridViewKeyboardEventHandler(fvm, e);
+            dataGridViewKeyboardEventHandler(ViewModel, e);
         }
 
         private void toggleCheckBoxImage(object sender, DataGridViewCellEventArgs e) {
