@@ -14,6 +14,15 @@ namespace TextDiary {
         //リストの状態が更新されたら、このイベントを発行してビューに通知する。
         public event StatusChanged statusChanged;
 
+        private TextFileReader todoFileReader
+            = new TextFileReader(Directory.GetCurrentDirectory() + "\\text" + "\\todos");
+
+        private TextFileMaker todoFileMaker
+            = new TextFileMaker(Directory.GetCurrentDirectory() + "\\text" + "\\todos");
+
+        private TextFileMaker textFileMaker
+            = new TextFileMaker(Directory.GetCurrentDirectory() + "\\text");
+
         public FormViewModel FormVM{
             get;
             private set;
