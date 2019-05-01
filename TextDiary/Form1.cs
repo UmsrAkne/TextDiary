@@ -64,10 +64,6 @@ namespace TextDiary {
             dataGridView.CurrentCellDirtyStateChanged += dataGridView_currentCellDirtStateChanged;
             dataGridView.CellFormatting += convertDateTimeFormat;
 
-            //行を選択時に水色に、離れた時に白に戻す。
-            dataGridView.SelectionChanged += (sender, e) => coloringCurrentRow(System.Drawing.Color.LightSkyBlue);
-            dataGridView.CellLeave += (sender, e) => coloringCurrentRow(System.Drawing.Color.White);
-
             dataGridView.CellPainting += drawCheckBoxInCell;
             dataGridView.CellClick += toggleCheckBoxImage;
 
@@ -149,15 +145,6 @@ namespace TextDiary {
             }
 
             e.Handled = true; //処理を既に行ったのでもう処理しなくていいよって通知。
-        }
-
-        private void coloringCurrentRow( System.Drawing.Color color ) {
-            if (dataGridView.CurrentCellAddress.Y >= 0) {
-                DataGridViewCellCollection currentRowCells = dataGridView.Rows[dataGridView.CurrentCellAddress.Y].Cells;
-                foreach (DataGridViewCell cell in currentRowCells) {
-                    cell.Style.BackColor = color;
-                }
-            }
         }
 
         private void convertDateTimeFormat(object sender, DataGridViewCellFormattingEventArgs e) {
