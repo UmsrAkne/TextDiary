@@ -62,7 +62,6 @@ namespace TextDiary {
 
             dataGridView.CellValueChanged += dataGridView_cellValueChanged;
             dataGridView.CurrentCellDirtyStateChanged += dataGridView_currentCellDirtStateChanged;
-            dataGridView.CellFormatting += convertDateTimeFormat;
 
             dataGridView.CellPainting += drawCheckBoxInCell;
             dataGridView.CellClick += toggleCheckBoxImage;
@@ -145,17 +144,6 @@ namespace TextDiary {
             }
 
             e.Handled = true; //処理を既に行ったのでもう処理しなくていいよって通知。
-        }
-
-        private void convertDateTimeFormat(object sender, DataGridViewCellFormattingEventArgs e) {
-            if (e.Value is DateTime) {
-                DateTime dateTime = (DateTime)e.Value;
-                if (dateTime == DateTime.MinValue) {
-                    e.Value = "";
-                    return;
-                }
-                e.Value = dateTime.ToString("MM/dd HH:mm");
-            }
         }
 
         private void dataGridView_currentCellDirtStateChanged(object sender, EventArgs e) {
