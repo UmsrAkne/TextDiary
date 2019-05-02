@@ -8,6 +8,7 @@ namespace TextDiary {
 
     public delegate void DataGridViewKeyboardEventHandler(FormViewModel formVM , KeyEventArgs e);
     public delegate void DGVCellSelectionChanged(FormViewModel formVM);
+    public delegate void DGVCellClicked(FormViewModel formVM);
     public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
 
     public partial class Form1 : Form {
@@ -26,6 +27,7 @@ namespace TextDiary {
         private DataGridViewModel dataGridViewModel = new DataGridViewModel();
         public event DataGridViewKeyboardEventHandler dataGridViewKeyboardEventHandler;
         public event DGVCellSelectionChanged dgvCellSelectionChanged;
+        public event DGVCellClicked dgvCellClicked;
         public event ExportTheFinishedTodosMenuClick exportTheFinishedTodosMenuClick;
 
         String latestText = "";
@@ -57,6 +59,7 @@ namespace TextDiary {
             azukiControl.KeyDown += this.keyboardEventHandler;
             dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
             dataGridView.SelectionChanged += DGVCellSelectionChangedHandler;
+            dataGridView.CellClick += dgvCellClickedEventHandler;
 
             dataGridView.AdvancedCellBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.None;
             dataGridView.AdvancedCellBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
@@ -138,6 +141,10 @@ namespace TextDiary {
 
         private void DGVCellSelectionChangedHandler(object sender, EventArgs e) {
             dgvCellSelectionChanged(ViewModel);
+        }
+
+        private void dgvCellClickedEventHandler(object sender , DataGridViewCellEventArgs e) {
+            dgvCellClicked(ViewModel);
         }
 
         private void toggleCheckBoxImage(object sender, DataGridViewCellEventArgs e) {
