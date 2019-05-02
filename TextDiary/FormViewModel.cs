@@ -11,7 +11,7 @@ namespace TextDiary {
         public string inputedText = "";
 
         public List<Todo> todoList = new List<Todo>();
-        public Point currentCellAdoress;
+        public Point currentCellAddress;
         public string currentDataPropertyName;
     }
 }

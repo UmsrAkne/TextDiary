@@ -91,9 +91,9 @@ namespace TextDiary {
             get {
                 FormViewModel fvm = new FormViewModel();
                 fvm.inputedText = azukiControl.Text;
-                fvm.currentCellAdoress = dataGridView.CurrentCellAddress;
+                fvm.currentCellAddress = dataGridView.CurrentCellAddress;
                 fvm.currentDataPropertyName =
-                    dataGridView.Columns[fvm.currentCellAdoress.X].DataPropertyName;
+                    dataGridView.Columns[fvm.currentCellAddress.X].DataPropertyName;
                 fvm.todoList = new List<Todo>(todoList);
 
                 return fvm;
@@ -110,7 +110,7 @@ namespace TextDiary {
 
             dataGridView.CurrentCell = null;
             dataGridView.CurrentCell =
-                dataGridView[fvm.currentCellAdoress.X, fvm.currentCellAdoress.Y];
+                dataGridView[fvm.currentCellAddress.X, fvm.currentCellAddress.Y];
 
             for (int i = 0; i < dataGridView.Rows.Count; i++) {
                 if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
@@ -118,7 +118,7 @@ namespace TextDiary {
                 dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             }
 
-            dataGridView.Rows[fvm.currentCellAdoress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            dataGridView.Rows[fvm.currentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         private void updateAppearance(){
@@ -133,8 +133,8 @@ namespace TextDiary {
                 dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             }
             
-            dataGridView.CurrentCell = dataGridView[fvm.currentCellAdoress.X , fvm.currentCellAdoress.Y];
-            dataGridView.Rows[fvm.currentCellAdoress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            dataGridView.CurrentCell = dataGridView[fvm.currentCellAddress.X , fvm.currentCellAddress.Y];
+            dataGridView.Rows[fvm.currentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
             System.Console.WriteLine("updateLook");
         }
 
