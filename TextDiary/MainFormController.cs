@@ -29,7 +29,10 @@ namespace TextDiary {
         }
 
         private void dgvCellClickedEventHandler(FormViewModel formVM) {
-            
+            if(formVM.currentDataPropertyName == "isCompleted") {
+                dataGridViewModel.toggleIsCompleted(formVM);
+                dataGridViewModel.saveTodoAsXml(formVM);
+            }
         }
 
         private void DGVCellSelectionChangedEventHandler(FormViewModel formVM) {

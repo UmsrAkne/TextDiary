@@ -71,6 +71,30 @@ namespace TextDiary {
             dispatchStatusChanged(fvm);
         }
 
+        public void toggleIsCompleted(FormViewModel fvm) {
+            Todo currentTodo = fvm.todoList[fvm.currentCellAdoress.Y];
+            currentTodo.isCompleted = !(currentTodo.isCompleted);
+
+            if (currentTodo.isCompleted) {
+                currentTodo.completedDate = DateTime.Now;
+            }else {
+                currentTodo.completedDate = DateTime.MinValue;
+            }
+
+            dispatchStatusChanged(fvm);
+        }
+
+        public void saveTodoAsXml(FormViewModel fvm) {
+            Todo todo = fvm.todoList[fvm.currentCellAdoress.Y];
+            if (todoFileReader.findExistedTodoXmlFile(todo) != "") {
+                todoFileMaker.createTodoXmlFile(todo);
+            }
+            else {
+                System.Windows.Forms.MessageBox.Show(
+                    "Todoの内容を上書き保存しようしましたが、既存のファイルが存在しないか、GUIDが書き換わった可能性があります。");
+            }
+        }
+
         /// <summary>
         /// 完了済みTodoをテキストファイルとしてエクスポートします。
         /// FormViewModelのリストに変更はないので、実行してもイベントは送出しません。

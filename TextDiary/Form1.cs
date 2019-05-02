@@ -67,11 +67,9 @@ namespace TextDiary {
 
             dataGridView.DataSource = this.todoList;
 
-            dataGridView.CellValueChanged += dataGridView_cellValueChanged;
             dataGridView.CurrentCellDirtyStateChanged += dataGridView_currentCellDirtStateChanged;
 
             dataGridView.CellPainting += drawCheckBoxInCell;
-            dataGridView.CellClick += toggleCheckBoxImage;
 
             dataGridView.CellBeginEdit += (sender , e) => {
                 if (dataGridView[e.ColumnIndex, e.RowIndex].Value is string)
@@ -150,20 +148,13 @@ namespace TextDiary {
         }
 
         private void DGVCellSelectionChangedHandler(object sender, EventArgs e) {
-            dgvCellSelectionChanged(ViewModel);
+            if (dataGridView.CurrentCell != null) {
+                dgvCellSelectionChanged(ViewModel);
+            }
         }
 
         private void dgvCellClickedEventHandler(object sender , DataGridViewCellEventArgs e) {
             dgvCellClicked(ViewModel);
-        }
-
-        private void toggleCheckBoxImage(object sender, DataGridViewCellEventArgs e) {
-            if ((e.ColumnIndex == 0)&&(e.RowIndex >= 0)) {
-                DataGridViewCell currentCell = dataGridView[e.ColumnIndex, e.RowIndex];
-                if (currentCell.Value is bool) {
-                    currentCell.Value = !(bool)currentCell.Value;
-                }
-            }
         }
 
         private void drawCheckBoxInCell(object sender, DataGridViewCellPaintingEventArgs e) {
@@ -191,36 +182,6 @@ namespace TextDiary {
 
             if((currentColumnDataPropertyName == "isCompleted")&&(dataGridView.IsCurrentCellDirty)) {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            }
-        }
-
-        private void dataGridView_cellValueChanged(object sender, DataGridViewCellEventArgs e) {
-
-            string currentColumnName = dataGridView.Columns[e.ColumnIndex].DataPropertyName;
-            if (currentColumnName == "isCompleted") {
-
-                int completedDateColumnIndex = dataGridView.Columns["completedDate"].Index;
-
-                if ((Boolean)dataGridView[e.ColumnIndex , e.RowIndex].Value) {
-
-                    DateTime nowDateTime = DateTime.Now;
-                    dataGridView[completedDateColumnIndex, e.RowIndex].Value = nowDateTime;
-                    todoList[e.RowIndex].completedDate = nowDateTime;
-                }
-                else {
-                    dataGridView[completedDateColumnIndex, e.RowIndex].Value = DateTime.MinValue;
-                    todoList[e.RowIndex].completedDate = DateTime.MinValue;
-                }
-            }
-
-            //同一のGUIDを持ったTodo(XML)ファイルを検索する。
-            string existedTodoXmlFilePath = todoFileReader.findExistedTodoXmlFile(todoList[e.RowIndex]);
-            if (existedTodoXmlFilePath != "") {
-                textFileMaker.createTodoXmlFile(todoList[e.RowIndex]);
-            }
-            else {
-                MessageBox.Show(
-                    "Todoの内容を上書き保存しようしましたが、既存のファイルが存在しないか、GUIDが書き換わった可能性があります。");
             }
         }
 
