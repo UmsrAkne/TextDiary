@@ -99,7 +99,7 @@ namespace TextDiary {
                 fvm.inputedText = azukiControl.Text;
                 fvm.currentCellAdoress = dataGridView.CurrentCellAddress;
                 fvm.currentDataPropertyName =
-                    dataGridView.Columns[fvm.currentCellAdoress.Y].DataPropertyName;
+                    dataGridView.Columns[fvm.currentCellAdoress.X].DataPropertyName;
                 fvm.todoList = new List<Todo>(todoList);
 
                 return fvm;
