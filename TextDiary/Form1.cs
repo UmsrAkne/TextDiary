@@ -117,6 +117,14 @@ namespace TextDiary {
             dataGridView.CurrentCell = null;
             dataGridView.CurrentCell =
                 dataGridView[fvm.currentCellAdoress.X, fvm.currentCellAdoress.Y];
+
+            for (int i = 0; i < dataGridView.Rows.Count; i++) {
+                if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
+                if (dataGridView.Rows[i].DefaultCellStyle.BackColor == Color.White) continue;
+                dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            }
+
+            dataGridView.Rows[fvm.currentCellAdoress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         private void updateAppearance(){
