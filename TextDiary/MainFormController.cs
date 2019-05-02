@@ -23,7 +23,12 @@ namespace TextDiary {
         public MainFormController( Form1 form) {
             this.form = form;
             form.dataGridViewKeyboardEventHandler += dgvKeyboardEventHandler;
+            form.dgvCellSelectionChanged += DGVCellSelectionChangedEventHandler;
             form.exportTheFinishedTodosMenuClick += exportTheFinishedTodos_MenuClickEventHandler;
+        }
+
+        private void DGVCellSelectionChangedEventHandler(FormViewModel formVM) {
+            dataGridViewModel.changeCurrentCell(formVM);
         }
 
         private void dgvKeyboardEventHandler(FormViewModel fvm , KeyEventArgs e) {

@@ -7,6 +7,7 @@ using System.Drawing;
 namespace TextDiary {
 
     public delegate void DataGridViewKeyboardEventHandler(FormViewModel formVM , KeyEventArgs e);
+    public delegate void DGVCellSelectionChanged(FormViewModel formVM);
     public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
 
     public partial class Form1 : Form {
@@ -24,6 +25,7 @@ namespace TextDiary {
         private MainFormController mainFormController;
         private DataGridViewModel dataGridViewModel = new DataGridViewModel();
         public event DataGridViewKeyboardEventHandler dataGridViewKeyboardEventHandler;
+        public event DGVCellSelectionChanged dgvCellSelectionChanged;
         public event ExportTheFinishedTodosMenuClick exportTheFinishedTodosMenuClick;
 
         String latestText = "";
@@ -46,6 +48,7 @@ namespace TextDiary {
 
             //Formが持っているモデルに対しては状態変化を監視するためにイベントハンドラをセット。
             dataGridViewModel.statusChanged += updateDataGridView;
+            dataGridViewModel.appearanceChanged += updateAppearance;
 
             //コントローラーにはFormが持っているモデルの参照を渡す
             //取得の必要は無いので、setアクセサのみを公開している。
@@ -53,6 +56,7 @@ namespace TextDiary {
 
             azukiControl.KeyDown += this.keyboardEventHandler;
             dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
+            dataGridView.SelectionChanged += DGVCellSelectionChangedHandler;
 
             dataGridView.AdvancedCellBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.None;
             dataGridView.AdvancedCellBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
@@ -110,9 +114,30 @@ namespace TextDiary {
                 dataGridView[fvm.currentCellAdoress.X, fvm.currentCellAdoress.Y];
         }
 
+        private void updateAppearance(){
+            FormViewModel fvm = dataGridViewModel.FormVM;
+            if(dataGridView.CurrentCellAddress.X < 0 || dataGridView.CurrentCellAddress.Y < 0) {
+                return;
+            }
+
+            for(int i = 0; i < dataGridView.Rows.Count; i++) {
+                if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
+                if (dataGridView.Rows[i].DefaultCellStyle.BackColor == Color.White) continue;
+                dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            }
+            
+            dataGridView.CurrentCell = dataGridView[fvm.currentCellAdoress.X , fvm.currentCellAdoress.Y];
+            dataGridView.Rows[fvm.currentCellAdoress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            System.Console.WriteLine("updateLook");
+        }
+
         private void dataGridViewKeyControlEventHandler(object sender, KeyEventArgs e) {
             //イベントを送信
             dataGridViewKeyboardEventHandler(ViewModel, e);
+        }
+
+        private void DGVCellSelectionChangedHandler(object sender, EventArgs e) {
+            dgvCellSelectionChanged(ViewModel);
         }
 
         private void toggleCheckBoxImage(object sender, DataGridViewCellEventArgs e) {
