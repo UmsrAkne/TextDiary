@@ -184,15 +184,7 @@ namespace TextDiary {
             string currentColumnName = dataGridView.Columns[e.ColumnIndex].DataPropertyName;
             if (currentColumnName == "isCompleted") {
 
-                //０でなく-1を指定するのは、次のループ内で要素が見つからなかったらエラーを吐くようにするため
-                int completedDateColumnIndex = -1; 
-
-                for(int i = 0; i < dataGridView.Columns.Count; i++) {
-                    if(dataGridView.Columns[i].DataPropertyName == "completedDate") {
-                        completedDateColumnIndex = i;
-                        break;
-                    }
-                }
+                int completedDateColumnIndex = dataGridView.Columns["completedDate"].Index;
 
                 if ((Boolean)dataGridView[e.ColumnIndex , e.RowIndex].Value) {
 
