@@ -154,18 +154,16 @@ namespace TextDiary {
             dataGridView.ImeMode = ImeMode.Disable;
 
             if ((e.ColumnIndex != 0) || (e.RowIndex < 0)) return;
+            if (dataGridView.Columns[e.ColumnIndex].Name != "isCompleted") return;
 
-            DataGridViewCell currentCell = dataGridView[e.ColumnIndex, e.RowIndex];
+            bool currentCellChecked = (bool)dataGridView[e.ColumnIndex, e.RowIndex].Value;
             e.PaintBackground(e.ClipBounds, true);
 
-            if (currentCell.Value is bool) {
-
-                if ((bool)currentCell.Value) {
-                    e.Graphics.DrawImage(Properties.Resources.checkBoxImage, e.CellBounds);
-                }
-                else {
-                    e.Graphics.DrawImage(Properties.Resources.unCheckBoxImage, e.CellBounds);
-                }
+            if (currentCellChecked) {
+                e.Graphics.DrawImage(Properties.Resources.checkBoxImage, e.CellBounds);
+            }
+            else {
+                e.Graphics.DrawImage(Properties.Resources.unCheckBoxImage, e.CellBounds);
             }
 
             e.Handled = true; //処理を既に行ったのでもう処理しなくていいよって通知。
