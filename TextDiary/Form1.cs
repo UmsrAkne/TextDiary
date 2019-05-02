@@ -61,10 +61,6 @@ namespace TextDiary {
             dataGridView.SelectionChanged += DGVCellSelectionChangedHandler;
             dataGridView.CellClick += dgvCellClickedEventHandler;
 
-            dataGridView.AdvancedCellBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.None;
-            dataGridView.AdvancedCellBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
-            dataGridView.AdvancedCellBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;
-
             dataGridView.DataSource = this.todoList;
 
             dataGridView.CurrentCellDirtyStateChanged += dataGridView_currentCellDirtStateChanged;

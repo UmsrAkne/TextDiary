@@ -44,13 +44,13 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.additionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.completedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deadLineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -185,6 +185,7 @@
             this.dataGridView.AutoGenerateColumns = false;
             this.dataGridView.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -223,19 +224,6 @@
             this.dataGridView.Size = new System.Drawing.Size(778, 383);
             this.dataGridView.TabIndex = 2;
             // 
-            // todoBindingSource
-            // 
-            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
-            // 
-            // isCompleted
-            // 
-            this.isCompleted.DataPropertyName = "isCompleted";
-            this.isCompleted.FillWeight = 23.16602F;
-            this.isCompleted.HeaderText = "";
-            this.isCompleted.Name = "isCompleted";
-            this.isCompleted.ReadOnly = true;
-            this.isCompleted.Width = 40;
-            // 
             // order
             // 
             this.order.DataPropertyName = "Order";
@@ -245,6 +233,15 @@
             this.order.Name = "order";
             this.order.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.order.Width = 25;
+            // 
+            // isCompleted
+            // 
+            this.isCompleted.DataPropertyName = "isCompleted";
+            this.isCompleted.FillWeight = 23.16602F;
+            this.isCompleted.HeaderText = "";
+            this.isCompleted.Name = "isCompleted";
+            this.isCompleted.ReadOnly = true;
+            this.isCompleted.Width = 40;
             // 
             // content
             // 
@@ -280,6 +277,10 @@
             this.deadLineDataGridViewTextBoxColumn.HeaderText = "deadLine";
             this.deadLineDataGridViewTextBoxColumn.Name = "deadLineDataGridViewTextBoxColumn";
             this.deadLineDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // todoBindingSource
+            // 
+            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
             // 
             // Form1
             // 
