@@ -273,7 +273,7 @@ namespace TextDiary {
                 todo.Order = index;
                 index++;
 
-                if (todoFileReader.findExistedTodoXmlFile(todo) != "") {
+                if (todoFileReader.findExistedTodoXmlFile(todo) == "") {
                     todoFileMaker.createTodoXmlFile(todo);
                 }
 
