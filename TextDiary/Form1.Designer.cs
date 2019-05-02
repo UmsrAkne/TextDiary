@@ -44,13 +44,13 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isCompletedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.contentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.additionDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.completedDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deadLineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.content = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.additionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.completedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deadLineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -188,11 +188,11 @@
             this.dataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.isCompletedDataGridViewCheckBoxColumn,
+            this.isCompleted,
             this.order,
-            this.contentDataGridViewTextBoxColumn,
-            this.additionDateDataGridViewTextBoxColumn,
-            this.completedDateDataGridViewTextBoxColumn,
+            this.content,
+            this.additionDate,
+            this.completedDate,
             this.deadLineDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.todoBindingSource;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -223,6 +223,19 @@
             this.dataGridView.Size = new System.Drawing.Size(778, 383);
             this.dataGridView.TabIndex = 2;
             // 
+            // todoBindingSource
+            // 
+            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
+            // 
+            // isCompleted
+            // 
+            this.isCompleted.DataPropertyName = "isCompleted";
+            this.isCompleted.FillWeight = 23.16602F;
+            this.isCompleted.HeaderText = "";
+            this.isCompleted.Name = "isCompleted";
+            this.isCompleted.ReadOnly = true;
+            this.isCompleted.Width = 40;
+            // 
             // order
             // 
             this.order.DataPropertyName = "Order";
@@ -233,42 +246,33 @@
             this.order.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.order.Width = 25;
             // 
-            // isCompletedDataGridViewCheckBoxColumn
+            // content
             // 
-            this.isCompletedDataGridViewCheckBoxColumn.DataPropertyName = "isCompleted";
-            this.isCompletedDataGridViewCheckBoxColumn.FillWeight = 23.16602F;
-            this.isCompletedDataGridViewCheckBoxColumn.HeaderText = "";
-            this.isCompletedDataGridViewCheckBoxColumn.Name = "isCompletedDataGridViewCheckBoxColumn";
-            this.isCompletedDataGridViewCheckBoxColumn.ReadOnly = true;
-            this.isCompletedDataGridViewCheckBoxColumn.Width = 40;
+            this.content.DataPropertyName = "content";
+            this.content.FillWeight = 298.1037F;
+            this.content.HeaderText = "content";
+            this.content.Name = "content";
+            this.content.Width = 400;
             // 
-            // contentDataGridViewTextBoxColumn
+            // additionDate
             // 
-            this.contentDataGridViewTextBoxColumn.DataPropertyName = "content";
-            this.contentDataGridViewTextBoxColumn.FillWeight = 298.1037F;
-            this.contentDataGridViewTextBoxColumn.HeaderText = "content";
-            this.contentDataGridViewTextBoxColumn.Name = "contentDataGridViewTextBoxColumn";
-            this.contentDataGridViewTextBoxColumn.Width = 400;
-            // 
-            // additionDateDataGridViewTextBoxColumn
-            // 
-            this.additionDateDataGridViewTextBoxColumn.DataPropertyName = "additionDate";
+            this.additionDate.DataPropertyName = "additionDate";
             dataGridViewCellStyle2.Format = "MM/dd HH:mm";
-            this.additionDateDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.additionDateDataGridViewTextBoxColumn.FillWeight = 135.6236F;
-            this.additionDateDataGridViewTextBoxColumn.HeaderText = "additionDate";
-            this.additionDateDataGridViewTextBoxColumn.Name = "additionDateDataGridViewTextBoxColumn";
-            this.additionDateDataGridViewTextBoxColumn.Width = 150;
+            this.additionDate.DefaultCellStyle = dataGridViewCellStyle2;
+            this.additionDate.FillWeight = 135.6236F;
+            this.additionDate.HeaderText = "additionDate";
+            this.additionDate.Name = "additionDate";
+            this.additionDate.Width = 150;
             // 
-            // completedDateDataGridViewTextBoxColumn
+            // completedDate
             // 
-            this.completedDateDataGridViewTextBoxColumn.DataPropertyName = "completedDate";
+            this.completedDate.DataPropertyName = "completedDate";
             dataGridViewCellStyle3.Format = "MM/dd HH:mm";
-            this.completedDateDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.completedDateDataGridViewTextBoxColumn.FillWeight = 143.1066F;
-            this.completedDateDataGridViewTextBoxColumn.HeaderText = "completedDate";
-            this.completedDateDataGridViewTextBoxColumn.Name = "completedDateDataGridViewTextBoxColumn";
-            this.completedDateDataGridViewTextBoxColumn.Width = 150;
+            this.completedDate.DefaultCellStyle = dataGridViewCellStyle3;
+            this.completedDate.FillWeight = 143.1066F;
+            this.completedDate.HeaderText = "completedDate";
+            this.completedDate.Name = "completedDate";
+            this.completedDate.Width = 150;
             // 
             // deadLineDataGridViewTextBoxColumn
             // 
@@ -276,10 +280,6 @@
             this.deadLineDataGridViewTextBoxColumn.HeaderText = "deadLine";
             this.deadLineDataGridViewTextBoxColumn.Name = "deadLineDataGridViewTextBoxColumn";
             this.deadLineDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // todoBindingSource
-            // 
-            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
             // 
             // Form1
             // 
@@ -318,11 +318,11 @@
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportTheCurrentStateToTextFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportTheFinishedTodosAndItDleteToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn isCompletedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isCompleted;
         private System.Windows.Forms.DataGridViewTextBoxColumn order;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contentDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn additionDateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn completedDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn content;
+        private System.Windows.Forms.DataGridViewTextBoxColumn additionDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn completedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn deadLineDataGridViewTextBoxColumn;
     }
 }
