@@ -13,5 +13,6 @@ namespace TextDiary {
         public List<Todo> todoList = new List<Todo>();
         public Point currentCellAddress;
         public string currentDataPropertyName;
+        public string text = "";
     }
 }
