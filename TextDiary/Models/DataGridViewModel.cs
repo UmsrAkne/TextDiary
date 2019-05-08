@@ -84,6 +84,10 @@ namespace TextDiary {
             dispatchStatusChanged(fvm);
         }
 
+        /// <summary>
+        /// リスト内容に変更はないので、イベントは送出しません
+        /// </summary>
+        /// <param name="fvm"></param>
         public void saveTodoAsXml(FormViewModel fvm) {
             Todo todo = fvm.todoList[fvm.currentCellAddress.Y];
             if (todoFileReader.findExistedTodoXmlFile(todo) != "") {
