@@ -58,6 +58,16 @@ namespace TextDiary {
             dispatchStatusChanged(fvm);
         }
 
+        public void addTodo(FormViewModel fvm) {
+            Todo todo = new Todo(fvm.text);
+            todo.deadLine = DateTime.Today.AddDays(1);
+            todo.Order = fvm.todoList.Count + 1;
+            todoFileMaker.createTodoXmlFile(todo);
+            fvm.todoList.Add(todo);
+            fvm.text = "";
+            dispatchStatusChanged(fvm);
+        }
+
         public void loadTodoList(FormViewModel fvm) {
 
             fvm.todoList = todoFileReader.loadTodosFromXml().ToList();

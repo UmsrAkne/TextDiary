@@ -26,6 +26,13 @@ namespace TextDiary {
             form.dgvCellSelectionChanged += DGVCellSelectionChangedEventHandler;
             form.dgvCellClicked += dgvCellClickedEventHandler;
             form.exportTheFinishedTodosMenuClick += exportTheFinishedTodos_MenuClickEventHandler;
+            form.keyEvent += mainFormKeyEventHandler;
+        }
+
+        private void mainFormKeyEventHandler(FormViewModel formVm, KeyEventArgs e) {
+            if (e.Control == true && e.KeyCode == Keys.T) {
+                dataGridViewModel.addTodo(formVm);
+            }
         }
 
         private void dgvCellClickedEventHandler(FormViewModel formVM) {

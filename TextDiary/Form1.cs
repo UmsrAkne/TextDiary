@@ -10,6 +10,7 @@ namespace TextDiary {
     public delegate void DGVCellSelectionChanged(FormViewModel formVM);
     public delegate void DGVCellClicked(FormViewModel formVM);
     public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
+    public delegate void KeyEvent(FormViewModel formVm , KeyEventArgs e);
 
     public partial class Form1 : Form {
 
@@ -29,6 +30,7 @@ namespace TextDiary {
         public event DGVCellSelectionChanged dgvCellSelectionChanged;
         public event DGVCellClicked dgvCellClicked;
         public event ExportTheFinishedTodosMenuClick exportTheFinishedTodosMenuClick;
+        public event KeyEvent keyEvent;
 
         String latestText = "";
         Boolean isLogReading = false;
@@ -90,7 +92,7 @@ namespace TextDiary {
         private FormViewModel ViewModel {
             get {
                 FormViewModel fvm = new FormViewModel();
-                fvm.inputedText = azukiControl.Text;
+                fvm.text = azukiControl.Text;
                 fvm.currentCellAddress = dataGridView.CurrentCellAddress;
                 fvm.currentDataPropertyName =
                     dataGridView.Columns[fvm.currentCellAddress.X].DataPropertyName;
@@ -119,6 +121,7 @@ namespace TextDiary {
             }
 
             dataGridView.Rows[fvm.currentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            azukiControl.Text = fvm.text;
         }
 
         private void updateAppearance(){
@@ -219,20 +222,12 @@ namespace TextDiary {
 
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
 
+            if(keyEvent != null) keyEvent(ViewModel , e);
+
             Boolean textFilePosted = false;
 
             if (e.Control == true && e.KeyCode == Keys.Enter && !isLogReading) {
                 textFileMaker.createTextFile(azukiControl.Text);
-                textFilePosted = true;
-            }
-
-            //Todo投稿用ボタン
-            if (e.Control == true && e.KeyCode == Keys.T && !isLogReading) {
-                Todo todo = new Todo( azukiControl.Text );
-                todo.deadLine = DateTime.Today.AddDays(1);
-                todo.Order = this.todoList.Count + 1;
-                todoFileMaker.createTodoXmlFile(todo);
-                this.todoList.Add(todo);
                 textFilePosted = true;
             }
 
