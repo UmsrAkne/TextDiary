@@ -224,14 +224,8 @@ namespace TextDiary {
 
             if(keyEvent != null) keyEvent(ViewModel , e);
 
-            Boolean textFilePosted = false;
-
             if (e.Control == true && e.KeyCode == Keys.Enter && !isLogReading) {
                 textFileMaker.createTextFile(azukiControl.Text);
-                textFilePosted = true;
-            }
-
-            if (textFilePosted) {
                 azukiControl.Text = "";
                 e.Handled = true;
             }
