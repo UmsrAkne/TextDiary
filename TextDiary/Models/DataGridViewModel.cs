@@ -12,6 +12,17 @@ namespace TextDiary {
 
     public class DataGridViewModel {
 
+        public List<Todo> TodoList {
+            get;
+            private set;
+        } = new List<Todo>();
+
+        public int CurrentTodoIndex {
+            get;
+            private set;
+        } = 0;
+
+
         //リストの状態が更新されたら、このイベントを発行してビューに通知する。
         public event StatusChanged statusChanged;
 
