@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Drawing;
 
 namespace TextDiary {
 
@@ -17,10 +18,10 @@ namespace TextDiary {
             private set;
         } = new List<Todo>();
 
-        public int CurrentTodoIndex {
+        public Point CurrentCellAddress {
             get;
             private set;
-        } = 0;
+        } = new Point(0, 0);
 
 
         //リストの状態が更新されたら、このイベントを発行してビューに通知する。
