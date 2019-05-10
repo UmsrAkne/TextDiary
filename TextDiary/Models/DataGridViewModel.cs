@@ -44,6 +44,10 @@ namespace TextDiary {
             private set;
         }
 
+        public DataGridViewModel() {
+            loadTodoList();
+        }
+
         public void changeCurrentCell(FormViewModel fvm) {
             dispatchAppearanceChanged(fvm);
         }
@@ -70,27 +74,27 @@ namespace TextDiary {
             dispatchStatusChanged(fvm);
         }
 
-        public void addTodo(FormViewModel fvm) {
-            Todo todo = new Todo(fvm.text);
+        public void addTodo(String sourceText) {
+            Todo todo = new Todo(sourceText);
             todo.deadLine = DateTime.Today.AddDays(1);
-            todo.Order = fvm.todoList.Count + 1;
+            todo.Order = TodoList.Count;
             todoFileMaker.createTodoXmlFile(todo);
-            fvm.todoList.Add(todo);
-            fvm.text = "";
-            dispatchStatusChanged(fvm);
+            TodoList.Add(todo);
+            statusChanged();
         }
 
-        public void loadTodoList(FormViewModel fvm) {
+        public void loadTodoList() {
 
-            fvm.todoList = todoFileReader.loadTodosFromXml().ToList();
-            sortByTodoOrder(fvm);
-            for(int i = 0; i < fvm.todoList.Count; i++) {
-                fvm.todoList[i].Order = i;
-                string filePath = todoFileReader.findExistedTodoXmlFile(fvm.todoList[i]);
-                todoFileMaker.createTodoXmlFile(fvm.todoList[i]);
+            TodoList = todoFileReader.loadTodosFromXml().ToList();
+
+            List<Todo> sortedTodoList = TodoList.OrderBy(todo => todo.Order).ToList();
+            TodoList = sortedTodoList;
+
+            for (int i = 0; i < TodoList.Count; i++) {
+                TodoList[i].Order = i;
+                string filePath = todoFileReader.findExistedTodoXmlFile(TodoList[i]);
+                todoFileMaker.createTodoXmlFile(TodoList[i]);
             }
-
-            dispatchStatusChanged(fvm);
         }
 
         public void toggleIsCompleted(FormViewModel fvm) {
@@ -125,22 +129,28 @@ namespace TextDiary {
         /// 完了済みTodoをテキストファイルとしてエクスポートします。
         /// FormViewModelのリストに変更はないので、実行してもイベントは送出しません。
         /// </summary>
-        /// <param name="fvm"></param>
-        public void exportFinishedTodo(FormViewModel fvm) {
-            List<Todo> finishedTodos = fvm.todoList.Where(t => t.isCompleted).ToList();
+        public void exportFinishedTodo() {
+            List<Todo> finishedTodos = TodoList.Where(t => t.isCompleted).ToList();
             textFileMaker.createTextFile(finishedTodos.ToArray());
         }
 
-        public void deleteFinishedTodo(FormViewModel fvm) {
-            List<Todo> incompleteTodos = fvm.todoList.Where(t => !t.isCompleted).ToList();
-            fvm.todoList = incompleteTodos;
+        public void deleteFinishedTodo() {
+            List<Todo> completedTodos = TodoList.Where(t => t.isCompleted).ToList();
+            foreach(Todo todo in completedTodos) {
+                File.Delete(
+                    todoFileReader.findExistedTodoXmlFile(todo));
+            }
 
-            dispatchStatusChanged(fvm);
+            List<Todo> incompleteTodos = TodoList.Where(t => !t.isCompleted).ToList();
+            TodoList = incompleteTodos;
+            statusChanged();
         }
 
-        private void sortByTodoOrder(FormViewModel fvm) {
-            List<Todo> sortedTodoList = fvm.todoList.OrderBy(todo => todo.Order).ToList();
-            fvm.todoList = sortedTodoList;
+        public void numberTodo() {
+            for(int i = 0; i < TodoList.Count; i++) {
+                TodoList[i].Order = i;
+            }
+            statusChanged();
         }
 
         private void dispatchStatusChanged(FormViewModel fvm) {

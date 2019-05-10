@@ -115,14 +115,13 @@ namespace TextDiary {
         //DataGridViewModelで更新があってイベントが発行されたときに実行する。
         private void updateDataGridView() {
             todoList.Clear();
-            FormViewModel fvm = dataGridViewModel.FormVM;
-            foreach(Todo todo  in fvm.todoList) {
+            List<Todo> list = dataGridViewModel.TodoList;
+            foreach(Todo todo in list) {
                 todoList.Add(todo);
             }
 
             dataGridView.CurrentCell = null;
-            dataGridView.CurrentCell =
-                dataGridView[fvm.currentCellAddress.X, fvm.currentCellAddress.Y];
+            dataGridView.CurrentCell = dataGridView[0, 0];
 
             for (int i = 0; i < dataGridView.Rows.Count; i++) {
                 if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
@@ -130,8 +129,7 @@ namespace TextDiary {
                 dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             }
 
-            dataGridView.Rows[fvm.currentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
-            azukiControl.Text = fvm.text;
+            dataGridView.Rows[0].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         private void updateAppearance(){

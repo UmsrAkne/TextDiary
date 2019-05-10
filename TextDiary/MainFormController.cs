@@ -37,14 +37,13 @@ namespace TextDiary {
                 textEditorModel.clearText();
             }
 
+            if (e.Control == true && e.KeyCode == Keys.T) {
                 dataGridViewModel.addTodo(inputedText);
+                textEditorModel.clearText();
             }
         }
 
         private void mainFormKeyEventHandler(FormViewModel formVm, KeyEventArgs e) {
-            if (e.Control == true && e.KeyCode == Keys.T) {
-                dataGridViewModel.addTodo(formVm);
-            }
         }
 
         private void dgvCellClickedEventHandler(FormViewModel formVM) {
@@ -73,8 +72,9 @@ namespace TextDiary {
         }
 
         private void exportTheFinishedTodos_MenuClickEventHandler(FormViewModel fvm) {
-            dataGridViewModel.exportFinishedTodo(fvm);
-            dataGridViewModel.deleteFinishedTodo(fvm);
+            dataGridViewModel.exportFinishedTodo();
+            dataGridViewModel.deleteFinishedTodo();
+            dataGridViewModel.numberTodo();
         }
     }
 }
