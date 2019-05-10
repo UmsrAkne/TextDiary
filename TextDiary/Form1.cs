@@ -11,6 +11,7 @@ namespace TextDiary {
     public delegate void DGVCellClicked(FormViewModel formVM);
     public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
     public delegate void KeyEvent(FormViewModel formVm , KeyEventArgs e);
+    public delegate void TextEditorKeyEvgent(String inputedText , KeyEventArgs e);
 
     public partial class Form1 : Form {
 
@@ -26,12 +27,15 @@ namespace TextDiary {
 
         private MainFormController mainFormController;
         private DataGridViewModel dataGridViewModel = new DataGridViewModel();
+        private Models.TextEditorModel textEditorModel = new Models.TextEditorModel();
+
         public event DataGridViewKeyboardEventHandler dataGridViewKeyboardEventHandler;
         public event DGVCellSelectionChanged dgvCellSelectionChanged;
         public event DGVCellClicked dgvCellClicked;
         public event ExportTheFinishedTodosMenuClick exportTheFinishedTodosMenuClick;
         public event KeyEvent keyEvent;
-
+        public event TextEditorKeyEvgent textEditorKeyEvent;
+   
         String latestText = "";
         Boolean isLogReading = false;
 
@@ -57,6 +61,7 @@ namespace TextDiary {
             //コントローラーにはFormが持っているモデルの参照を渡す
             //取得の必要は無いので、setアクセサのみを公開している。
             mainFormController.dataGridViewModel = this.dataGridViewModel;
+            mainFormController.textEditorModel = this.textEditorModel;
 
             azukiControl.KeyDown += this.keyboardEventHandler;
             dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
@@ -221,14 +226,7 @@ namespace TextDiary {
         } 
 
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
-
-            if(keyEvent != null) keyEvent(ViewModel , e);
-
-            if (e.Control == true && e.KeyCode == Keys.Enter && !isLogReading) {
-                textFileMaker.createTextFile(azukiControl.Text);
-                azukiControl.Text = "";
-                e.Handled = true;
-            }
+            textEditorKeyEvent(azukiControl.Text, e);
         }
 
         private void loadTodoList() {

@@ -20,6 +20,8 @@ namespace TextDiary {
             set;
         }
 
+        public Models.TextEditorModel textEditorModel;
+
         public MainFormController( Form1 form) {
             this.form = form;
             form.dataGridViewKeyboardEventHandler += dgvKeyboardEventHandler;
@@ -27,6 +29,13 @@ namespace TextDiary {
             form.dgvCellClicked += dgvCellClickedEventHandler;
             form.exportTheFinishedTodosMenuClick += exportTheFinishedTodos_MenuClickEventHandler;
             form.keyEvent += mainFormKeyEventHandler;
+            form.textEditorKeyEvent += textEditorKeyEventHandler;
+        }
+
+        private void textEditorKeyEventHandler(string inputedText, KeyEventArgs e) {
+            if (e.Control == true && e.KeyCode == Keys.Enter) {
+                dataGridViewModel.addTodo(inputedText);
+            }
         }
 
         private void mainFormKeyEventHandler(FormViewModel formVm, KeyEventArgs e) {
