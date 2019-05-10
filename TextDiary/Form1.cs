@@ -57,6 +57,7 @@ namespace TextDiary {
             //Formが持っているモデルに対しては状態変化を監視するためにイベントハンドラをセット。
             dataGridViewModel.statusChanged += updateDataGridView;
             dataGridViewModel.appearanceChanged += updateAppearance;
+            textEditorModel.textChanged += updateAzukiControl;
 
             //コントローラーにはFormが持っているモデルの参照を渡す
             //取得の必要は無いので、setアクセサのみを公開している。
@@ -92,6 +93,10 @@ namespace TextDiary {
 
             var drl = (System.Diagnostics.DefaultTraceListener)System.Diagnostics.Trace.Listeners["Default"];
             drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
+        }
+
+        private void updateAzukiControl() {
+            azukiControl.Text = textEditorModel.Text;
         }
 
         private FormViewModel ViewModel {
