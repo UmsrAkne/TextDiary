@@ -12,10 +12,16 @@ namespace TextDiary.Models {
 
         public event TextChanged textChanged;
 
+        private String text = "";
         public String Text {
-            get;
-            private set;
-        } = "";
+            get {
+                return text;
+            }
+            private set {
+                text = value;
+                textChanged();//セットされた時点でテキスト変更イベントを通知
+            }
+        }
 
         public void clearText() {
             Text = "";
