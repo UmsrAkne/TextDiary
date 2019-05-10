@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace TextDiary.Models {
 
@@ -11,6 +8,8 @@ namespace TextDiary.Models {
     public class TextEditorModel {
 
         public event TextChanged textChanged;
+        
+        private TextFileMaker textFileMaker = new TextFileMaker(Directory.GetCurrentDirectory() + "\\text");
 
         private String text = "";
         public String Text {
@@ -25,8 +24,11 @@ namespace TextDiary.Models {
 
         public void clearText() {
             Text = "";
-            textChanged();
         }
 
+        public void createTextFile(String writingText) {
+            textFileMaker.createTextFile(writingText);
+            Text = "";
+        }
     }
 }

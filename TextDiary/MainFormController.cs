@@ -34,6 +34,9 @@ namespace TextDiary {
 
         private void textEditorKeyEventHandler(string inputedText, KeyEventArgs e) {
             if (e.Control == true && e.KeyCode == Keys.Enter) {
+                textEditorModel.clearText();
+            }
+
                 dataGridViewModel.addTodo(inputedText);
             }
         }
