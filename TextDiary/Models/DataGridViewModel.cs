@@ -57,7 +57,7 @@ namespace TextDiary {
                 Todo tempTodo = TodoList[fvm.currentCellAddress.Y];
                 TodoList.RemoveAt(fvm.currentCellAddress.Y);
                 TodoList.Insert(fvm.currentCellAddress.Y + 1, tempTodo);
-                fvm.currentTodoIndex += 1;
+                fvm.currentIndex += 1;
             }
 
             statusChanged();
@@ -68,7 +68,7 @@ namespace TextDiary {
                 Todo tempTodo = TodoList[fvm.currentCellAddress.Y];
                 TodoList.RemoveAt(fvm.currentCellAddress.Y);
                 TodoList.Insert(fvm.currentCellAddress.Y - 1, tempTodo);
-                fvm.currentCellAddress.Y -= 1;
+                fvm.currentIndex -= 1;
             }
 
             statusChanged();
@@ -98,7 +98,7 @@ namespace TextDiary {
         }
 
         public void toggleIsCompleted(FormViewModel fvm) {
-            Todo currentTodo = TodoList[fvm.currentTodoIndex];
+            Todo currentTodo = TodoList[fvm.currentIndex];
             currentTodo.isCompleted = !(currentTodo.isCompleted);
 
             if (currentTodo.isCompleted) {

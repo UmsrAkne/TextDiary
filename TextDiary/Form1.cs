@@ -104,6 +104,7 @@ namespace TextDiary {
                 FormViewModel fvm = new FormViewModel();
                 fvm.text = azukiControl.Text;
                 fvm.currentCellAddress = dataGridView.CurrentCellAddress;
+                fvm.currentIndex = dataGridView.CurrentCellAddress.Y;
                 fvm.currentDataPropertyName =
                     dataGridView.Columns[fvm.currentCellAddress.X].DataPropertyName;
                 fvm.todoList = new List<Todo>(todoList);
@@ -114,14 +115,25 @@ namespace TextDiary {
 
         //DataGridViewModelで更新があってイベントが発行されたときに実行する。
         private void updateDataGridView() {
+
+            Point currentCellAddress = new Point(0, 0);
+
+            if (dataGridView.CurrentCell != null) {
+                currentCellAddress = dataGridView.CurrentCellAddress;
+            }
+
             todoList.Clear();
             List<Todo> list = dataGridViewModel.TodoList;
             foreach(Todo todo in list) {
                 todoList.Add(todo);
             }
 
-            dataGridView.CurrentCell = null;
-            dataGridView.CurrentCell = dataGridView[0, 0];
+            if(dataGridView.Rows.Count <= currentCellAddress.Y) {
+                dataGridView.CurrentCell = dataGridView[0,0];
+            }
+            else { 
+                dataGridView.CurrentCell = dataGridView[currentCellAddress.X, currentCellAddress.Y];
+            }
 
             for (int i = 0; i < dataGridView.Rows.Count; i++) {
                 if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
@@ -129,7 +141,7 @@ namespace TextDiary {
                 dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             }
 
-            dataGridView.Rows[0].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            dataGridView.Rows[ currentCellAddress.Y ].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         private void updateAppearance(){
