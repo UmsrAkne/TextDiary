@@ -64,6 +64,8 @@ namespace TextDiary {
             mainFormController.dataGridViewModel = this.dataGridViewModel;
             mainFormController.textEditorModel = this.textEditorModel;
 
+            updateDataGridView();
+
             azukiControl.KeyDown += this.keyboardEventHandler;
             dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
             dataGridView.SelectionChanged += DGVCellSelectionChangedHandler;
@@ -127,6 +129,8 @@ namespace TextDiary {
             foreach(Todo todo in list) {
                 todoList.Add(todo);
             }
+
+            dataGridView.DataSource = todoList;
 
             if(dataGridView.Rows.Count <= currentCellAddress.Y) {
                 dataGridView.CurrentCell = dataGridView[0,0];
@@ -219,7 +223,6 @@ namespace TextDiary {
             todoFileMaker = new TextFileMaker( settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
             todoFileReader = new TextFileReader(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
 
-            loadTodoList();
             displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
                 if(azukiControl.Text.Length != 0) {
                     latestText = azukiControl.Text;
@@ -243,34 +246,6 @@ namespace TextDiary {
 
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
             textEditorKeyEvent(azukiControl.Text, e);
-        }
-
-        private void loadTodoList() {
-            todoList.Clear();
-
-            List<Todo> tempTodoList = new List<Todo>();
-            int index = 0;
-            foreach (Todo todo in todoFileReader.loadTodosFromXml()) {
-                if(todo.Order == 0) {
-                    todo.Order = index;
-                    index++;
-                }
-                tempTodoList.Add(todo);
-            }
-
-            index = 0;
-            tempTodoList = tempTodoList.OrderBy(td => td.Order).ToList();
-
-            foreach(Todo todo in tempTodoList) {
-                todo.Order = index;
-                index++;
-
-                if (todoFileReader.findExistedTodoXmlFile(todo) == "") {
-                    todoFileMaker.createTodoXmlFile(todo);
-                }
-
-                todoList.Add(todo);
-            }
         }
 
         private void synchronizeBackGroundWindowLocationWithThisWindow(object sender , EventArgs e){
