@@ -11,8 +11,7 @@ namespace TextDiary {
     public delegate void DGVCellClicked(FormViewModel formVM);
     public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
     public delegate void KeyEvent(FormViewModel formVm , KeyEventArgs e);
-    public delegate void TextEditorKeyEvgent(FormViewModel formVM , KeyEventArgs e);
-    public delegate void isCompletedCheckBoxSwitch(FormViewModel formVM);
+    public delegate void TextEditorKeyEvgent(String inputedText , KeyEventArgs e);
 
     public partial class Form1 : Form {
 
@@ -100,31 +99,29 @@ namespace TextDiary {
             azukiControl.Text = textEditorModel.Text;
         }
 
-        private FormViewModel formViewModel = new FormViewModel();
         private FormViewModel ViewModel {
             get {
-                formViewModel.text = azukiControl.Text;
-                formViewModel.currentTodoIndex = dataGridView.CurrentCellAddress.Y;
-                formViewModel.currentCellAddress = dataGridView.CurrentCellAddress;
-                formViewModel.currentDataPropertyName =
-                    dataGridView.Columns[formViewModel.currentCellAddress.X].DataPropertyName;
+                FormViewModel fvm = new FormViewModel();
+                fvm.text = azukiControl.Text;
+                fvm.currentCellAddress = dataGridView.CurrentCellAddress;
+                fvm.currentDataPropertyName =
+                    dataGridView.Columns[fvm.currentCellAddress.X].DataPropertyName;
+                fvm.todoList = new List<Todo>(todoList);
 
-                return formViewModel;
+                return fvm;
             }
         }
 
         //DataGridViewModelで更新があってイベントが発行されたときに実行する。
         private void updateDataGridView() {
-            Point pointRec = dataGridView.CurrentCellAddress;
             todoList.Clear();
-
-            foreach(Todo todo  in dataGridViewModel.TodoList) {
+            List<Todo> list = dataGridViewModel.TodoList;
+            foreach(Todo todo in list) {
                 todoList.Add(todo);
             }
 
             dataGridView.CurrentCell = null;
-            dataGridView.CurrentCell =
-                dataGridView[pointRec.X, pointRec.Y];
+            dataGridView.CurrentCell = dataGridView[0, 0];
 
             for (int i = 0; i < dataGridView.Rows.Count; i++) {
                 if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
@@ -132,7 +129,7 @@ namespace TextDiary {
                 dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             }
 
-            dataGridView.Rows[dataGridView.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            dataGridView.Rows[0].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         private void updateAppearance(){
@@ -232,7 +229,7 @@ namespace TextDiary {
         } 
 
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
-            textEditorKeyEvent(ViewModel, e);
+            textEditorKeyEvent(azukiControl.Text, e);
         }
 
         private void loadTodoList() {
