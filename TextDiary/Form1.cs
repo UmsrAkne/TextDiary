@@ -73,8 +73,6 @@ namespace TextDiary {
 
             dataGridView.DataSource = this.todoList;
 
-            dataGridView.CurrentCellDirtyStateChanged += dataGridView_currentCellDirtStateChanged;
-
             dataGridView.CellPainting += drawCheckBoxInCell;
 
             dataGridView.CellBeginEdit += (sender , e) => {
@@ -202,14 +200,6 @@ namespace TextDiary {
             }
 
             e.Handled = true; //処理を既に行ったのでもう処理しなくていいよって通知。
-        }
-
-        private void dataGridView_currentCellDirtStateChanged(object sender, EventArgs e) {
-            string currentColumnDataPropertyName = dataGridView.Columns[dataGridView.CurrentCellAddress.X].DataPropertyName;
-
-            if((currentColumnDataPropertyName == "isCompleted")&&(dataGridView.IsCurrentCellDirty)) {
-                dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e) {
