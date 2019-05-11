@@ -44,6 +44,10 @@ namespace TextDiary {
             private set;
         }
 
+        public DataGridViewModel() {
+            loadTodoList();
+        }
+
         public void changeCurrentCell(FormViewModel fvm) {
             dispatchAppearanceChanged(fvm);
         }
@@ -73,24 +77,26 @@ namespace TextDiary {
         public void addTodo(FormViewModel fvm) {
             Todo todo = new Todo(fvm.text);
             todo.deadLine = DateTime.Today.AddDays(1);
-            todo.Order = fvm.todoList.Count + 1;
+            todo.Order = this.TodoList.Count;
             todoFileMaker.createTodoXmlFile(todo);
-            fvm.todoList.Add(todo);
+            TodoList.Add(todo);
             fvm.text = "";
-            dispatchStatusChanged(fvm);
+            statusChanged();
+            //dispatchStatusChanged(fvm);
         }
 
-        public void loadTodoList(FormViewModel fvm) {
+        public void loadTodoList() {
 
-            fvm.todoList = todoFileReader.loadTodosFromXml().ToList();
-            sortByTodoOrder(fvm);
-            for(int i = 0; i < fvm.todoList.Count; i++) {
-                fvm.todoList[i].Order = i;
-                string filePath = todoFileReader.findExistedTodoXmlFile(fvm.todoList[i]);
-                todoFileMaker.createTodoXmlFile(fvm.todoList[i]);
+            TodoList = todoFileReader.loadTodosFromXml().ToList();
+
+            List<Todo> sortedTodoList = TodoList.OrderBy(todo => todo.Order).ToList();
+            TodoList = sortedTodoList;
+
+            for (int i = 0; i < TodoList.Count; i++) {
+                TodoList[i].Order = i;
+                string filePath = todoFileReader.findExistedTodoXmlFile(TodoList[i]);
+                todoFileMaker.createTodoXmlFile(TodoList[i]);
             }
-
-            dispatchStatusChanged(fvm);
         }
 
         public void toggleIsCompleted(FormViewModel fvm) {

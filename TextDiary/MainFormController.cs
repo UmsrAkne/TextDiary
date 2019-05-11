@@ -28,23 +28,21 @@ namespace TextDiary {
             form.dgvCellSelectionChanged += DGVCellSelectionChangedEventHandler;
             form.dgvCellClicked += dgvCellClickedEventHandler;
             form.exportTheFinishedTodosMenuClick += exportTheFinishedTodos_MenuClickEventHandler;
-            form.keyEvent += mainFormKeyEventHandler;
             form.textEditorKeyEvent += textEditorKeyEventHandler;
         }
 
-        private void textEditorKeyEventHandler(string inputedText, KeyEventArgs e) {
+        private void textEditorKeyEventHandler(FormViewModel formVM, KeyEventArgs e) {
             if (e.Control == true && e.KeyCode == Keys.Enter) {
                 textEditorModel.clearText();
+                e.Handled = true;
             }
 
-                dataGridViewModel.addTodo(inputedText);
+            if (e.Control && e.KeyCode == Keys.T) {
+                textEditorModel.clearText();
+                dataGridViewModel.addTodo(formVM);
+                e.Handled = true;
             }
-        }
 
-        private void mainFormKeyEventHandler(FormViewModel formVm, KeyEventArgs e) {
-            if (e.Control == true && e.KeyCode == Keys.T) {
-                dataGridViewModel.addTodo(formVm);
-            }
         }
 
         private void dgvCellClickedEventHandler(FormViewModel formVM) {

@@ -11,7 +11,8 @@ namespace TextDiary {
     public delegate void DGVCellClicked(FormViewModel formVM);
     public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
     public delegate void KeyEvent(FormViewModel formVm , KeyEventArgs e);
-    public delegate void TextEditorKeyEvgent(String inputedText , KeyEventArgs e);
+    public delegate void TextEditorKeyEvgent(FormViewModel formVM , KeyEventArgs e);
+    public delegate void isCompletedCheckBoxSwitch(FormViewModel formVM);
 
     public partial class Form1 : Form {
 
@@ -114,15 +115,16 @@ namespace TextDiary {
 
         //DataGridViewModelで更新があってイベントが発行されたときに実行する。
         private void updateDataGridView() {
+            Point pointRec = dataGridView.CurrentCellAddress;
             todoList.Clear();
-            FormViewModel fvm = dataGridViewModel.FormVM;
-            foreach(Todo todo  in fvm.todoList) {
+
+            foreach(Todo todo  in dataGridViewModel.TodoList) {
                 todoList.Add(todo);
             }
 
             dataGridView.CurrentCell = null;
             dataGridView.CurrentCell =
-                dataGridView[fvm.currentCellAddress.X, fvm.currentCellAddress.Y];
+                dataGridView[pointRec.X, pointRec.Y];
 
             for (int i = 0; i < dataGridView.Rows.Count; i++) {
                 if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
@@ -130,8 +132,7 @@ namespace TextDiary {
                 dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             }
 
-            dataGridView.Rows[fvm.currentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
-            azukiControl.Text = fvm.text;
+            dataGridView.Rows[dataGridView.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         private void updateAppearance(){
@@ -231,7 +232,7 @@ namespace TextDiary {
         } 
 
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
-            textEditorKeyEvent(azukiControl.Text, e);
+            textEditorKeyEvent(ViewModel, e);
         }
 
         private void loadTodoList() {
