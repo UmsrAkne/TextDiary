@@ -24,8 +24,6 @@ namespace TextDiary {
         TextFileMaker todoFileMaker;
         TextFileReader todoFileReader;
 
-        TodoFileWatcher todoFileWatcher;
-
         private MainFormController mainFormController;
         private DataGridViewModel dataGridViewModel = new DataGridViewModel();
         private Models.TextEditorModel textEditorModel = new Models.TextEditorModel();
@@ -220,9 +218,6 @@ namespace TextDiary {
 
             todoFileMaker = new TextFileMaker( settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
             todoFileReader = new TextFileReader(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
-            todoFileWatcher = new TodoFileWatcher(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME);
-            todoFileWatcher.todoFileChanged += loadTodoList;
-            todoFileWatcher.startWatch();
 
             loadTodoList();
             displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {

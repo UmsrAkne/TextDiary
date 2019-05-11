@@ -44,8 +44,14 @@ namespace TextDiary {
             private set;
         }
 
+        private TodoFileWatcher todoFileWatcher =
+            new TodoFileWatcher(Directory.GetCurrentDirectory() + "\\text" + "\\todos");
+
+
         public DataGridViewModel() {
             loadTodoList();
+            todoFileWatcher.startWatch();
+            todoFileWatcher.todoFileChanged += loadTodoList;
         }
 
         public void changeCurrentCell(FormViewModel fvm) {
@@ -95,6 +101,8 @@ namespace TextDiary {
                 string filePath = todoFileReader.findExistedTodoXmlFile(TodoList[i]);
                 todoFileMaker.createTodoXmlFile(TodoList[i]);
             }
+
+            statusChanged();
         }
 
         public void toggleIsCompleted(FormViewModel fvm) {
