@@ -25,7 +25,7 @@ namespace TextDiary {
 
 
         //リストの状態が更新されたら、このイベントを発行してビューに通知する。
-        public event StatusChanged statusChanged;
+        public event StatusChanged statusChanged = delegate { };
 
         //リストの外見のみが更新されたときにイベントを発行。ビューに通知
         public event AppearanceChanged appearanceChanged;
