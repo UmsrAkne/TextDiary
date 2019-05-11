@@ -21,9 +21,6 @@ namespace TextDiary {
         TextFileMaker textFileMaker;
         TextFileReader textFileReader;
 
-        TextFileMaker todoFileMaker;
-        TextFileReader todoFileReader;
-
         private MainFormController mainFormController;
         private DataGridViewModel dataGridViewModel = new DataGridViewModel();
         private Models.TextEditorModel textEditorModel = new Models.TextEditorModel();
@@ -207,11 +204,6 @@ namespace TextDiary {
             settings.currentDirectoryPath = System.IO.Directory.GetCurrentDirectory() + "\\text";
             textFileMaker = new TextFileMaker(settings.currentDirectoryPath);
             textFileReader = new TextFileReader(settings.currentDirectoryPath);
-
-            const String TODOS_DIRECTORY_NAME = "\\todos";
-
-            todoFileMaker = new TextFileMaker( settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
-            todoFileReader = new TextFileReader(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
 
             displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
                 if(azukiControl.Text.Length != 0) {
