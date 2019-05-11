@@ -53,25 +53,25 @@ namespace TextDiary {
         }
 
         public void moveDownCurrentItem (FormViewModel fvm) {
-            if (fvm.currentCellAddress != null && fvm.currentCellAddress.Y < fvm.todoList.Count - 1) {
-                Todo tempTodo = fvm.todoList[fvm.currentCellAddress.Y];
-                fvm.todoList.RemoveAt(fvm.currentCellAddress.Y);
-                fvm.todoList.Insert(fvm.currentCellAddress.Y + 1, tempTodo);
-                fvm.currentCellAddress.Y += 1;
+            if (fvm.currentCellAddress != null && fvm.currentCellAddress.Y < TodoList.Count - 1) {
+                Todo tempTodo = TodoList[fvm.currentCellAddress.Y];
+                TodoList.RemoveAt(fvm.currentCellAddress.Y);
+                TodoList.Insert(fvm.currentCellAddress.Y + 1, tempTodo);
+                fvm.currentTodoIndex += 1;
             }
 
-            dispatchStatusChanged(fvm);
+            statusChanged();
         }
 
         public void moveUpCurrentItem(FormViewModel fvm) {
             if (fvm.currentCellAddress != null && fvm.currentCellAddress.Y > 0) {
-                Todo tempTodo = fvm.todoList[fvm.currentCellAddress.Y];
-                fvm.todoList.RemoveAt(fvm.currentCellAddress.Y);
-                fvm.todoList.Insert(fvm.currentCellAddress.Y - 1, tempTodo);
+                Todo tempTodo = TodoList[fvm.currentCellAddress.Y];
+                TodoList.RemoveAt(fvm.currentCellAddress.Y);
+                TodoList.Insert(fvm.currentCellAddress.Y - 1, tempTodo);
                 fvm.currentCellAddress.Y -= 1;
             }
 
-            dispatchStatusChanged(fvm);
+            statusChanged();
         }
 
         public void addTodo(String sourceText) {
@@ -98,7 +98,7 @@ namespace TextDiary {
         }
 
         public void toggleIsCompleted(FormViewModel fvm) {
-            Todo currentTodo = fvm.todoList[fvm.currentCellAddress.Y];
+            Todo currentTodo = TodoList[fvm.currentTodoIndex];
             currentTodo.isCompleted = !(currentTodo.isCompleted);
 
             if (currentTodo.isCompleted) {
@@ -107,7 +107,7 @@ namespace TextDiary {
                 currentTodo.completedDate = DateTime.MinValue;
             }
 
-            dispatchStatusChanged(fvm);
+            statusChanged();
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace TextDiary {
         /// </summary>
         /// <param name="fvm"></param>
         public void saveTodoAsXml(FormViewModel fvm) {
-            Todo todo = fvm.todoList[fvm.currentCellAddress.Y];
+            Todo todo = TodoList[fvm.currentCellAddress.Y];
             if (todoFileReader.findExistedTodoXmlFile(todo) != "") {
                 todoFileMaker.createTodoXmlFile(todo);
             }
