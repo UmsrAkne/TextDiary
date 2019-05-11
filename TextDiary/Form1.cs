@@ -12,6 +12,7 @@ namespace TextDiary {
     public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
     public delegate void KeyEvent(FormViewModel formVm , KeyEventArgs e);
     public delegate void TextEditorKeyEvgent(String inputedText , KeyEventArgs e);
+    public delegate void CompletionCheckBoxClick(FormViewModel formVm);
 
     public partial class Form1 : Form {
 
@@ -35,6 +36,7 @@ namespace TextDiary {
         public event ExportTheFinishedTodosMenuClick exportTheFinishedTodosMenuClick;
         public event KeyEvent keyEvent;
         public event TextEditorKeyEvgent textEditorKeyEvent;
+        public event CompletionCheckBoxClick completionCheckBoxClick = delegate { };
    
         String latestText = "";
         Boolean isLogReading = false;
@@ -141,7 +143,7 @@ namespace TextDiary {
                 dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             }
 
-            dataGridView.Rows[ currentCellAddress.Y ].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            dataGridView.Rows[ dataGridView.CurrentCellAddress.Y ].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         private void updateAppearance(){
@@ -173,6 +175,10 @@ namespace TextDiary {
         }
 
         private void dgvCellClickedEventHandler(object sender , DataGridViewCellEventArgs e) {
+            if (dataGridView.Columns[dataGridView.CurrentCellAddress.X].DataPropertyName == "isCompleted") {
+                completionCheckBoxClick(ViewModel);
+            }
+
             dgvCellClicked(ViewModel);
         }
 

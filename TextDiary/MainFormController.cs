@@ -30,6 +30,7 @@ namespace TextDiary {
             form.exportTheFinishedTodosMenuClick += exportTheFinishedTodos_MenuClickEventHandler;
             form.keyEvent += mainFormKeyEventHandler;
             form.textEditorKeyEvent += textEditorKeyEventHandler;
+            form.completionCheckBoxClick += completionCheckBoxClickEventHandler;
         }
 
         private void textEditorKeyEventHandler(string inputedText, KeyEventArgs e) {
@@ -47,10 +48,11 @@ namespace TextDiary {
         }
 
         private void dgvCellClickedEventHandler(FormViewModel formVM) {
-            if(formVM.currentDataPropertyName == "isCompleted") {
-                dataGridViewModel.toggleIsCompleted(formVM);
-                dataGridViewModel.saveTodoAsXml(formVM);
-            }
+        }
+
+        private void completionCheckBoxClickEventHandler(FormViewModel formVm) {
+            dataGridViewModel.toggleIsCompleted(formVm);
+            dataGridViewModel.saveTodoAsXml(formVm);
         }
 
         private void DGVCellSelectionChangedEventHandler(FormViewModel formVM) {
