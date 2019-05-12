@@ -98,17 +98,16 @@ namespace TextDiary {
             azukiControl.Text = textEditorModel.Text;
         }
 
+        private FormViewModel viewModel = new FormViewModel();
         private FormViewModel ViewModel {
             get {
-                FormViewModel fvm = new FormViewModel();
-                fvm.text = azukiControl.Text;
-                fvm.currentCellAddress = dataGridView.CurrentCellAddress;
-                fvm.currentIndex = dataGridView.CurrentCellAddress.Y;
-                fvm.currentDataPropertyName =
-                    dataGridView.Columns[fvm.currentCellAddress.X].DataPropertyName;
-                fvm.todoList = new List<Todo>(todoList);
+                viewModel.text = azukiControl.Text;
+                viewModel.currentCellAddress = dataGridView.CurrentCellAddress;
+                viewModel.currentIndex = dataGridView.CurrentCellAddress.Y;
+                viewModel.currentDataPropertyName =
+                    dataGridView.Columns[viewModel.currentCellAddress.X].DataPropertyName;
 
-                return fvm;
+                return viewModel;
             }
         }
 
