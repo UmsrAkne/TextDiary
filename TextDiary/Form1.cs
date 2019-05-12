@@ -82,7 +82,7 @@ namespace TextDiary {
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
-            this.Move += synchronizeBackGroundWindowLocationWithThisWindow;
+            this.Move += (sender , e) => backGroundPictureForm.Location = this.Location;
 
             this.Activated += setWindowsOnTopMost;
 
@@ -230,10 +230,6 @@ namespace TextDiary {
 
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
             textEditorKeyEvent(azukiControl.Text, e);
-        }
-
-        private void synchronizeBackGroundWindowLocationWithThisWindow(object sender , EventArgs e){
-            backGroundPictureForm.Location = this.Location;
         }
 
         private void setWindowsOnTopMost(Object sender , EventArgs e) {
