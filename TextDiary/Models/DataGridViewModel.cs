@@ -154,6 +154,16 @@ namespace TextDiary {
             statusChanged();
         }
 
+        public void exportTodoStatusAsTextFile() {
+            List<Todo> allTodo = new List<Todo>();
+
+            foreach (Todo selectedTodo in TodoList) {
+                allTodo.Add(selectedTodo);
+            }
+            System.Console.WriteLine(allTodo.Count);
+            textFileMaker.createTextFile(allTodo.ToArray());
+        }
+
         public void numberTodo() {
             for(int i = 0; i < TodoList.Count; i++) {
                 TodoList[i].Order = i;

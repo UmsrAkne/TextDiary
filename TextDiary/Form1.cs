@@ -13,6 +13,7 @@ namespace TextDiary {
     public delegate void KeyEvent(FormViewModel formVm , KeyEventArgs e);
     public delegate void TextEditorKeyEvgent(String inputedText , KeyEventArgs e);
     public delegate void CompletionCheckBoxClick(FormViewModel formVm);
+    public delegate void ExportTodoStatusAsTextFile_MenuItemClick(FormViewModel formVM);
 
     public partial class Form1 : Form {
 
@@ -32,6 +33,7 @@ namespace TextDiary {
         public event KeyEvent keyEvent;
         public event TextEditorKeyEvgent textEditorKeyEvent;
         public event CompletionCheckBoxClick completionCheckBoxClick = delegate { };
+        public event ExportTodoStatusAsTextFile_MenuItemClick exportTodoStatusAsTextFile_MenuItemClick = delegate { };
    
         String latestText = "";
         Boolean isLogReading = false;
@@ -250,15 +252,8 @@ namespace TextDiary {
             delayProcessTimer.Stop();
         }
 
-        //すべてのTodoをテキストファイルに出力する
         private void exportTheCurrentStateToTextFileToolStripMenuItem_Click(object sender, EventArgs e) {
-            List<Todo> allTodo = new List<Todo>();
-
-            foreach (Todo selectedTodo in todoList) {
-                allTodo.Add(selectedTodo);
-            }
-
-            textFileMaker.createTextFile(allTodo.ToArray());
+            exportTodoStatusAsTextFile_MenuItemClick(ViewModel);
         }
 
         private void exportTheFinishedTodosAndItDleteToolStripMenuItem_Click(object sender, EventArgs e) {
