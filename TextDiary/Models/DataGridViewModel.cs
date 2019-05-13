@@ -61,7 +61,8 @@ namespace TextDiary {
         }
 
         public void changeCurrentCell(FormViewModel fvm) {
-            dispatchAppearanceChanged(fvm);
+            this.CurrentCellAddress = fvm.currentCellAddress;
+            appearanceChanged();
         }
 
         public void moveDownCurrentItem (FormViewModel fvm) {

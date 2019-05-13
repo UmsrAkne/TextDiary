@@ -69,7 +69,7 @@ namespace TextDiary {
 
             azukiControl.KeyDown += this.keyboardEventHandler;
             dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
-            dataGridView.SelectionChanged += DGVCellSelectionChangedHandler;
+            dataGridView.CurrentCellChanged += DGVCellSelectionChangedHandler;
             dataGridView.CellMouseClick += dgvCellClickedEventHandler;
             dataGridView.CellContextMenuStripNeeded += dgvCellContextMenuStringNeededEventHandler;
 
@@ -102,8 +102,7 @@ namespace TextDiary {
 
         private void dgvCellContextMenuStringNeededEventHandler(
             object sender, DataGridViewCellContextMenuStripNeededEventArgs e) {
-            dataGridView[e.ColumnIndex, e.RowIndex].Selected = true;
-            System.Console.WriteLine(e.RowIndex);
+            dataGridView.CurrentCell = dataGridView[e.ColumnIndex, e.RowIndex];
         }
 
         private void updateAzukiControl() {
@@ -162,15 +161,17 @@ namespace TextDiary {
                 return;
             }
 
-            for(int i = 0; i < dataGridView.Rows.Count; i++) {
+            Point currentCellAddress = dataGridViewModel.CurrentCellAddress;
+            dataGridView.CurrentCell = dataGridView[currentCellAddress.X, currentCellAddress.Y];
+
+            for (int i = 0; i < dataGridView.Rows.Count; i++) {
                 if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
                 if (dataGridView.Rows[i].DefaultCellStyle.BackColor == Color.White) continue;
                 dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             }
-            
-            dataGridView.CurrentCell = dataGridView[fvm.currentCellAddress.X , fvm.currentCellAddress.Y];
-            dataGridView.Rows[fvm.currentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
-            System.Console.WriteLine("updateLook");
+
+
+            dataGridView.Rows[dataGridView.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         private void dataGridViewKeyControlEventHandler(object sender, KeyEventArgs e) {
