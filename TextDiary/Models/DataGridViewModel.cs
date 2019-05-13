@@ -174,6 +174,8 @@ namespace TextDiary {
         public void numberTodo() {
             for(int i = 0; i < TodoList.Count; i++) {
                 TodoList[i].Order = i;
+                string filePath = todoFileReader.findExistedTodoXmlFile(TodoList[i]);
+                todoFileMaker.createTodoXmlFile(TodoList[i]);
             }
             statusChanged();
         }
