@@ -14,6 +14,7 @@ namespace TextDiary {
     public delegate void TextEditorKeyEvgent(String inputedText , KeyEventArgs e);
     public delegate void CompletionCheckBoxClick(FormViewModel formVm);
     public delegate void ExportTodoStatusAsTextFile_MenuItemClick(FormViewModel formVM);
+    public delegate void ContextMenuClick_DeleteThisTodo(FormViewModel formVM);
 
     public partial class Form1 : Form {
 
@@ -34,6 +35,7 @@ namespace TextDiary {
         public event TextEditorKeyEvgent textEditorKeyEvent;
         public event CompletionCheckBoxClick completionCheckBoxClick = delegate { };
         public event ExportTodoStatusAsTextFile_MenuItemClick exportTodoStatusAsTextFile_MenuItemClick = delegate { };
+        public event ContextMenuClick_DeleteThisTodo contextMenuClick_DeleteThisTodo = delegate { };
    
         String latestText = "";
         Boolean isLogReading = false;
@@ -68,7 +70,11 @@ namespace TextDiary {
             azukiControl.KeyDown += this.keyboardEventHandler;
             dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
             dataGridView.SelectionChanged += DGVCellSelectionChangedHandler;
-            dataGridView.CellClick += dgvCellClickedEventHandler;
+            dataGridView.CellMouseClick += dgvCellClickedEventHandler;
+            dataGridView.CellContextMenuStripNeeded += dgvCellContextMenuStringNeededEventHandler;
+
+            dataGridView.ContextMenuStrip.Items["deleteThisTodo"].Click += 
+                (sender, e) => contextMenuClick_DeleteThisTodo(ViewModel);
 
             dataGridView.DataSource = this.todoList;
 
@@ -92,6 +98,12 @@ namespace TextDiary {
 
             var drl = (System.Diagnostics.DefaultTraceListener)System.Diagnostics.Trace.Listeners["Default"];
             drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
+        }
+
+        private void dgvCellContextMenuStringNeededEventHandler(
+            object sender, DataGridViewCellContextMenuStripNeededEventArgs e) {
+            dataGridView[e.ColumnIndex, e.RowIndex].Selected = true;
+            System.Console.WriteLine(e.RowIndex);
         }
 
         private void updateAzukiControl() {
@@ -172,7 +184,7 @@ namespace TextDiary {
             }
         }
 
-        private void dgvCellClickedEventHandler(object sender , DataGridViewCellEventArgs e) {
+        private void dgvCellClickedEventHandler(object sender , DataGridViewCellMouseEventArgs e) {
             if (dataGridView.Columns[dataGridView.CurrentCellAddress.X].DataPropertyName == "isCompleted") {
                 completionCheckBoxClick(ViewModel);
             }

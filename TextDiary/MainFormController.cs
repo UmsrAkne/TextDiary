@@ -33,6 +33,7 @@ namespace TextDiary {
             form.completionCheckBoxClick += completionCheckBoxClickEventHandler;
 
             form.exportTodoStatusAsTextFile_MenuItemClick += (fvm) => dataGridViewModel.exportTodoStatusAsTextFile();
+            form.contextMenuClick_DeleteThisTodo += (fvm) => dataGridViewModel.deleteThisTodo(fvm);
         }
 
         private void textEditorKeyEventHandler(string inputedText, KeyEventArgs e) {

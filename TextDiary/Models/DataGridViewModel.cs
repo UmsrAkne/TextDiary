@@ -47,6 +47,12 @@ namespace TextDiary {
         private TodoFileWatcher todoFileWatcher =
             new TodoFileWatcher(Directory.GetCurrentDirectory() + "\\text" + "\\todos");
 
+        public void deleteThisTodo(FormViewModel fvm) {
+            TodoList.RemoveAt(fvm.currentIndex);
+            File.Delete(todoFileReader.findExistedTodoXmlFile(TodoList[fvm.currentIndex]));
+            numberTodo();
+            statusChanged();
+        }
 
         public DataGridViewModel() {
             loadTodoList();
