@@ -44,17 +44,20 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.additionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.completedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deadLineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteThisTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.todoBindingSource)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -195,6 +198,7 @@
             this.additionDate,
             this.completedDate,
             this.deadLineDataGridViewTextBoxColumn});
+            this.dataGridView.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView.DataSource = this.todoBindingSource;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
@@ -224,6 +228,15 @@
             this.dataGridView.Size = new System.Drawing.Size(778, 383);
             this.dataGridView.TabIndex = 2;
             // 
+            // isCompleted
+            // 
+            this.isCompleted.DataPropertyName = "isCompleted";
+            this.isCompleted.FillWeight = 23.16602F;
+            this.isCompleted.HeaderText = "";
+            this.isCompleted.Name = "isCompleted";
+            this.isCompleted.ReadOnly = true;
+            this.isCompleted.Width = 40;
+            // 
             // order
             // 
             this.order.DataPropertyName = "Order";
@@ -233,15 +246,6 @@
             this.order.Name = "order";
             this.order.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.order.Width = 25;
-            // 
-            // isCompleted
-            // 
-            this.isCompleted.DataPropertyName = "isCompleted";
-            this.isCompleted.FillWeight = 23.16602F;
-            this.isCompleted.HeaderText = "";
-            this.isCompleted.Name = "isCompleted";
-            this.isCompleted.ReadOnly = true;
-            this.isCompleted.Width = 40;
             // 
             // content
             // 
@@ -282,6 +286,19 @@
             // 
             this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteThisTodoToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 26);
+            // 
+            // deleteThisTodoToolStripMenuItem
+            // 
+            this.deleteThisTodoToolStripMenuItem.Name = "deleteThisTodoToolStripMenuItem";
+            this.deleteThisTodoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.deleteThisTodoToolStripMenuItem.Text = "Delete this todo";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -299,6 +316,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.todoBindingSource)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -325,6 +343,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn additionDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn completedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn deadLineDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem deleteThisTodoToolStripMenuItem;
     }
 }
 
