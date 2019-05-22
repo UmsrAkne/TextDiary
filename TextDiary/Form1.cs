@@ -66,11 +66,18 @@ namespace TextDiary {
             updateDataGridView();
 
             azukiControl.KeyDown += (sender ,e) => textEditorKeyEvent(azukiControl.Text, e);
-
             dataGridView.KeyDown += (sender, e) => dataGridViewKeyboardEventHandler(ViewModel, e);
-            dataGridView.CurrentCellChanged += DGVCellSelectionChangedHandler;
+            dataGridView.CurrentCellChanged += (sender, e) => {
+                if (dataGridView.CurrentCell != null) {
+                    dgvCellSelectionChanged(ViewModel);
+                }
+            };
+
             dataGridView.CellMouseClick += dgvCellClickedEventHandler;
-            dataGridView.CellContextMenuStripNeeded += dgvCellContextMenuStripNeededEventHandler;
+
+            //セル上でコンテキストメニューの表示があったとき、作業セルをそのセルに変更する。
+            dataGridView.CellContextMenuStripNeeded += 
+                (sender ,e) => dataGridView.CurrentCell = dataGridView[e.ColumnIndex, e.RowIndex];
 
             dataGridView.ContextMenuStrip.Items["deleteThisTodo"].Click += 
                 (sender, e) => contextMenuClick_DeleteThisTodo(ViewModel);
@@ -123,16 +130,6 @@ namespace TextDiary {
                 }
             };
 
-        }
-
-        /// <summary>
-        /// セル上でコンテキストメニューが表示されたとき、カレントセルをそのセルに変更する。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dgvCellContextMenuStripNeededEventHandler(
-            object sender, DataGridViewCellContextMenuStripNeededEventArgs e) {
-            dataGridView.CurrentCell = dataGridView[e.ColumnIndex, e.RowIndex];
         }
 
         /// <summary>
@@ -216,11 +213,6 @@ namespace TextDiary {
             dataGridView.Rows[dataGridView.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
-        private void DGVCellSelectionChangedHandler(object sender, EventArgs e) {
-            if (dataGridView.CurrentCell != null) {
-                dgvCellSelectionChanged(ViewModel);
-            }
-        }
 
 
         /// <summary>
