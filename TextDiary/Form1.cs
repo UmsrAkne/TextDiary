@@ -19,7 +19,6 @@ namespace TextDiary {
 
         Settings settings;
 
-        TextFileMaker textFileMaker;
         TextFileReader textFileReader;
 
         private MainFormController mainFormController;
@@ -105,10 +104,7 @@ namespace TextDiary {
             var drl = (System.Diagnostics.DefaultTraceListener)System.Diagnostics.Trace.Listeners["Default"];
             drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
 
-            settings = new Settings();
-            settings.currentDirectoryPath = System.IO.Directory.GetCurrentDirectory() + "\\text";
-            textFileMaker = new TextFileMaker(settings.currentDirectoryPath);
-            textFileReader = new TextFileReader(settings.currentDirectoryPath);
+            textFileReader = new TextFileReader(System.IO.Directory.GetCurrentDirectory() + "\\text");
 
             displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
                 if (azukiControl.Text.Length != 0) {
