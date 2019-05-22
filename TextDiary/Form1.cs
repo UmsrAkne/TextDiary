@@ -94,6 +94,7 @@ namespace TextDiary {
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
             this.Move += (sender , e) => backGroundPictureForm.Location = this.Location;
+            this.SizeChanged += (sender, e) => backGroundPictureForm.Size = this.Size;
 
             this.Activated += setWindowsOnTopMost;
 
