@@ -55,7 +55,7 @@
     <Compile Include="BackGroundPictureForm.Designer.cs">
       <DependentUpon>BackGroundPictureForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataGridViewModel.cs" />
+    <Compile Include="Models\TodoListModel.cs" />
     <Compile Include="FormViewModel.cs" />
     <Compile Include="MainFormController.cs" />
     <Compile Include="Models\TextEditorModel.cs" />
