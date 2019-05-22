@@ -100,11 +100,19 @@ namespace TextDiary {
             drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
         }
 
+        /// <summary>
+        /// セル上でコンテキストメニューが表示されたとき、カレントセルをそのセルに変更する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvCellContextMenuStripNeededEventHandler(
             object sender, DataGridViewCellContextMenuStripNeededEventArgs e) {
             dataGridView.CurrentCell = dataGridView[e.ColumnIndex, e.RowIndex];
         }
 
+        /// <summary>
+        /// モデルクラスから情報を取得して、テキストボックスを更新する。
+        /// </summary>
         private void updateAzukiControl() {
             azukiControl.Text = textEditorModel.Text;
         }
@@ -122,7 +130,9 @@ namespace TextDiary {
             }
         }
 
-        //DataGridViewModelで更新があってイベントが発行されたときに実行する。
+        /// <summary>
+        /// TodoListModelから情報を取得して、データグリッドビューを更新する。
+        /// </summary>
         private void updateDataGridView() {
 
             Point currentCellAddress = new Point(0, 0);
@@ -155,6 +165,9 @@ namespace TextDiary {
             dataGridView.Rows[ dataGridView.CurrentCellAddress.Y ].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
+        /// <summary>
+        /// TodoListModelから情報を取得して、データグリッドビューの見た目（セルの背景色等）のみの更新を行う。
+        /// </summary>
         private void updateAppearance(){
             FormViewModel fvm = dataGridViewModel.FormVM;
             if(dataGridView.CurrentCellAddress.X < 0 || dataGridView.CurrentCellAddress.Y < 0) {
@@ -175,7 +188,6 @@ namespace TextDiary {
         }
 
         private void dataGridViewKeyControlEventHandler(object sender, KeyEventArgs e) {
-            //イベントを送信
             dataGridViewKeyboardEventHandler(ViewModel, e);
         }
 
@@ -193,7 +205,15 @@ namespace TextDiary {
             dgvCellClicked(ViewModel);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">イベント発火元のデータグリッドビューです</param>
+        /// <param name="e">セルを描画するためのデータ</param>
         private void drawCheckBoxInCell(object sender, DataGridViewCellPaintingEventArgs e) {
+
+            //このメソッドは、データグリッドビューの見た目を変更するためのものなので、モデルクラスとかには移せない。
+            //ビュー内で処理する必要がある。
 
             dataGridView.ImeMode = ImeMode.Disable;
 
@@ -240,10 +260,21 @@ namespace TextDiary {
             };
         } 
 
+        /// <summary>
+        /// Azukiコントロールにセットされたキーボードイベントハンドラです
+        /// </summary>
+        /// <param name="sender">イベント発火元</param>
+        /// <param name="e">キーイベントの内容です</param>
         private void keyboardEventHandler(object sender , KeyEventArgs e) {
             textEditorKeyEvent(azukiControl.Text, e);
         }
 
+        /// <summary>
+        /// バックのフォームを、全ウィンドウ中最前面に移動します。
+        /// 処理の最後に、一瞬後に起動するタイマーをスタートします。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setWindowsOnTopMost(Object sender , EventArgs e) {
 
             this.Activated -= setWindowsOnTopMost;
@@ -253,6 +284,12 @@ namespace TextDiary {
             delayProcessTimer.Start();
         }
 
+        /// <summary>
+        /// メインフォームを最前面に持ってきます。
+        /// setWindowsOnTopMost　の最後に呼び出され、一瞬後に実行されます。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void delayProcess(object sender, EventArgs e){
             this.TopMost = true;
             this.TopMost = false;
@@ -260,10 +297,20 @@ namespace TextDiary {
             delayProcessTimer.Stop();
         }
 
+        /// <summary>
+        /// 同ツールストリップメニュー項目がクリックされたとき、イベントが発火します。
+        /// </summary>
+        /// <param name="sender">ツールストリップアイテム</param>
+        /// <param name="e"></param>
         private void exportTheCurrentStateToTextFileToolStripMenuItem_Click(object sender, EventArgs e) {
             exportTodoStatusAsTextFile_MenuItemClick(ViewModel);
         }
 
+        /// <summary>
+        /// ツールストリップメニュー項目がクリックされたとき、イベントが発火します
+        /// </summary>
+        /// <param name="sender">ツールストリップアイテム</param>
+        /// <param name="e"></param>
         private void exportTheFinishedTodosAndItDleteToolStripMenuItem_Click(object sender, EventArgs e) {
             exportTheFinishedTodosMenuClick( ViewModel );
         }
