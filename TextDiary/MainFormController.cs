@@ -37,6 +37,7 @@ namespace TextDiary {
         private void textEditorKeyEventHandler(string inputedText, KeyEventArgs e) {
             if (e.Control == true && e.KeyCode == Keys.Enter) {
                 textEditorModel.clearText();
+                e.Handled = true;
             }
 
             if (e.Control == true && e.KeyCode == Keys.T) {
