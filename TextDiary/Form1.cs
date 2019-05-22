@@ -96,6 +96,32 @@ namespace TextDiary {
 
             var drl = (System.Diagnostics.DefaultTraceListener)System.Diagnostics.Trace.Listeners["Default"];
             drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
+
+            settings = new Settings();
+            settings.currentDirectoryPath = System.IO.Directory.GetCurrentDirectory() + "\\text";
+            textFileMaker = new TextFileMaker(settings.currentDirectoryPath);
+            textFileReader = new TextFileReader(settings.currentDirectoryPath);
+
+            displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
+                if (azukiControl.Text.Length != 0) {
+                    latestText = azukiControl.Text;
+                }
+                isLogReading = true;
+                azukiControl.Text = textFileReader.readTextFilesFromCurrentDirectory();
+            };
+
+            displayLatestFileToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
+                isLogReading = false;
+                azukiControl.Text = latestText;
+            };
+
+            openBgPictureToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == DialogResult.OK) {
+                    backGroundPictureForm.loadPicture(openFileDialog.FileName);
+                }
+            };
+
         }
 
         /// <summary>
@@ -232,30 +258,6 @@ namespace TextDiary {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            settings = new Settings();
-            settings.currentDirectoryPath = System.IO.Directory.GetCurrentDirectory() + "\\text";
-            textFileMaker = new TextFileMaker(settings.currentDirectoryPath);
-            textFileReader = new TextFileReader(settings.currentDirectoryPath);
-
-            displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
-                if(azukiControl.Text.Length != 0) {
-                    latestText = azukiControl.Text;
-                }
-                isLogReading = true;
-                azukiControl.Text = textFileReader.readTextFilesFromCurrentDirectory();
-            };
-
-            displayLatestFileToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
-                isLogReading = false;
-                azukiControl.Text = latestText;
-            };
-
-            openBgPictureToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                if (openFileDialog.ShowDialog() == DialogResult.OK) {
-                    backGroundPictureForm.loadPicture(openFileDialog.FileName);
-                }
-            };
         } 
 
         /// <summary>

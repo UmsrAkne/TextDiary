@@ -45,9 +45,6 @@ namespace TextDiary {
             }
         }
 
-        private void mainFormKeyEventHandler(FormViewModel formVm, KeyEventArgs e) {
-        }
-
         private void dgvCellClickedEventHandler(FormViewModel formVM) {
         }
 
