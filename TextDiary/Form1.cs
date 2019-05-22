@@ -65,8 +65,9 @@ namespace TextDiary {
 
             updateDataGridView();
 
-            azukiControl.KeyDown += this.keyboardEventHandler;
-            dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
+            azukiControl.KeyDown += (sender ,e) => textEditorKeyEvent(azukiControl.Text, e);
+
+            dataGridView.KeyDown += (sender, e) => dataGridViewKeyboardEventHandler(ViewModel, e);
             dataGridView.CurrentCellChanged += DGVCellSelectionChangedHandler;
             dataGridView.CellMouseClick += dgvCellClickedEventHandler;
             dataGridView.CellContextMenuStripNeeded += dgvCellContextMenuStripNeededEventHandler;
@@ -215,10 +216,6 @@ namespace TextDiary {
             dataGridView.Rows[dataGridView.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
-        private void dataGridViewKeyControlEventHandler(object sender, KeyEventArgs e) {
-            dataGridViewKeyboardEventHandler(ViewModel, e);
-        }
-
         private void DGVCellSelectionChangedHandler(object sender, EventArgs e) {
             if (dataGridView.CurrentCell != null) {
                 dgvCellSelectionChanged(ViewModel);
@@ -263,15 +260,6 @@ namespace TextDiary {
 
         private void Form1_Load(object sender, EventArgs e) {
         } 
-
-        /// <summary>
-        /// Azukiコントロールにセットされたキーボードイベントハンドラです
-        /// </summary>
-        /// <param name="sender">イベント発火元</param>
-        /// <param name="e">キーイベントの内容です</param>
-        private void keyboardEventHandler(object sender , KeyEventArgs e) {
-            textEditorKeyEvent(azukiControl.Text, e);
-        }
 
         /// <summary>
         /// バックのフォームを、全ウィンドウ中最前面に移動します。
