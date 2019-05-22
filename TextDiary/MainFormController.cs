@@ -28,10 +28,8 @@ namespace TextDiary {
             form.dgvCellSelectionChanged += DGVCellSelectionChangedEventHandler;
             form.dgvCellClicked += dgvCellClickedEventHandler;
             form.exportTheFinishedTodosMenuClick += exportTheFinishedTodos_MenuClickEventHandler;
-            form.keyEvent += mainFormKeyEventHandler;
             form.textEditorKeyEvent += textEditorKeyEventHandler;
             form.completionCheckBoxClick += completionCheckBoxClickEventHandler;
-
             form.exportTodoStatusAsTextFile_MenuItemClick += (fvm) => dataGridViewModel.exportTodoStatusAsTextFile();
             form.contextMenuClick_DeleteThisTodo += (fvm) => dataGridViewModel.deleteThisTodo(fvm);
         }

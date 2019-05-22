@@ -10,7 +10,6 @@ namespace TextDiary {
     public delegate void DGVCellSelectionChanged(FormViewModel formVM);
     public delegate void DGVCellClicked(FormViewModel formVM);
     public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
-    public delegate void KeyEvent(FormViewModel formVm , KeyEventArgs e);
     public delegate void TextEditorKeyEvgent(String inputedText , KeyEventArgs e);
     public delegate void CompletionCheckBoxClick(FormViewModel formVm);
     public delegate void ExportTodoStatusAsTextFile_MenuItemClick(FormViewModel formVM);
@@ -31,7 +30,6 @@ namespace TextDiary {
         public event DGVCellSelectionChanged dgvCellSelectionChanged;
         public event DGVCellClicked dgvCellClicked;
         public event ExportTheFinishedTodosMenuClick exportTheFinishedTodosMenuClick;
-        public event KeyEvent keyEvent;
         public event TextEditorKeyEvgent textEditorKeyEvent;
         public event CompletionCheckBoxClick completionCheckBoxClick = delegate { };
         public event ExportTodoStatusAsTextFile_MenuItemClick exportTodoStatusAsTextFile_MenuItemClick = delegate { };
