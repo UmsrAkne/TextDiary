@@ -39,10 +39,10 @@ namespace TextDiary {
         private TextFileMaker textFileMaker
             = new TextFileMaker(Directory.GetCurrentDirectory() + "\\text");
 
-        public FormViewModel FormVM{
+        public FormViewModel FormVM {
             get;
             private set;
-        }
+        } = new FormViewModel();
 
         private TodoFileWatcher todoFileWatcher =
             new TodoFileWatcher(Directory.GetCurrentDirectory() + "\\text" + "\\todos");
@@ -71,6 +71,7 @@ namespace TextDiary {
                 TodoList.RemoveAt(fvm.currentCellAddress.Y);
                 TodoList.Insert(fvm.currentCellAddress.Y + 1, tempTodo);
                 fvm.currentIndex += 1;
+                FormVM = fvm;
             }
 
             statusChanged();
@@ -82,6 +83,7 @@ namespace TextDiary {
                 TodoList.RemoveAt(fvm.currentCellAddress.Y);
                 TodoList.Insert(fvm.currentCellAddress.Y - 1, tempTodo);
                 fvm.currentIndex -= 1;
+                FormVM = fvm;
             }
 
             statusChanged();
@@ -122,6 +124,7 @@ namespace TextDiary {
                 currentTodo.completedDate = DateTime.MinValue;
             }
 
+            FormVM = fvm;
             statusChanged();
         }
 

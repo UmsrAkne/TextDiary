@@ -161,7 +161,7 @@ namespace TextDiary {
             Point currentCellAddress = new Point(0, 0);
 
             if (dataGridView.CurrentCell != null) {
-                currentCellAddress = dataGridView.CurrentCellAddress;
+                currentCellAddress = new Point(dataGridView.CurrentCellAddress.X, dataGridViewModel.FormVM.currentIndex);
             }
 
             todoList.Clear();
