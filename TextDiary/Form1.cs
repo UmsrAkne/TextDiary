@@ -5,18 +5,35 @@ using System.Linq;
 using System.Drawing;
 
 namespace TextDiary {
+
+    public delegate void DataGridViewKeyboardEventHandler(FormViewModel formVM , KeyEventArgs e);
+    public delegate void DGVCellSelectionChanged(FormViewModel formVM);
+    public delegate void DGVCellClicked(FormViewModel formVM);
+    public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
+    public delegate void TextEditorKeyEvgent(String inputedText , KeyEventArgs e);
+    public delegate void CompletionCheckBoxClick(FormViewModel formVm);
+    public delegate void ExportTodoStatusAsTextFile_MenuItemClick(FormViewModel formVM);
+    public delegate void ContextMenuClick_DeleteThisTodo(FormViewModel formVM);
+
     public partial class Form1 : Form {
 
         Settings settings;
 
-        TextFileMaker textFileMaker;
         TextFileReader textFileReader;
 
-        TextFileMaker todoFileMaker;
-        TextFileReader todoFileReader;
+        private MainFormController mainFormController;
+        private TodoListModel todoListModel = new TodoListModel();
+        private Models.TextEditorModel textEditorModel = new Models.TextEditorModel();
 
-        TodoFileWatcher todoFileWatcher;
-
+        public event DataGridViewKeyboardEventHandler dataGridViewKeyboardEventHandler;
+        public event DGVCellSelectionChanged dgvCellSelectionChanged;
+        public event DGVCellClicked dgvCellClicked;
+        public event ExportTheFinishedTodosMenuClick exportTheFinishedTodosMenuClick;
+        public event TextEditorKeyEvgent textEditorKeyEvent;
+        public event CompletionCheckBoxClick completionCheckBoxClick = delegate { };
+        public event ExportTodoStatusAsTextFile_MenuItemClick exportTodoStatusAsTextFile_MenuItemClick = delegate { };
+        public event ContextMenuClick_DeleteThisTodo contextMenuClick_DeleteThisTodo = delegate { };
+   
         String latestText = "";
         Boolean isLogReading = false;
 
@@ -31,25 +48,42 @@ namespace TextDiary {
 
         public Form1() {
             InitializeComponent();
-            azukiControl.KeyDown += this.keyboardEventHandler;
-            dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
 
-            dataGridView.AdvancedCellBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.None;
-            dataGridView.AdvancedCellBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
-            dataGridView.AdvancedCellBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;
+            //コントローラーには自身の参照を渡す。
+            mainFormController = new MainFormController(this);
+
+            //Formが持っているモデルに対しては状態変化を監視するためにイベントハンドラをセット。
+            todoListModel.statusChanged += updateDataGridView;
+            todoListModel.appearanceChanged += updateAppearance;
+            textEditorModel.textChanged += updateAzukiControl;
+
+            //コントローラーにはFormが持っているモデルの参照を渡す
+            //取得の必要は無いので、setアクセサのみを公開している。
+            mainFormController.dataGridViewModel = this.todoListModel;
+            mainFormController.textEditorModel = this.textEditorModel;
+
+            updateDataGridView();
+
+            azukiControl.KeyDown += (sender ,e) => textEditorKeyEvent(azukiControl.Text, e);
+            dataGridView.KeyDown += (sender, e) => dataGridViewKeyboardEventHandler(ViewModel, e);
+            dataGridView.CurrentCellChanged += (sender, e) => {
+                if (dataGridView.CurrentCell != null) {
+                    dgvCellSelectionChanged(ViewModel);
+                }
+            };
+
+            dataGridView.CellMouseClick += dgvCellClickedEventHandler;
+
+            //セル上でコンテキストメニューの表示があったとき、作業セルをそのセルに変更する。
+            dataGridView.CellContextMenuStripNeeded += 
+                (sender ,e) => dataGridView.CurrentCell = dataGridView[e.ColumnIndex, e.RowIndex];
+
+            dataGridView.ContextMenuStrip.Items["deleteThisTodo"].Click += 
+                (sender, e) => contextMenuClick_DeleteThisTodo(ViewModel);
 
             dataGridView.DataSource = this.todoList;
 
-            dataGridView.CellValueChanged += dataGridView_cellValueChanged;
-            dataGridView.CurrentCellDirtyStateChanged += dataGridView_currentCellDirtStateChanged;
-            dataGridView.CellFormatting += convertDateTimeFormat;
-
-            //行を選択時に水色に、離れた時に白に戻す。
-            dataGridView.SelectionChanged += (sender, e) => coloringCurrentRow(System.Drawing.Color.LightSkyBlue);
-            dataGridView.CellLeave += (sender, e) => coloringCurrentRow(System.Drawing.Color.White);
-
             dataGridView.CellPainting += drawCheckBoxInCell;
-            dataGridView.CellClick += toggleCheckBoxImage;
 
             dataGridView.CellBeginEdit += (sender , e) => {
                 if (dataGridView[e.ColumnIndex, e.RowIndex].Value is string)
@@ -59,7 +93,8 @@ namespace TextDiary {
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
-            this.Move += synchronizeBackGroundWindowLocationWithThisWindow;
+            this.Move += (sender , e) => backGroundPictureForm.Location = this.Location;
+            this.SizeChanged += (sender, e) => backGroundPictureForm.Size = this.Size;
 
             this.Activated += setWindowsOnTopMost;
 
@@ -69,163 +104,11 @@ namespace TextDiary {
 
             var drl = (System.Diagnostics.DefaultTraceListener)System.Diagnostics.Trace.Listeners["Default"];
             drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
-        }
 
-        private void dataGridViewKeyControlEventHandler(object sender, KeyEventArgs e) {
+            textFileReader = new TextFileReader(System.IO.Directory.GetCurrentDirectory() + "\\text");
 
-            var changedOrder = false;
-
-            if (e.Control == true && e.KeyCode == Keys.Up) {
-                if (dataGridView.CurrentCell != null && dataGridView.CurrentCellAddress.Y > 0) {
-                    Todo tempTodo = todoList[dataGridView.CurrentCellAddress.Y];
-                    Point currentCellPoint = new Point(dataGridView.CurrentCellAddress.X, dataGridView.CurrentCellAddress.Y);
-                    todoList.RemoveAt(currentCellPoint.Y);
-                    todoList.Insert(currentCellPoint.Y -1 , tempTodo);
-                    dataGridView.CurrentCell = null; 
-                    dataGridView.CurrentCell = dataGridView[currentCellPoint.X, currentCellPoint.Y -1];
-                    changedOrder = true;
-                }
-            }
-
-            if (e.Control == true && e.KeyCode == Keys.Down) {
-                if (dataGridView.CurrentCell != null && dataGridView.CurrentCellAddress.Y < dataGridView.Rows.Count -1) {
-                    Todo tempTodo = todoList[dataGridView.CurrentCellAddress.Y];
-                    Point currentCellPoint = new Point(dataGridView.CurrentCellAddress.X, dataGridView.CurrentCellAddress.Y);
-                    todoList.RemoveAt(currentCellPoint.Y);
-                    todoList.Insert(currentCellPoint.Y + 1, tempTodo);
-                    dataGridView.CurrentCell = null;
-                    dataGridView.CurrentCell = dataGridView[currentCellPoint.X, currentCellPoint.Y + 1];
-                    changedOrder = true;
-                }
-            }
-
-            if (changedOrder) {
-                e.Handled = true;
-                coloringCurrentRow(System.Drawing.Color.LightSkyBlue);
-                for(var i = 0; i < todoList.Count; i++) {
-                    todoList[i].Order = i;
-                    if(todoFileReader.findExistedTodoXmlFile(todoList[i]) != "") {
-                        todoFileMaker.createTodoXmlFile(todoList[i]);
-                    }
-                }
-            }
-
-        }
-
-        private void toggleCheckBoxImage(object sender, DataGridViewCellEventArgs e) {
-            if ((e.ColumnIndex == 0)&&(e.RowIndex >= 0)) {
-                DataGridViewCell currentCell = dataGridView[e.ColumnIndex, e.RowIndex];
-                if (currentCell.Value is bool) {
-                    currentCell.Value = !(bool)currentCell.Value;
-                }
-            }
-        }
-
-        private void drawCheckBoxInCell(object sender, DataGridViewCellPaintingEventArgs e) {
-
-            dataGridView.ImeMode = ImeMode.Disable;
-
-            if ((e.ColumnIndex != 0) || (e.RowIndex < 0)) return;
-
-            DataGridViewCell currentCell = dataGridView[e.ColumnIndex, e.RowIndex];
-            e.PaintBackground(e.ClipBounds, true);
-
-            if (currentCell.Value is bool) {
-
-                if ((bool)currentCell.Value) {
-                    e.Graphics.DrawImage(Properties.Resources.checkBoxImage, e.CellBounds);
-                }
-                else {
-                    e.Graphics.DrawImage(Properties.Resources.unCheckBoxImage, e.CellBounds);
-                }
-            }
-
-            e.Handled = true; //処理を既に行ったのでもう処理しなくていいよって通知。
-        }
-
-        private void coloringCurrentRow( System.Drawing.Color color ) {
-            if (dataGridView.CurrentCellAddress.Y >= 0) {
-                DataGridViewCellCollection currentRowCells = dataGridView.Rows[dataGridView.CurrentCellAddress.Y].Cells;
-                foreach (DataGridViewCell cell in currentRowCells) {
-                    cell.Style.BackColor = color;
-                }
-            }
-        }
-
-        private void convertDateTimeFormat(object sender, DataGridViewCellFormattingEventArgs e) {
-            if (e.Value is DateTime) {
-                DateTime dateTime = (DateTime)e.Value;
-                if (dateTime == DateTime.MinValue) {
-                    e.Value = "";
-                    return;
-                }
-                e.Value = dateTime.ToString("MM/dd HH:mm");
-            }
-        }
-
-        private void dataGridView_currentCellDirtStateChanged(object sender, EventArgs e) {
-            string currentColumnDataPropertyName = dataGridView.Columns[dataGridView.CurrentCellAddress.X].DataPropertyName;
-
-            if((currentColumnDataPropertyName == "isCompleted")&&(dataGridView.IsCurrentCellDirty)) {
-                dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            }
-        }
-
-        private void dataGridView_cellValueChanged(object sender, DataGridViewCellEventArgs e) {
-
-            string currentColumnName = dataGridView.Columns[e.ColumnIndex].DataPropertyName;
-            if (currentColumnName == "isCompleted") {
-
-                //０でなく-1を指定するのは、次のループ内で要素が見つからなかったらエラーを吐くようにするため
-                int completedDateColumnIndex = -1; 
-
-                for(int i = 0; i < dataGridView.Columns.Count; i++) {
-                    if(dataGridView.Columns[i].DataPropertyName == "completedDate") {
-                        completedDateColumnIndex = i;
-                        break;
-                    }
-                }
-
-                if ((Boolean)dataGridView[e.ColumnIndex , e.RowIndex].Value) {
-
-                    DateTime nowDateTime = DateTime.Now;
-                    dataGridView[completedDateColumnIndex, e.RowIndex].Value = nowDateTime;
-                    todoList[e.RowIndex].completedDate = nowDateTime;
-                }
-                else {
-                    dataGridView[completedDateColumnIndex, e.RowIndex].Value = DateTime.MinValue;
-                    todoList[e.RowIndex].completedDate = DateTime.MinValue;
-                }
-            }
-
-            //同一のGUIDを持ったTodo(XML)ファイルを検索する。
-            string existedTodoXmlFilePath = todoFileReader.findExistedTodoXmlFile(todoList[e.RowIndex]);
-            if (existedTodoXmlFilePath != "") {
-                textFileMaker.createTodoXmlFile(todoList[e.RowIndex]);
-            }
-            else {
-                MessageBox.Show(
-                    "Todoの内容を上書き保存しようしましたが、既存のファイルが存在しないか、GUIDが書き換わった可能性があります。");
-            }
-        }
-
-        private void Form1_Load(object sender, EventArgs e) {
-            settings = new Settings();
-            settings.currentDirectoryPath = System.IO.Directory.GetCurrentDirectory() + "\\text";
-            textFileMaker = new TextFileMaker(settings.currentDirectoryPath);
-            textFileReader = new TextFileReader(settings.currentDirectoryPath);
-
-            const String TODOS_DIRECTORY_NAME = "\\todos";
-
-            todoFileMaker = new TextFileMaker( settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
-            todoFileReader = new TextFileReader(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME );
-            todoFileWatcher = new TodoFileWatcher(settings.currentDirectoryPath + TODOS_DIRECTORY_NAME);
-            todoFileWatcher.todoFileChanged += loadTodoList;
-            todoFileWatcher.startWatch();
-
-            loadTodoList();
             displayTextFilesToolStripMenuItem.Click += (object Sender, EventArgs eventArgs) => {
-                if(azukiControl.Text.Length != 0) {
+                if (azukiControl.Text.Length != 0) {
                     latestText = azukiControl.Text;
                 }
                 isLogReading = true;
@@ -243,85 +126,143 @@ namespace TextDiary {
                     backGroundPictureForm.loadPicture(openFileDialog.FileName);
                 }
             };
-        } 
 
-        private void keyboardEventHandler(object sender , KeyEventArgs e) {
+        }
 
-            Boolean textFilePosted = false;
+        /// <summary>
+        /// モデルクラスから情報を取得して、テキストボックスを更新する。
+        /// </summary>
+        private void updateAzukiControl() {
+            azukiControl.Text = textEditorModel.Text;
+        }
 
-            if (e.Control == true && e.KeyCode == Keys.Enter && !isLogReading) {
-                textFileMaker.createTextFile(azukiControl.Text);
-                textFilePosted = true;
-            }
+        /// <summary>
+        /// メインフォームの内容を詰めるビューモデル。
+        /// コントローラーに情報を渡す際に利用する。
+        /// </summary>
+        private FormViewModel viewModel = new FormViewModel();
+        private FormViewModel ViewModel {
+            get {
+                viewModel.text = azukiControl.Text;
+                viewModel.currentCellAddress = dataGridView.CurrentCellAddress;
+                viewModel.currentIndex = dataGridView.CurrentCellAddress.Y;
+                viewModel.currentDataPropertyName =
+                    dataGridView.Columns[viewModel.currentCellAddress.X].DataPropertyName;
 
-            //Todo投稿用ボタン
-            if (e.Control == true && e.KeyCode == Keys.T && !isLogReading) {
-                Todo todo = new Todo( azukiControl.Text );
-                todo.deadLine = DateTime.Today.AddDays(1);
-                todo.Order = this.todoList.Count + 1;
-                todoFileMaker.createTodoXmlFile(todo);
-                this.todoList.Add(todo);
-                textFilePosted = true;
-            }
-
-            if (textFilePosted) {
-                azukiControl.Text = "";
-                e.Handled = true;
+                return viewModel;
             }
         }
 
         /// <summary>
-        /// 終了済みにチェックされているTodoを表から削除し、テキストデータに記録します。
+        /// TodoListModelから情報を取得して、データグリッドビューを更新する。
         /// </summary>
-        private void clearFinishedTodo() {
-            System.ComponentModel.BindingList<Todo> newTodoList = new System.ComponentModel.BindingList<Todo>();
-            List<Todo> finishedTodos = new List<Todo>();
+        private void updateDataGridView() {
 
-            foreach(Todo selectedTodo in todoList) {
-                if (selectedTodo.isCompleted) {
+            Point currentCellAddress = new Point(0, 0);
 
-                    string linkedXmlFilePath = todoFileReader.findExistedTodoXmlFile(selectedTodo);
-                    finishedTodos.Add(selectedTodo);
-                    System.IO.File.Delete(linkedXmlFilePath);
-                }
+            if (dataGridView.CurrentCell != null) {
+                currentCellAddress = new Point(dataGridView.CurrentCellAddress.X, todoListModel.FormVM.currentIndex);
             }
 
-            textFileMaker.createTextFile(finishedTodos.ToArray());
-            loadTodoList();
-        }
-
-        private void loadTodoList() {
             todoList.Clear();
-
-            List<Todo> tempTodoList = new List<Todo>();
-            int index = 0;
-            foreach (Todo todo in todoFileReader.loadTodosFromXml()) {
-                if(todo.Order == 0) {
-                    todo.Order = index;
-                    index++;
-                }
-                tempTodoList.Add(todo);
-            }
-
-            index = 0;
-            tempTodoList = tempTodoList.OrderBy(td => td.Order).ToList();
-
-            foreach(Todo todo in tempTodoList) {
-                todo.Order = index;
-                index++;
-
-                if (todoFileReader.findExistedTodoXmlFile(todo) != "") {
-                    todoFileMaker.createTodoXmlFile(todo);
-                }
-
+            List<Todo> list = todoListModel.TodoList;
+            foreach(Todo todo in list) {
                 todoList.Add(todo);
             }
+
+            dataGridView.DataSource = todoList;
+
+            if(dataGridView.Rows.Count <= currentCellAddress.Y) {
+                dataGridView.CurrentCell = dataGridView[0,0];
+            }
+            else { 
+                dataGridView.CurrentCell = dataGridView[currentCellAddress.X, currentCellAddress.Y];
+            }
+
+            for (int i = 0; i < dataGridView.Rows.Count; i++) {
+                if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
+                if (dataGridView.Rows[i].DefaultCellStyle.BackColor == Color.White) continue;
+                dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            }
+
+            dataGridView.Rows[ dataGridView.CurrentCellAddress.Y ].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
-        private void synchronizeBackGroundWindowLocationWithThisWindow(object sender , EventArgs e){
-            backGroundPictureForm.Location = this.Location;
+        /// <summary>
+        /// TodoListModelから情報を取得して、データグリッドビューの見た目（セルの背景色等）のみの更新を行う。
+        /// </summary>
+        private void updateAppearance(){
+            FormViewModel fvm = todoListModel.FormVM;
+            if(dataGridView.CurrentCellAddress.X < 0 || dataGridView.CurrentCellAddress.Y < 0) {
+                return;
+            }
+
+            Point currentCellAddress = todoListModel.CurrentCellAddress;
+            dataGridView.CurrentCell = dataGridView[currentCellAddress.X, currentCellAddress.Y];
+
+            for (int i = 0; i < dataGridView.Rows.Count; i++) {
+                if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
+                if (dataGridView.Rows[i].DefaultCellStyle.BackColor == Color.White) continue;
+                dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            }
+
+
+            dataGridView.Rows[dataGridView.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
+
+
+        /// <summary>
+        /// データグリッドビューのセルがクリックされた際に実行される。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvCellClickedEventHandler(object sender , DataGridViewCellMouseEventArgs e) {
+            if (dataGridView.Columns[dataGridView.CurrentCellAddress.X].DataPropertyName == "isCompleted") {
+                //クリックされたセルがチェックボックスだった場合は、通常に加えてこっちのイベントも飛ばす。
+                completionCheckBoxClick(ViewModel);
+            }
+
+            dgvCellClicked(ViewModel);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">イベント発火元のデータグリッドビューです</param>
+        /// <param name="e">セルを描画するためのデータ</param>
+        private void drawCheckBoxInCell(object sender, DataGridViewCellPaintingEventArgs e) {
+
+            //このメソッドは、データグリッドビューの見た目を変更するためのものなので、モデルクラスとかには移せない。
+            //ビュー内で処理する必要がある。
+
+            dataGridView.ImeMode = ImeMode.Disable;
+
+            if ((e.ColumnIndex != 0) || (e.RowIndex < 0)) return;
+            if (dataGridView.Columns[e.ColumnIndex].Name != "isCompleted") return;
+
+            bool currentCellChecked = (bool)dataGridView[e.ColumnIndex, e.RowIndex].Value;
+            e.PaintBackground(e.ClipBounds, true);
+
+            if (currentCellChecked) {
+                e.Graphics.DrawImage(Properties.Resources.checkBoxImage, e.CellBounds);
+            }
+            else {
+                e.Graphics.DrawImage(Properties.Resources.unCheckBoxImage, e.CellBounds);
+            }
+
+            e.Handled = true; //処理を既に行ったのでもう処理しなくていいよって通知。
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+        } 
+
+        /// <summary>
+        /// バックのフォームを、全ウィンドウ中最前面に移動します。
+        /// 処理の最後に、一瞬後に起動するタイマーをスタートします。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setWindowsOnTopMost(Object sender , EventArgs e) {
 
             this.Activated -= setWindowsOnTopMost;
@@ -331,6 +272,12 @@ namespace TextDiary {
             delayProcessTimer.Start();
         }
 
+        /// <summary>
+        /// メインフォームを最前面に持ってきます。
+        /// setWindowsOnTopMost　の最後に呼び出され、一瞬後に実行されます。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void delayProcess(object sender, EventArgs e){
             this.TopMost = true;
             this.TopMost = false;
@@ -338,19 +285,22 @@ namespace TextDiary {
             delayProcessTimer.Stop();
         }
 
-        //すべてのTodoをテキストファイルに出力する
+        /// <summary>
+        /// 同ツールストリップメニュー項目がクリックされたとき、イベントが発火します。
+        /// </summary>
+        /// <param name="sender">ツールストリップアイテム</param>
+        /// <param name="e"></param>
         private void exportTheCurrentStateToTextFileToolStripMenuItem_Click(object sender, EventArgs e) {
-            List<Todo> allTodo = new List<Todo>();
-
-            foreach (Todo selectedTodo in todoList) {
-                allTodo.Add(selectedTodo);
-            }
-
-            textFileMaker.createTextFile(allTodo.ToArray());
+            exportTodoStatusAsTextFile_MenuItemClick(ViewModel);
         }
 
+        /// <summary>
+        /// ツールストリップメニュー項目がクリックされたとき、イベントが発火します
+        /// </summary>
+        /// <param name="sender">ツールストリップアイテム</param>
+        /// <param name="e"></param>
         private void exportTheFinishedTodosAndItDleteToolStripMenuItem_Click(object sender, EventArgs e) {
-            clearFinishedTodo();
+            exportTheFinishedTodosMenuClick( ViewModel );
         }
     }
 }
