@@ -15,7 +15,7 @@ namespace TextDiary {
     public class MainFormController {
 
         private Form1 form;
-        public DataGridViewModel dataGridViewModel {
+        public TodoListModel dataGridViewModel {
             private get;
             set;
         }

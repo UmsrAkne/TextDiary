@@ -22,7 +22,7 @@ namespace TextDiary {
         TextFileReader textFileReader;
 
         private MainFormController mainFormController;
-        private DataGridViewModel dataGridViewModel = new DataGridViewModel();
+        private TodoListModel todoListModel = new TodoListModel();
         private Models.TextEditorModel textEditorModel = new Models.TextEditorModel();
 
         public event DataGridViewKeyboardEventHandler dataGridViewKeyboardEventHandler;
@@ -53,13 +53,13 @@ namespace TextDiary {
             mainFormController = new MainFormController(this);
 
             //Formが持っているモデルに対しては状態変化を監視するためにイベントハンドラをセット。
-            dataGridViewModel.statusChanged += updateDataGridView;
-            dataGridViewModel.appearanceChanged += updateAppearance;
+            todoListModel.statusChanged += updateDataGridView;
+            todoListModel.appearanceChanged += updateAppearance;
             textEditorModel.textChanged += updateAzukiControl;
 
             //コントローラーにはFormが持っているモデルの参照を渡す
             //取得の必要は無いので、setアクセサのみを公開している。
-            mainFormController.dataGridViewModel = this.dataGridViewModel;
+            mainFormController.dataGridViewModel = this.todoListModel;
             mainFormController.textEditorModel = this.textEditorModel;
 
             updateDataGridView();
@@ -161,11 +161,11 @@ namespace TextDiary {
             Point currentCellAddress = new Point(0, 0);
 
             if (dataGridView.CurrentCell != null) {
-                currentCellAddress = new Point(dataGridView.CurrentCellAddress.X, dataGridViewModel.FormVM.currentIndex);
+                currentCellAddress = new Point(dataGridView.CurrentCellAddress.X, todoListModel.FormVM.currentIndex);
             }
 
             todoList.Clear();
-            List<Todo> list = dataGridViewModel.TodoList;
+            List<Todo> list = todoListModel.TodoList;
             foreach(Todo todo in list) {
                 todoList.Add(todo);
             }
@@ -192,12 +192,12 @@ namespace TextDiary {
         /// TodoListModelから情報を取得して、データグリッドビューの見た目（セルの背景色等）のみの更新を行う。
         /// </summary>
         private void updateAppearance(){
-            FormViewModel fvm = dataGridViewModel.FormVM;
+            FormViewModel fvm = todoListModel.FormVM;
             if(dataGridView.CurrentCellAddress.X < 0 || dataGridView.CurrentCellAddress.Y < 0) {
                 return;
             }
 
-            Point currentCellAddress = dataGridViewModel.CurrentCellAddress;
+            Point currentCellAddress = todoListModel.CurrentCellAddress;
             dataGridView.CurrentCell = dataGridView[currentCellAddress.X, currentCellAddress.Y];
 
             for (int i = 0; i < dataGridView.Rows.Count; i++) {

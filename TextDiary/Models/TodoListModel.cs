@@ -11,7 +11,7 @@ namespace TextDiary {
     public delegate void StatusChanged();
     public delegate void AppearanceChanged();
 
-    public class DataGridViewModel {
+    public class TodoListModel {
 
         public List<Todo> TodoList {
             get;
@@ -54,7 +54,7 @@ namespace TextDiary {
             statusChanged();
         }
 
-        public DataGridViewModel() {
+        public TodoListModel() {
             loadTodoList();
             todoFileWatcher.startWatch();
             todoFileWatcher.todoFileChanged += loadTodoList;
