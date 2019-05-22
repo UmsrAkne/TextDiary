@@ -11,6 +11,9 @@ namespace TextDiary {
 
         public String currentDirectoryPath { get; set;}
 
+        /// <summary>
+        /// </summary>
+        /// <param name="settingCurrentDirectoryPath">このファイルが読込作業を行うディレクトリのパスです</param>
         public TextFileReader( String settingCurrentDirectoryPath ) {
             if (System.IO.Directory.Exists(settingCurrentDirectoryPath) == false) {
                 throw new FileNotFoundException("ファイルが存在しない、またはファイルにアクセスできません。");
@@ -20,10 +23,18 @@ namespace TextDiary {
 
         }
 
+        /// <summary>
+        /// 作業ディレクトリのパスをセットします。
+        /// </summary>
+        /// <param name="settingCurrentDirectoryPath">指定するパスです</param>
         public void setCurrentDirectoryPath( String settingCurrentDirectoryPath ) {
             currentDirectoryPath = settingCurrentDirectoryPath;
         }
 
+        /// <summary>
+        /// テキストファイルをカレントディレクトリから読み込みます
+        /// </summary>
+        /// <returns>テキストの内容をまとめた文字列を返却します。</returns>
         public String readTextFilesFromCurrentDirectory() {
             string[] filePaths = System.IO.Directory.GetFiles( currentDirectoryPath, "*.txt");
 
@@ -39,6 +50,10 @@ namespace TextDiary {
             return text;
         }
 
+        /// <summary>
+        /// カレントディレクトリに存在するXMLファイルを読み込みます。
+        /// </summary>
+        /// <returns>Todo配列が返却されます。</returns>
         public Todo[] loadTodosFromXml() {
             string[] files = Directory.GetFiles(currentDirectoryPath ,"*.xml" ,SearchOption.TopDirectoryOnly) ;
             List<Todo> todos = new List<Todo>();
@@ -66,6 +81,12 @@ namespace TextDiary {
             return todos.ToArray();
         }
 
+        /// <summary>
+        /// 引数に指定したTodoファイルとペアのXMLファイルのパスを返却します。。
+        /// ペアのXMLファイルはTodo内のGUIDに基づいて検索されます。
+        /// </summary>
+        /// <param name="existedTodo">XMLファイルを探すために使うTodoファイルを指定します。</param>
+        /// <returns>見つかったXMLファイルのパスです。見つからなかった場合、空の文字列が返却されます。</returns>
         public string findExistedTodoXmlFile( Todo existedTodo ) {
             string existedFilePath = "";
 

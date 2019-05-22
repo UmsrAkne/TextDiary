@@ -74,7 +74,6 @@ namespace TextDiary {
         /// <summary>
         /// 日付文字列をカスタムフォーマットで取得できます。
         /// </summary>
-        /// <returns></returns>
         public String getDateString() {
             String dateString = DateTime.Now.ToString( TEXT_FILE_NAME_FORMAT );
             dateString = dateString.Replace(":", "");
