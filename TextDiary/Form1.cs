@@ -141,6 +141,10 @@ namespace TextDiary {
             azukiControl.Text = textEditorModel.Text;
         }
 
+        /// <summary>
+        /// メインフォームの内容を詰めるビューモデル。
+        /// コントローラーに情報を渡す際に利用する。
+        /// </summary>
         private FormViewModel viewModel = new FormViewModel();
         private FormViewModel ViewModel {
             get {
