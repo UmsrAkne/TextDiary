@@ -21,6 +21,10 @@ namespace TextDiary {
             }
         }
 
+        /// <summary>
+        /// 引数の文字列が書き込まれたテキストファイルを生成します。ファイル名は日時に基づき作成されます。
+        /// </summary>
+        /// <param name="writingText"></param>
         public void createTextFile( String writingText ) {
             String fileName = getDateString() + ".txt";
             Console.WriteLine(fileName);
@@ -29,6 +33,10 @@ namespace TextDiary {
             File.WriteAllText( currentDirectoryPath + "\\" + fileName , writingText );
         }
 
+        /// <summary>
+        /// 引数に入力したTodoリスト内の全要素のステータスが書き込まれたテキストファイルを生成します。
+        /// </summary>
+        /// <param name="todos"></param>
         public void createTextFile(Todo[] todos) {
             string fileName = getDateString() + ".txt";
             string writingText = "タスクの状態が確定されました" + newLine + newLine;
@@ -41,6 +49,10 @@ namespace TextDiary {
             File.WriteAllText(currentDirectoryPath + "\\" + fileName, writingText);
         }
 
+        /// <summary>
+        /// 引数に入力されたTodoからXMLファイルを生成します。
+        /// </summary>
+        /// <param name="todo"></param>
         public void createTodoXmlFile( Todo todo) {
 
             System.Xml.Serialization.XmlSerializer serializer =
@@ -59,6 +71,10 @@ namespace TextDiary {
             sw.Close();
         }
 
+        /// <summary>
+        /// 日付文字列をカスタムフォーマットで取得できます。
+        /// </summary>
+        /// <returns></returns>
         public String getDateString() {
             String dateString = DateTime.Now.ToString( TEXT_FILE_NAME_FORMAT );
             dateString = dateString.Replace(":", "");
@@ -67,6 +83,10 @@ namespace TextDiary {
             return dateString;
         }
 
+        /// <summary>
+        /// 区切り線を文字列で取得できます。
+        /// 区切り線を構成する文字列はseparateCharacterフィールドで指定でき、デフォルトは "-" です。
+        /// </summary>
         public String separateLine {
             get {
                 String line = "";
