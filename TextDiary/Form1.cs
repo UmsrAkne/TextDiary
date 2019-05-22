@@ -71,7 +71,7 @@ namespace TextDiary {
             dataGridView.KeyDown += dataGridViewKeyControlEventHandler;
             dataGridView.CurrentCellChanged += DGVCellSelectionChangedHandler;
             dataGridView.CellMouseClick += dgvCellClickedEventHandler;
-            dataGridView.CellContextMenuStripNeeded += dgvCellContextMenuStringNeededEventHandler;
+            dataGridView.CellContextMenuStripNeeded += dgvCellContextMenuStripNeededEventHandler;
 
             dataGridView.ContextMenuStrip.Items["deleteThisTodo"].Click += 
                 (sender, e) => contextMenuClick_DeleteThisTodo(ViewModel);
@@ -100,7 +100,7 @@ namespace TextDiary {
             drl.LogFileName = System.AppDomain.CurrentDomain.BaseDirectory + "log.txt";
         }
 
-        private void dgvCellContextMenuStringNeededEventHandler(
+        private void dgvCellContextMenuStripNeededEventHandler(
             object sender, DataGridViewCellContextMenuStripNeededEventArgs e) {
             dataGridView.CurrentCell = dataGridView[e.ColumnIndex, e.RowIndex];
         }
