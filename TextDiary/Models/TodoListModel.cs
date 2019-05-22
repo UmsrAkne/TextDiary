@@ -23,7 +23,6 @@ namespace TextDiary {
             private set;
         } = new Point(0, 0);
 
-
         //リストの状態が更新されたら、このイベントを発行してビューに通知する。
         public event StatusChanged statusChanged = delegate { };
 
@@ -47,6 +46,16 @@ namespace TextDiary {
         private TodoFileWatcher todoFileWatcher =
             new TodoFileWatcher(Directory.GetCurrentDirectory() + "\\text" + "\\todos");
 
+        public TodoListModel() {
+            loadTodoList();
+            todoFileWatcher.startWatch();
+            todoFileWatcher.todoFileChanged += loadTodoList;
+        }
+
+        /// <summary>
+        /// 作業中のTodoを削除します。
+        /// </summary>
+        /// <param name="fvm"></param>
         public void deleteThisTodo(FormViewModel fvm) {
             TodoList.RemoveAt(fvm.currentIndex);
             File.Delete(todoFileReader.findExistedTodoXmlFile(TodoList[fvm.currentIndex]));
@@ -54,17 +63,19 @@ namespace TextDiary {
             statusChanged();
         }
 
-        public TodoListModel() {
-            loadTodoList();
-            todoFileWatcher.startWatch();
-            todoFileWatcher.todoFileChanged += loadTodoList;
-        }
-
+        /// <summary>
+        /// 選択中のセルを変更します。
+        /// </summary>
+        /// <param name="fvm"></param>
         public void changeCurrentCell(FormViewModel fvm) {
             this.CurrentCellAddress = fvm.currentCellAddress;
             appearanceChanged();
         }
 
+        /// <summary>
+        /// 選択しているセルのインデックスを一つ大きいインデックスと入れ替えます。
+        /// </summary>
+        /// <param name="fvm"></param>
         public void moveDownCurrentItem (FormViewModel fvm) {
             if (fvm.currentCellAddress != null && fvm.currentCellAddress.Y < TodoList.Count - 1) {
                 Todo tempTodo = TodoList[fvm.currentCellAddress.Y];
@@ -77,6 +88,10 @@ namespace TextDiary {
             statusChanged();
         }
 
+        /// <summary>
+        /// 選択しているセルのインデックスを一つ小さいインデックスと入れ替えます。
+        /// </summary>
+        /// <param name="fvm"></param>
         public void moveUpCurrentItem(FormViewModel fvm) {
             if (fvm.currentCellAddress != null && fvm.currentCellAddress.Y > 0) {
                 Todo tempTodo = TodoList[fvm.currentCellAddress.Y];
@@ -89,6 +104,10 @@ namespace TextDiary {
             statusChanged();
         }
 
+        /// <summary>
+        /// Todoリストの末尾にTodoを加えます。
+        /// </summary>
+        /// <param name="sourceText"></param>
         public void addTodo(String sourceText) {
             Todo todo = new Todo(sourceText);
             todo.deadLine = DateTime.Today.AddDays(1);
@@ -98,6 +117,9 @@ namespace TextDiary {
             statusChanged();
         }
 
+        /// <summary>
+        /// TodoリストをTodo格納フォルダからロードします。
+        /// </summary>
         public void loadTodoList() {
 
             TodoList = todoFileReader.loadTodosFromXml().ToList();
@@ -114,6 +136,10 @@ namespace TextDiary {
             statusChanged();
         }
 
+        /// <summary>
+        /// Todoが完了済みか示すBoolを切り替えます。
+        /// </summary>
+        /// <param name="fvm"></param>
         public void toggleIsCompleted(FormViewModel fvm) {
             Todo currentTodo = TodoList[fvm.currentIndex];
             currentTodo.isCompleted = !(currentTodo.isCompleted);
@@ -152,6 +178,9 @@ namespace TextDiary {
             textFileMaker.createTextFile(finishedTodos.ToArray());
         }
 
+        /// <summary>
+        /// 完了済みになっているTodoを削除します。
+        /// </summary>
         public void deleteFinishedTodo() {
             List<Todo> completedTodos = TodoList.Where(t => t.isCompleted).ToList();
             foreach(Todo todo in completedTodos) {
@@ -164,6 +193,9 @@ namespace TextDiary {
             statusChanged();
         }
 
+        /// <summary>
+        /// 現在のTodoリストの状態をテキストファイルとして出力します。
+        /// </summary>
         public void exportTodoStatusAsTextFile() {
             List<Todo> allTodo = new List<Todo>();
 
@@ -174,6 +206,9 @@ namespace TextDiary {
             textFileMaker.createTextFile(allTodo.ToArray());
         }
 
+        /// <summary>
+        /// リスト内の全Todoに番号を振ります。
+        /// </summary>
         public void numberTodo() {
             for(int i = 0; i < TodoList.Count; i++) {
                 TodoList[i].Order = i;
