@@ -7,7 +7,6 @@ using System.Drawing;
 namespace TextDiary {
 
     public delegate void DataGridViewKeyboardEventHandler(FormViewModel formVM , KeyEventArgs e);
-    public delegate void DGVCellSelectionChanged(FormViewModel formVM);
     public delegate void DGVCellClicked(FormViewModel formVM);
     public delegate void ExportTheFinishedTodosMenuClick(FormViewModel formVM);
     public delegate void TextEditorKeyEvgent(String inputedText , KeyEventArgs e);
@@ -26,7 +25,6 @@ namespace TextDiary {
         private Models.TextEditorModel textEditorModel = new Models.TextEditorModel();
 
         public event DataGridViewKeyboardEventHandler dataGridViewKeyboardEventHandler;
-        public event DGVCellSelectionChanged dgvCellSelectionChanged;
         public event DGVCellClicked dgvCellClicked;
         public event ExportTheFinishedTodosMenuClick exportTheFinishedTodosMenuClick;
         public event TextEditorKeyEvgent textEditorKeyEvent;
@@ -54,7 +52,6 @@ namespace TextDiary {
 
             //Formが持っているモデルに対しては状態変化を監視するためにイベントハンドラをセット。
             todoListModel.statusChanged += updateDataGridView;
-            todoListModel.appearanceChanged += updateAppearance;
             textEditorModel.textChanged += updateAzukiControl;
 
             //コントローラーにはFormが持っているモデルの参照を渡す
@@ -68,8 +65,11 @@ namespace TextDiary {
             dataGridView.KeyDown += (sender, e) => dataGridViewKeyboardEventHandler(ViewModel, e);
             dataGridView.CurrentCellChanged += (sender, e) => {
                 if (dataGridView.CurrentCell != null) {
-                    dgvCellSelectionChanged(ViewModel);
                 }
+            };
+
+            dataGridView.RowLeave += (sender, e) => {
+                dataGridView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
             };
 
             dataGridView.CellMouseClick += dgvCellClickedEventHandler;
@@ -187,30 +187,6 @@ namespace TextDiary {
 
             dataGridView.Rows[ dataGridView.CurrentCellAddress.Y ].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
-
-        /// <summary>
-        /// TodoListModelから情報を取得して、データグリッドビューの見た目（セルの背景色等）のみの更新を行う。
-        /// </summary>
-        private void updateAppearance(){
-            FormViewModel fvm = todoListModel.FormVM;
-            if(dataGridView.CurrentCellAddress.X < 0 || dataGridView.CurrentCellAddress.Y < 0) {
-                return;
-            }
-
-            Point currentCellAddress = todoListModel.CurrentCellAddress;
-            dataGridView.CurrentCell = dataGridView[currentCellAddress.X, currentCellAddress.Y];
-
-            for (int i = 0; i < dataGridView.Rows.Count; i++) {
-                if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
-                if (dataGridView.Rows[i].DefaultCellStyle.BackColor == Color.White) continue;
-                dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
-            }
-
-
-            dataGridView.Rows[dataGridView.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
-        }
-
-
 
         /// <summary>
         /// データグリッドビューのセルがクリックされた際に実行される。

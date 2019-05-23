@@ -25,7 +25,6 @@ namespace TextDiary {
         public MainFormController( Form1 form) {
             this.form = form;
             form.dataGridViewKeyboardEventHandler += dgvKeyboardEventHandler;
-            form.dgvCellSelectionChanged += DGVCellSelectionChangedEventHandler;
             form.dgvCellClicked += dgvCellClickedEventHandler;
             form.exportTheFinishedTodosMenuClick += exportTheFinishedTodos_MenuClickEventHandler;
             form.textEditorKeyEvent += textEditorKeyEventHandler;
@@ -52,10 +51,6 @@ namespace TextDiary {
         private void completionCheckBoxClickEventHandler(FormViewModel formVm) {
             dataGridViewModel.toggleIsCompleted(formVm);
             dataGridViewModel.saveTodoAsXml(formVm);
-        }
-
-        private void DGVCellSelectionChangedEventHandler(FormViewModel formVM) {
-            dataGridViewModel.changeCurrentCell(formVM);
         }
 
         private void dgvKeyboardEventHandler(FormViewModel fvm , KeyEventArgs e) {

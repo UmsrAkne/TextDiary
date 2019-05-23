@@ -9,7 +9,6 @@ using System.Drawing;
 namespace TextDiary {
 
     public delegate void StatusChanged();
-    public delegate void AppearanceChanged();
 
     public class TodoListModel {
 
@@ -25,9 +24,6 @@ namespace TextDiary {
 
         //リストの状態が更新されたら、このイベントを発行してビューに通知する。
         public event StatusChanged statusChanged = delegate { };
-
-        //リストの外見のみが更新されたときにイベントを発行。ビューに通知
-        public event AppearanceChanged appearanceChanged;
 
         private TextFileReader todoFileReader
             = new TextFileReader(Directory.GetCurrentDirectory() + "\\text" + "\\todos");
@@ -61,15 +57,6 @@ namespace TextDiary {
             File.Delete(todoFileReader.findExistedTodoXmlFile(TodoList[fvm.currentIndex]));
             numberTodo();
             statusChanged();
-        }
-
-        /// <summary>
-        /// 選択中のセルを変更します。
-        /// </summary>
-        /// <param name="fvm"></param>
-        public void changeCurrentCell(FormViewModel fvm) {
-            this.CurrentCellAddress = fvm.currentCellAddress;
-            appearanceChanged();
         }
 
         /// <summary>
@@ -221,11 +208,6 @@ namespace TextDiary {
         private void dispatchStatusChanged(FormViewModel fvm) {
             FormVM = fvm;
             statusChanged();
-        }
-
-        private void dispatchAppearanceChanged(FormViewModel fvm) {
-            FormVM = fvm;
-            appearanceChanged();
         }
     }
 }
