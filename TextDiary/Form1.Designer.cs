@@ -44,14 +44,14 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteThisTodo = new System.Windows.Forms.ToolStripMenuItem();
+            this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.additionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.completedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deadLineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.deleteThisTodo = new System.Windows.Forms.ToolStripMenuItem();
             this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -217,7 +217,7 @@
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DeepSkyBlue;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
@@ -229,15 +229,6 @@
             this.dataGridView.Size = new System.Drawing.Size(778, 383);
             this.dataGridView.TabIndex = 2;
             // 
-            // isCompleted
-            // 
-            this.isCompleted.DataPropertyName = "isCompleted";
-            this.isCompleted.FillWeight = 23.16602F;
-            this.isCompleted.HeaderText = "";
-            this.isCompleted.Name = "isCompleted";
-            this.isCompleted.ReadOnly = true;
-            this.isCompleted.Width = 40;
-            // 
             // order
             // 
             this.order.DataPropertyName = "Order";
@@ -247,6 +238,28 @@
             this.order.Name = "order";
             this.order.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.order.Width = 25;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteThisTodo});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 26);
+            // 
+            // deleteThisTodo
+            // 
+            this.deleteThisTodo.Name = "deleteThisTodo";
+            this.deleteThisTodo.Size = new System.Drawing.Size(169, 22);
+            this.deleteThisTodo.Text = "Delete this todo";
+            // 
+            // isCompleted
+            // 
+            this.isCompleted.DataPropertyName = "isCompleted";
+            this.isCompleted.FillWeight = 23.16602F;
+            this.isCompleted.HeaderText = "";
+            this.isCompleted.Name = "isCompleted";
+            this.isCompleted.ReadOnly = true;
+            this.isCompleted.Width = 40;
             // 
             // content
             // 
@@ -282,19 +295,6 @@
             this.deadLineDataGridViewTextBoxColumn.HeaderText = "deadLine";
             this.deadLineDataGridViewTextBoxColumn.Name = "deadLineDataGridViewTextBoxColumn";
             this.deadLineDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteThisTodo});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 26);
-            // 
-            // deleteThisTodo
-            // 
-            this.deleteThisTodo.Name = "deleteThisTodo";
-            this.deleteThisTodo.Size = new System.Drawing.Size(169, 22);
-            this.deleteThisTodo.Text = "Delete this todo";
             // 
             // todoBindingSource
             // 
