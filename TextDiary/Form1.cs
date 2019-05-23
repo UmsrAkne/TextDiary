@@ -164,6 +164,9 @@ namespace TextDiary {
                 currentCellAddress = new Point(dataGridView.CurrentCellAddress.X, todoListModel.FormVM.currentIndex);
             }
 
+            //スクロール位置を記録し、リストをリセットした後で、スクロール位置を元に戻す。
+            int tempDisplayedIndex = dataGridView.FirstDisplayedScrollingRowIndex;
+
             todoList.Clear();
             List<Todo> list = todoListModel.TodoList;
             foreach(Todo todo in list) {
@@ -172,7 +175,9 @@ namespace TextDiary {
 
             dataGridView.DataSource = todoList;
 
-            if(dataGridView.Rows.Count <= currentCellAddress.Y) {
+            if (tempDisplayedIndex > 0) dataGridView.FirstDisplayedScrollingRowIndex = tempDisplayedIndex;
+
+            if (dataGridView.Rows.Count <= currentCellAddress.Y) {
                 dataGridView.CurrentCell = dataGridView[0,0];
             }
             else { 
@@ -185,7 +190,7 @@ namespace TextDiary {
                 dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             }
 
-            dataGridView.Rows[ dataGridView.CurrentCellAddress.Y ].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            dataGridView.Rows[dataGridView.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         /// <summary>
@@ -208,7 +213,6 @@ namespace TextDiary {
         /// <param name="sender">イベント発火元のデータグリッドビューです</param>
         /// <param name="e">セルを描画するためのデータ</param>
         private void drawCheckBoxInCell(object sender, DataGridViewCellPaintingEventArgs e) {
-
             //このメソッドは、データグリッドビューの見た目を変更するためのものなので、モデルクラスとかには移せない。
             //ビュー内で処理する必要がある。
 
