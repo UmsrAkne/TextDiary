@@ -28,6 +28,10 @@
             this.additionDatePicker = new System.Windows.Forms.DateTimePicker();
             this.completeDatePicker = new System.Windows.Forms.DateTimePicker();
             this.isCompleteCheckBox = new System.Windows.Forms.CheckBox();
+            this.applyButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textEditWindow
@@ -59,7 +63,7 @@
             // additionDatePicker
             // 
             this.additionDatePicker.Font = new System.Drawing.Font("MS UI Gothic", 12F);
-            this.additionDatePicker.Location = new System.Drawing.Point(12, 147);
+            this.additionDatePicker.Location = new System.Drawing.Point(127, 150);
             this.additionDatePicker.Name = "additionDatePicker";
             this.additionDatePicker.Size = new System.Drawing.Size(200, 23);
             this.additionDatePicker.TabIndex = 1;
@@ -67,7 +71,7 @@
             // completeDatePicker
             // 
             this.completeDatePicker.Font = new System.Drawing.Font("MS UI Gothic", 12F);
-            this.completeDatePicker.Location = new System.Drawing.Point(218, 147);
+            this.completeDatePicker.Location = new System.Drawing.Point(127, 179);
             this.completeDatePicker.Name = "completeDatePicker";
             this.completeDatePicker.Size = new System.Drawing.Size(200, 23);
             this.completeDatePicker.TabIndex = 2;
@@ -83,11 +87,56 @@
             this.isCompleteCheckBox.Text = "Complete";
             this.isCompleteCheckBox.UseVisualStyleBackColor = true;
             // 
+            // applyButton
+            // 
+            this.applyButton.BackColor = System.Drawing.Color.Azure;
+            this.applyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.applyButton.Location = new System.Drawing.Point(13, 227);
+            this.applyButton.Name = "applyButton";
+            this.applyButton.Size = new System.Drawing.Size(75, 23);
+            this.applyButton.TabIndex = 4;
+            this.applyButton.Text = "Apply";
+            this.applyButton.UseVisualStyleBackColor = false;
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Location = new System.Drawing.Point(117, 227);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 5;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 12F);
+            this.label1.Location = new System.Drawing.Point(12, 155);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Addition date";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 12F);
+            this.label2.Location = new System.Drawing.Point(10, 179);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(115, 16);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Completed date";
+            // 
             // TodoEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 212);
+            this.ClientSize = new System.Drawing.Size(484, 262);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.applyButton);
             this.Controls.Add(this.isCompleteCheckBox);
             this.Controls.Add(this.completeDatePicker);
             this.Controls.Add(this.additionDatePicker);
@@ -105,5 +154,9 @@
         private System.Windows.Forms.DateTimePicker additionDatePicker;
         private System.Windows.Forms.DateTimePicker completeDatePicker;
         private System.Windows.Forms.CheckBox isCompleteCheckBox;
+        private System.Windows.Forms.Button applyButton;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
