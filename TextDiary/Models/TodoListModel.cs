@@ -194,6 +194,30 @@ namespace TextDiary {
         }
 
         /// <summary>
+        /// 第一引数に指定したTodoの内容を、第二引数に指定したTodoの内容に書き換えます。
+        /// ただし、Todoインスタンスのプロパティのうち、GUID,SourceXmlFileName,Orderの値に関しては
+        /// 第二引数のインスタンスの内容に関わらず書き換えを行いません。
+        /// これらの値を書き換えると、全く別のTodoインスタンスとなってしまうためです。
+        /// </summary>
+        /// <param name="baseTodo">書き換えを行うTodoを入力します。</param>
+        /// <param name="newContentTodo">書き換え後の新しい内容が記述されたTodoオブジェクトです</param>
+        public void rewriteTodo(Todo baseTodo , Todo newContentTodo) {
+            baseTodo.content = newContentTodo.content;
+            baseTodo.additionDate = newContentTodo.additionDate;
+            baseTodo.completedDate = newContentTodo.completedDate;
+            baseTodo.isCompleted = newContentTodo.isCompleted;
+            baseTodo.deadLine = newContentTodo.deadLine;
+
+            if (todoFileReader.findExistedTodoXmlFile(baseTodo) != "") {
+                todoFileMaker.createTodoXmlFile(baseTodo);
+            }
+            else {
+                System.Windows.Forms.MessageBox.Show(
+                    "Todoの内容を上書き保存しようしましたが、既存のファイルが存在しないか、GUIDが書き換わった可能性があります。");
+            }
+        }
+
+        /// <summary>
         /// リスト内の全Todoに番号を振ります。
         /// </summary>
         public void numberTodo() {

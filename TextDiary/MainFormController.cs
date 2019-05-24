@@ -15,6 +15,8 @@ namespace TextDiary {
     public class MainFormController {
 
         private Form1 form;
+        private TodoEditForm todoEditForm = new TodoEditForm();
+
         public TodoListModel dataGridViewModel {
             private get;
             set;
@@ -31,6 +33,10 @@ namespace TextDiary {
             form.completionCheckBoxClick += completionCheckBoxClickEventHandler;
             form.exportTodoStatusAsTextFile_MenuItemClick += (fvm) => dataGridViewModel.exportTodoStatusAsTextFile();
             form.contextMenuClick_DeleteThisTodo += (fvm) => dataGridViewModel.deleteThisTodo(fvm);
+            form.contextMenuClick_EditThisTodo += (fvm) => showTodoEditWindow(fvm);
+
+            todoEditForm.endEdit += (currentTodo , newTodo) => dataGridViewModel.rewriteTodo(currentTodo, newTodo);
+            todoEditForm.cancelEdit += () => { };
         }
 
         private void textEditorKeyEventHandler(string inputedText, KeyEventArgs e) {
@@ -45,7 +51,16 @@ namespace TextDiary {
             }
         }
 
+        public void setTodoEditForm(TodoEditForm todoEditForm) {
+            this.todoEditForm = todoEditForm;
+        }
+
         private void dgvCellClickedEventHandler(FormViewModel formVM) {
+        }
+
+        private void showTodoEditWindow(FormViewModel formVM) {
+            todoEditForm.setTodo(formVM.currentTodo);
+            todoEditForm.ShowDialog(form);
         }
 
         private void completionCheckBoxClickEventHandler(FormViewModel formVm) {

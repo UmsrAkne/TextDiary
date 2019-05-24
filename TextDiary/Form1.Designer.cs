@@ -44,15 +44,16 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editThisTodo = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteThisTodo = new System.Windows.Forms.ToolStripMenuItem();
+            this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.additionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.completedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deadLineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -229,28 +230,29 @@
             this.dataGridView.Size = new System.Drawing.Size(778, 383);
             this.dataGridView.TabIndex = 2;
             // 
-            // order
-            // 
-            this.order.DataPropertyName = "Order";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.order.DefaultCellStyle = dataGridViewCellStyle1;
-            this.order.HeaderText = "No.";
-            this.order.Name = "order";
-            this.order.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.order.Width = 25;
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editThisTodo,
             this.deleteThisTodo});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 48);
+            // 
+            // editThisTodo
+            // 
+            this.editThisTodo.Name = "editThisTodo";
+            this.editThisTodo.Size = new System.Drawing.Size(169, 22);
+            this.editThisTodo.Text = "Edit this todo";
             // 
             // deleteThisTodo
             // 
             this.deleteThisTodo.Name = "deleteThisTodo";
             this.deleteThisTodo.Size = new System.Drawing.Size(169, 22);
             this.deleteThisTodo.Text = "Delete this todo";
+            // 
+            // todoBindingSource
+            // 
+            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
             // 
             // isCompleted
             // 
@@ -260,6 +262,16 @@
             this.isCompleted.Name = "isCompleted";
             this.isCompleted.ReadOnly = true;
             this.isCompleted.Width = 40;
+            // 
+            // order
+            // 
+            this.order.DataPropertyName = "Order";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.order.DefaultCellStyle = dataGridViewCellStyle1;
+            this.order.HeaderText = "No.";
+            this.order.Name = "order";
+            this.order.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.order.Width = 25;
             // 
             // content
             // 
@@ -277,16 +289,19 @@
             this.additionDate.FillWeight = 135.6236F;
             this.additionDate.HeaderText = "additionDate";
             this.additionDate.Name = "additionDate";
+            this.additionDate.ReadOnly = true;
             this.additionDate.Width = 105;
             // 
             // completedDate
             // 
             this.completedDate.DataPropertyName = "completedDate";
             dataGridViewCellStyle3.Format = "MM/dd HH:mm";
+            dataGridViewCellStyle3.NullValue = null;
             this.completedDate.DefaultCellStyle = dataGridViewCellStyle3;
             this.completedDate.FillWeight = 143.1066F;
             this.completedDate.HeaderText = "completedDate";
             this.completedDate.Name = "completedDate";
+            this.completedDate.ReadOnly = true;
             this.completedDate.Width = 105;
             // 
             // deadLineDataGridViewTextBoxColumn
@@ -295,10 +310,6 @@
             this.deadLineDataGridViewTextBoxColumn.HeaderText = "deadLine";
             this.deadLineDataGridViewTextBoxColumn.Name = "deadLineDataGridViewTextBoxColumn";
             this.deadLineDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // todoBindingSource
-            // 
-            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
             // 
             // Form1
             // 
@@ -340,6 +351,7 @@
         private System.Windows.Forms.ToolStripMenuItem exportTheFinishedTodosAndItDleteToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem deleteThisTodo;
+        private System.Windows.Forms.ToolStripMenuItem editThisTodo;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isCompleted;
         private System.Windows.Forms.DataGridViewTextBoxColumn order;
         private System.Windows.Forms.DataGridViewTextBoxColumn content;

@@ -13,6 +13,7 @@ namespace TextDiary {
     public delegate void CompletionCheckBoxClick(FormViewModel formVm);
     public delegate void ExportTodoStatusAsTextFile_MenuItemClick(FormViewModel formVM);
     public delegate void ContextMenuClick_DeleteThisTodo(FormViewModel formVM);
+    public delegate void ContextMenuClick_EditThisTodo(FormViewModel formVM);
 
     public partial class Form1 : Form {
 
@@ -31,6 +32,7 @@ namespace TextDiary {
         public event CompletionCheckBoxClick completionCheckBoxClick = delegate { };
         public event ExportTodoStatusAsTextFile_MenuItemClick exportTodoStatusAsTextFile_MenuItemClick = delegate { };
         public event ContextMenuClick_DeleteThisTodo contextMenuClick_DeleteThisTodo = delegate { };
+        public event ContextMenuClick_EditThisTodo contextMenuClick_EditThisTodo = delegate { };
    
         String latestText = "";
         Boolean isLogReading = false;
@@ -81,6 +83,9 @@ namespace TextDiary {
             dataGridView.ContextMenuStrip.Items["deleteThisTodo"].Click += 
                 (sender, e) => contextMenuClick_DeleteThisTodo(ViewModel);
 
+            dataGridView.ContextMenuStrip.Items["editThisTodo"].Click +=
+                (sender, e) => contextMenuClick_EditThisTodo(ViewModel);
+
             dataGridView.DataSource = this.todoList;
 
             dataGridView.CellPainting += drawCheckBoxInCell;
@@ -89,6 +94,8 @@ namespace TextDiary {
                 if (dataGridView[e.ColumnIndex, e.RowIndex].Value is string)
                     dataGridView.ImeMode = ImeMode.NoControl;
             };
+
+            dataGridView.CellFormatting += this.cellFormattingEventHandler;
 
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
@@ -146,6 +153,7 @@ namespace TextDiary {
                 viewModel.text = azukiControl.Text;
                 viewModel.currentCellAddress = dataGridView.CurrentCellAddress;
                 viewModel.currentIndex = dataGridView.CurrentCellAddress.Y;
+                viewModel.currentTodo = todoList[ viewModel.currentIndex ];
                 viewModel.currentDataPropertyName =
                     dataGridView.Columns[viewModel.currentCellAddress.X].DataPropertyName;
 
@@ -232,6 +240,18 @@ namespace TextDiary {
             }
 
             e.Handled = true; //処理を既に行ったのでもう処理しなくていいよって通知。
+        }
+
+        private void cellFormattingEventHandler(object sender , DataGridViewCellFormattingEventArgs e) {
+            if(dataGridView.Columns[ e.ColumnIndex ].DataPropertyName == "completedDate") {
+                DateTime currentDateTime = (DateTime)e.Value;
+
+                int ci = DateTime.Compare(currentDateTime, DateTime.MinValue);
+                if(DateTime.Compare(currentDateTime , DateTime.MinValue) == 0) {
+                    e.Value = "";
+                    e.FormattingApplied = true;
+                }
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e) {

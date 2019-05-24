@@ -15,5 +15,6 @@ namespace TextDiary {
         public Point currentCellAddress;
         public string currentDataPropertyName;
         public string text = "";
+        public Todo currentTodo;
     }
 }
