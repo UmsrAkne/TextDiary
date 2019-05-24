@@ -59,6 +59,12 @@
     <Compile Include="FormViewModel.cs" />
     <Compile Include="MainFormController.cs" />
     <Compile Include="Models\TextEditorModel.cs" />
+    <Compile Include="TodoEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TodoEditForm.Designer.cs">
+      <DependentUpon>TodoEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TodoFileWatcher.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -88,6 +94,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TodoEditForm.resx">
+      <DependentUpon>TodoEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\DataSources\Todo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
