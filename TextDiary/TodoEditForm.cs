@@ -13,5 +13,9 @@ namespace TextDiary {
         public TodoEditForm() {
             InitializeComponent();
         }
+
+        public void setTodo(Todo todo) {
+            textEditWindow.Text = todo.content;
+        }
     }
 }

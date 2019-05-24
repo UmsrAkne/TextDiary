@@ -15,7 +15,7 @@ namespace TextDiary {
     public class MainFormController {
 
         private Form1 form;
-        private TodoEditForm todoEditForm;
+        private TodoEditForm todoEditForm = new TodoEditForm();
 
         public TodoListModel dataGridViewModel {
             private get;
@@ -56,7 +56,8 @@ namespace TextDiary {
         }
 
         private void showTodoEditWindow(FormViewModel formVM) {
-
+            todoEditForm.setTodo(formVM.currentTodo);
+            todoEditForm.ShowDialog(form);
         }
 
         private void completionCheckBoxClickEventHandler(FormViewModel formVm) {

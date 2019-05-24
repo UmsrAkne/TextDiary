@@ -45,7 +45,6 @@ namespace TextDiary {
         Timer delayProcessTimer = new Timer();
 
         BackGroundPictureForm backGroundPictureForm = new BackGroundPictureForm();
-        TodoEditForm todoEditForm = new TodoEditForm();
 
         public Form1() {
             InitializeComponent();
