@@ -23,7 +23,14 @@ namespace TextDiary {
         public void setTodo(Todo todo) {
             textEditWindow.Text = todo.content;
             additionDatePicker.Value = todo.additionDate;
-            completeDatePicker.Value = todo.completedDate;
+
+            if(todo.completedDate == DateTime.MinValue) {
+                completeDatePicker.Value = DateTimePicker.MinimumDateTime;
+            }
+            else {
+                completeDatePicker.Value = todo.completedDate;
+            }
+
             isCompleteCheckBox.Checked = todo.isCompleted;
         }
     }
