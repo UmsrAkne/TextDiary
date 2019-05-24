@@ -152,6 +152,7 @@ namespace TextDiary {
                 viewModel.text = azukiControl.Text;
                 viewModel.currentCellAddress = dataGridView.CurrentCellAddress;
                 viewModel.currentIndex = dataGridView.CurrentCellAddress.Y;
+                viewModel.currentTodo = todoList[ viewModel.currentIndex ];
                 viewModel.currentDataPropertyName =
                     dataGridView.Columns[viewModel.currentCellAddress.X].DataPropertyName;
 
