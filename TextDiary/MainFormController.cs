@@ -34,6 +34,9 @@ namespace TextDiary {
             form.exportTodoStatusAsTextFile_MenuItemClick += (fvm) => dataGridViewModel.exportTodoStatusAsTextFile();
             form.contextMenuClick_DeleteThisTodo += (fvm) => dataGridViewModel.deleteThisTodo(fvm);
             form.contextMenuClick_EditThisTodo += (fvm) => showTodoEditWindow(fvm);
+
+            todoEditForm.endEdit += () => { };
+            todoEditForm.cancelEdit += () => { };
         }
 
         private void textEditorKeyEventHandler(string inputedText, KeyEventArgs e) {
