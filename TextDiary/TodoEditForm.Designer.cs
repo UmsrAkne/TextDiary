@@ -25,9 +25,9 @@
         private void InitializeComponent() {
             Sgry.Azuki.FontInfo fontInfo1 = new Sgry.Azuki.FontInfo();
             this.textEditWindow = new Sgry.Azuki.WinForms.AzukiControl();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.additionDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.completeDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.isCompleteCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // textEditWindow
@@ -56,41 +56,41 @@
             this.textEditWindow.Text = "default";
             this.textEditWindow.ViewWidth = 4135;
             // 
-            // dateTimePicker1
+            // additionDatePicker
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("MS UI Gothic", 12F);
-            this.dateTimePicker1.Location = new System.Drawing.Point(12, 147);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker1.TabIndex = 1;
+            this.additionDatePicker.Font = new System.Drawing.Font("MS UI Gothic", 12F);
+            this.additionDatePicker.Location = new System.Drawing.Point(12, 147);
+            this.additionDatePicker.Name = "additionDatePicker";
+            this.additionDatePicker.Size = new System.Drawing.Size(200, 23);
+            this.additionDatePicker.TabIndex = 1;
             // 
-            // dateTimePicker2
+            // completeDatePicker
             // 
-            this.dateTimePicker2.Font = new System.Drawing.Font("MS UI Gothic", 12F);
-            this.dateTimePicker2.Location = new System.Drawing.Point(218, 147);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker2.TabIndex = 2;
+            this.completeDatePicker.Font = new System.Drawing.Font("MS UI Gothic", 12F);
+            this.completeDatePicker.Location = new System.Drawing.Point(218, 147);
+            this.completeDatePicker.Name = "completeDatePicker";
+            this.completeDatePicker.Size = new System.Drawing.Size(200, 23);
+            this.completeDatePicker.TabIndex = 2;
             // 
-            // checkBox1
+            // isCompleteCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.checkBox1.Location = new System.Drawing.Point(12, 121);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(91, 20);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Complete";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.isCompleteCheckBox.AutoSize = true;
+            this.isCompleteCheckBox.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.isCompleteCheckBox.Location = new System.Drawing.Point(12, 121);
+            this.isCompleteCheckBox.Name = "isCompleteCheckBox";
+            this.isCompleteCheckBox.Size = new System.Drawing.Size(91, 20);
+            this.isCompleteCheckBox.TabIndex = 3;
+            this.isCompleteCheckBox.Text = "Complete";
+            this.isCompleteCheckBox.UseVisualStyleBackColor = true;
             // 
             // TodoEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 212);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.isCompleteCheckBox);
+            this.Controls.Add(this.completeDatePicker);
+            this.Controls.Add(this.additionDatePicker);
             this.Controls.Add(this.textEditWindow);
             this.Name = "TodoEditForm";
             this.Text = "TodoEditForm";
@@ -102,8 +102,8 @@
         #endregion
 
         private Sgry.Azuki.WinForms.AzukiControl textEditWindow;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.DateTimePicker additionDatePicker;
+        private System.Windows.Forms.DateTimePicker completeDatePicker;
+        private System.Windows.Forms.CheckBox isCompleteCheckBox;
     }
 }
