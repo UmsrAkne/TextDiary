@@ -47,6 +47,7 @@
             this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteThisTodo = new System.Windows.Forms.ToolStripMenuItem();
+            this.editThisTodo = new System.Windows.Forms.ToolStripMenuItem();
             this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.additionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -242,15 +243,22 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editThisTodo,
             this.deleteThisTodo});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 70);
             // 
             // deleteThisTodo
             // 
             this.deleteThisTodo.Name = "deleteThisTodo";
             this.deleteThisTodo.Size = new System.Drawing.Size(169, 22);
             this.deleteThisTodo.Text = "Delete this todo";
+            // 
+            // editThisTodo
+            // 
+            this.editThisTodo.Name = "editThisTodo";
+            this.editThisTodo.Size = new System.Drawing.Size(169, 22);
+            this.editThisTodo.Text = "Edit this todo";
             // 
             // isCompleted
             // 
@@ -346,6 +354,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn additionDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn completedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn deadLineDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ToolStripMenuItem editThisTodo;
     }
 }
 

@@ -13,6 +13,7 @@ namespace TextDiary {
     public delegate void CompletionCheckBoxClick(FormViewModel formVm);
     public delegate void ExportTodoStatusAsTextFile_MenuItemClick(FormViewModel formVM);
     public delegate void ContextMenuClick_DeleteThisTodo(FormViewModel formVM);
+    public delegate void ContextMenuClick_EditThisTodo(FormViewModel formVM);
 
     public partial class Form1 : Form {
 
@@ -31,6 +32,7 @@ namespace TextDiary {
         public event CompletionCheckBoxClick completionCheckBoxClick = delegate { };
         public event ExportTodoStatusAsTextFile_MenuItemClick exportTodoStatusAsTextFile_MenuItemClick = delegate { };
         public event ContextMenuClick_DeleteThisTodo contextMenuClick_DeleteThisTodo = delegate { };
+        public event ContextMenuClick_EditThisTodo contextMenuClick_EditThisTodo = delegate { };
    
         String latestText = "";
         Boolean isLogReading = false;
@@ -43,6 +45,7 @@ namespace TextDiary {
         Timer delayProcessTimer = new Timer();
 
         BackGroundPictureForm backGroundPictureForm = new BackGroundPictureForm();
+        TodoEditForm todoEditForm = new TodoEditForm();
 
         public Form1() {
             InitializeComponent();
@@ -80,6 +83,9 @@ namespace TextDiary {
 
             dataGridView.ContextMenuStrip.Items["deleteThisTodo"].Click += 
                 (sender, e) => contextMenuClick_DeleteThisTodo(ViewModel);
+
+            dataGridView.ContextMenuStrip.Items["editThisTodo"].Click +=
+                (sender, e) => contextMenuClick_EditThisTodo(ViewModel);
 
             dataGridView.DataSource = this.todoList;
 
