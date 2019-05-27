@@ -306,7 +306,7 @@
             // 
             // todoBindingSource
             // 
-            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
+            this.todoBindingSource.DataSource = typeof(Todo);
             // 
             // Form1
             // 
