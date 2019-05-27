@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace TextDiary {
 
-    public delegate void EndEdit();
+    public delegate void EndEdit(Todo currentTodo , Todo newContentTodo);
     public delegate void CancelEdit();
 
     public partial class TodoEditForm : Form {
@@ -23,7 +23,10 @@ namespace TextDiary {
         public TodoEditForm() {
             InitializeComponent();
 
-            applyButton.Click += (sender, e) => { endEdit(); };
+            applyButton.Click += (sender, e) => {
+                saveChanges();
+                this.Close();
+            };
             cancelButton.Click += (sender, e) => { cancelEdit(); };
             this.KeyPreview = true;
             KeyDown += keyboardEvent;
@@ -48,9 +51,20 @@ namespace TextDiary {
             isCompleteCheckBox.Checked = todo.isCompleted;
         }
 
+        /// <summary>
+        /// 現在の編集内容を記録した新しいTodoを生成します。
+        /// </summary>
+        private void saveChanges() {
+            Todo todo = new Todo( textEditWindow.Text );
+            todo.additionDate = additionDatePicker.Value;
+            todo.completedDate = completeDatePicker.Value;
+            todo.isCompleted = isCompleteCheckBox.Checked;
+            endEdit(this.currentTodo , todo);
+        }
+
         private void keyboardEvent(object sender, KeyEventArgs e) {
             if (e.Control == true && e.KeyCode == Keys.Enter) {
-                endEdit();
+                saveChanges();
                 e.Handled = true;
             }
 

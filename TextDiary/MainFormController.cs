@@ -35,7 +35,7 @@ namespace TextDiary {
             form.contextMenuClick_DeleteThisTodo += (fvm) => dataGridViewModel.deleteThisTodo(fvm);
             form.contextMenuClick_EditThisTodo += (fvm) => showTodoEditWindow(fvm);
 
-            todoEditForm.endEdit += () => { };
+            todoEditForm.endEdit += (currentTodo , newTodo) => dataGridViewModel.rewriteTodo(currentTodo, newTodo);
             todoEditForm.cancelEdit += () => { };
         }
 
