@@ -18,6 +18,8 @@ namespace TextDiary {
         public event EndEdit endEdit = delegate { };
         public event CancelEdit cancelEdit = delegate { };
 
+        private Todo currentTodo;
+
         public TodoEditForm() {
             InitializeComponent();
 
@@ -32,6 +34,7 @@ namespace TextDiary {
         /// </summary>
         /// <param name="todo">ウィンドウ内で取り扱うTodoです。</param>
         public void setTodo(Todo todo) {
+            currentTodo = todo;
             textEditWindow.Text = todo.content;
             additionDatePicker.Value = todo.additionDate;
 
