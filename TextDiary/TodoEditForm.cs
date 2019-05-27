@@ -65,11 +65,13 @@ namespace TextDiary {
         private void keyboardEvent(object sender, KeyEventArgs e) {
             if (e.Control == true && e.KeyCode == Keys.Enter) {
                 saveChanges();
+                this.Close();
                 e.Handled = true;
             }
 
             if (e.KeyCode == Keys.Escape) {
                 e.Handled = true;
+                this.Close();
                 cancelEdit();
             }
         }
