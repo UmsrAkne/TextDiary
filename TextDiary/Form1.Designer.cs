@@ -44,16 +44,16 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.azukiControl = new Sgry.Azuki.WinForms.AzukiControl();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editThisTodo = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteThisTodo = new System.Windows.Forms.ToolStripMenuItem();
-            this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.isCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.order = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.additionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.completedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deadLineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.todoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -184,8 +184,6 @@
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView.AutoGenerateColumns = false;
             this.dataGridView.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -209,6 +207,7 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.EnableHeadersVisualStyles = false;
             this.dataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView.Location = new System.Drawing.Point(3, 153);
@@ -230,6 +229,16 @@
             this.dataGridView.Size = new System.Drawing.Size(778, 383);
             this.dataGridView.TabIndex = 2;
             // 
+            // order
+            // 
+            this.order.DataPropertyName = "Order";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.order.DefaultCellStyle = dataGridViewCellStyle1;
+            this.order.HeaderText = "No.";
+            this.order.Name = "order";
+            this.order.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.order.Width = 25;
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -250,10 +259,6 @@
             this.deleteThisTodo.Size = new System.Drawing.Size(169, 22);
             this.deleteThisTodo.Text = "Delete this todo";
             // 
-            // todoBindingSource
-            // 
-            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
-            // 
             // isCompleted
             // 
             this.isCompleted.DataPropertyName = "isCompleted";
@@ -262,16 +267,6 @@
             this.isCompleted.Name = "isCompleted";
             this.isCompleted.ReadOnly = true;
             this.isCompleted.Width = 40;
-            // 
-            // order
-            // 
-            this.order.DataPropertyName = "Order";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.order.DefaultCellStyle = dataGridViewCellStyle1;
-            this.order.HeaderText = "No.";
-            this.order.Name = "order";
-            this.order.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.order.Width = 25;
             // 
             // content
             // 
@@ -310,6 +305,10 @@
             this.deadLineDataGridViewTextBoxColumn.HeaderText = "deadLine";
             this.deadLineDataGridViewTextBoxColumn.Name = "deadLineDataGridViewTextBoxColumn";
             this.deadLineDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // todoBindingSource
+            // 
+            this.todoBindingSource.DataSource = typeof(TextDiary.Todo);
             // 
             // Form1
             // 
