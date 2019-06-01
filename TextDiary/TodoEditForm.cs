@@ -40,6 +40,7 @@ namespace TextDiary {
             currentTodo = todo;
             textEditWindow.Text = todo.content;
             additionDatePicker.Value = todo.additionDate;
+            completeDatePicker.Value = todo.completedDate;
 
             if(todo.completedDate == DateTime.MinValue) {
                 completeDatePicker.Value = DateTimePicker.MinimumDateTime;
@@ -57,7 +58,11 @@ namespace TextDiary {
         private void saveChanges() {
             Todo todo = new Todo( textEditWindow.Text );
             todo.additionDate = additionDatePicker.Value;
-            todo.completedDate = completeDatePicker.Value;
+
+            if(completeDatePicker.Value.CompareTo(completeDatePicker.MinDate) == 0) {
+                todo.completedDate = DateTime.MinValue;
+            }
+
             todo.isCompleted = isCompleteCheckBox.Checked;
             endEdit(this.currentTodo , todo);
         }

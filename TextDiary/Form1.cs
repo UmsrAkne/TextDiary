@@ -95,6 +95,8 @@ namespace TextDiary {
                     dataGridView.ImeMode = ImeMode.NoControl;
             };
 
+            dataGridView.CellFormatting += this.cellFormattingEventHandler;
+
             backGroundPictureForm.Show();
             backGroundPictureForm.Location = this.Location;
             backGroundPictureForm.Size = this.Size;
@@ -238,6 +240,18 @@ namespace TextDiary {
             }
 
             e.Handled = true; //処理を既に行ったのでもう処理しなくていいよって通知。
+        }
+
+        private void cellFormattingEventHandler(object sender , DataGridViewCellFormattingEventArgs e) {
+            if(dataGridView.Columns[ e.ColumnIndex ].DataPropertyName == "completedDate") {
+                DateTime currentDateTime = (DateTime)e.Value;
+
+                int ci = DateTime.Compare(currentDateTime, DateTime.MinValue);
+                if(DateTime.Compare(currentDateTime , DateTime.MinValue) == 0) {
+                    e.Value = "";
+                    e.FormattingApplied = true;
+                }
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e) {
