@@ -46,5 +46,16 @@ namespace TextDiary {
             
             return settings;
         }
+
+        /// <summary>
+        /// このSettingsインスタンスを、アプリの実行ファイルのディレクトリにXMLとして保存します。
+        /// </summary>
+        public void saveAsXml() {
+            var xmlSerializer = new XmlSerializer(typeof(Settings));
+            using (var sw = new StreamWriter(settingsFilePath, false, Encoding.UTF8)) {
+                xmlSerializer.Serialize(sw, this);
+                sw.Flush();
+            }
+        }
     }
 }
