@@ -208,8 +208,10 @@ namespace TextDiary {
         /// <param name="e"></param>
         private void dgvCellClickedEventHandler(object sender , DataGridViewCellMouseEventArgs e) {
             if (dataGridView.Columns[dataGridView.CurrentCellAddress.X].DataPropertyName == "isCompleted") {
-                //クリックされたセルがチェックボックスだった場合は、通常に加えてこっちのイベントも飛ばす。
-                completionCheckBoxClick(ViewModel);
+                if(e.RowIndex >= 0) {
+                    //クリックされたセルがチェックボックスだった場合は、通常に加えてこっちのイベントも飛ばす。
+                    completionCheckBoxClick(ViewModel);
+                }
             }
 
             dgvCellClicked(ViewModel);
