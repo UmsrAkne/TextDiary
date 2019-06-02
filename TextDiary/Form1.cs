@@ -49,6 +49,8 @@ namespace TextDiary {
         public Form1() {
             InitializeComponent();
 
+            settings = Settings.loadSettingXmlFile();
+
             //コントローラーには自身の参照を渡す。
             mainFormController = new MainFormController(this);
 
