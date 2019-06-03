@@ -20,6 +20,7 @@ namespace TextDiary {
         public int incompleteTodoBackColor = Color.White.ToArgb();
         public int completedTodoBackColor = Color.White.ToArgb();
         public int expiredTodoBackColor = Color.White.ToArgb();
+        public int defaultTodoBackColor = Color.White.ToArgb();
 
         private static String settingsFilePath = AppDomain.CurrentDomain.BaseDirectory + "settings.xml";
 
