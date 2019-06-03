@@ -66,6 +66,8 @@ namespace TextDiary {
             updateDataGridView();
 
             azukiControl.KeyDown += (sender ,e) => textEditorKeyEvent(azukiControl.Text, e);
+            dataGridView.DefaultCellStyle.BackColor = Color.FromArgb(settings.defaultTodoBackColor);
+            dataGridView.DefaultCellStyle.SelectionBackColor = Color.FromArgb(settings.todoSelectionBackColor);
             dataGridView.KeyDown += (sender, e) => dataGridViewKeyboardEventHandler(ViewModel, e);
             dataGridView.CurrentCellChanged += (sender, e) => {
                 if (dataGridView.CurrentCell != null) {
@@ -73,7 +75,7 @@ namespace TextDiary {
             };
 
             dataGridView.RowLeave += (sender, e) => {
-                dataGridView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                dataGridView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(settings.defaultTodoBackColor);
             };
 
             dataGridView.CellMouseClick += dgvCellClickedEventHandler;
@@ -196,8 +198,11 @@ namespace TextDiary {
 
             for (int i = 0; i < dataGridView.Rows.Count; i++) {
                 if (dataGridView.Rows[i].HasDefaultCellStyle == false) continue;
-                if (dataGridView.Rows[i].DefaultCellStyle.BackColor == Color.White) continue;
-                dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                if (dataGridView.Rows[i].DefaultCellStyle.BackColor == Color.FromArgb(settings.defaultTodoBackColor)) {
+                    continue;
+                }
+
+                dataGridView.Rows[i].DefaultCellStyle.BackColor = Color.FromArgb(settings.defaultTodoBackColor);
             }
 
             dataGridView.Rows[dataGridView.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.LightSkyBlue;
