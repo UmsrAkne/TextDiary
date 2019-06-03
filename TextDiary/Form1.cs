@@ -253,9 +253,15 @@ namespace TextDiary {
 
         private void cellFormattingEventHandler(object sender , DataGridViewCellFormattingEventArgs e) {
 
-            if (todoList[e.RowIndex].isCompleted) {
-                dataGridView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Gray;
+            if (todoList[e.RowIndex].isCompleted == false) {
+                dataGridView.Rows[e.RowIndex].DefaultCellStyle.BackColor =
+                    Color.FromArgb(settings.incompleteTodoBackColor);
             }
+            else {
+                dataGridView.Rows[e.RowIndex].DefaultCellStyle.BackColor =
+                    Color.FromArgb(settings.completedTodoBackColor);
+            }
+
 
             if(dataGridView.Columns[ e.ColumnIndex ].DataPropertyName == "completedDate") {
                 DateTime currentDateTime = (DateTime)e.Value;
